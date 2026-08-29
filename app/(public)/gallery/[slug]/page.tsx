@@ -147,7 +147,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
             {/* Image gallery */}
             <div>
-              <WorkImageGallery images={allImages} title={title} />
+              <WorkImageGallery images={allImages} title={title} locale={locale} />
             </div>
 
             {/* Work details */}
