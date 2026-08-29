@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import LogoIcon from './LogoIcon'
 import type { Locale } from '@/lib/types'
 
@@ -55,16 +55,18 @@ export default function Logo({
       {variant !== 'icon-only' && (
         <div className={`flex flex-col ${variant === 'stacked' ? 'items-center' : ''}`}>
           <span
-            className={`font-bold tracking-tight leading-none ${
-              variant === 'stacked' ? 'text-2xl tracking-wider' : 'text-lg'
+            className={`font-bold font-display leading-none ${
+              locale === 'ar' ? '' : variant === 'stacked' ? 'tracking-wider' : 'tracking-tight'
+            } ${
+              variant === 'stacked' ? 'text-2xl' : 'text-lg'
             } ${textColor}`}
           >
             {locale === 'ar' ? 'فهد غصن' : 'FAHAD GSN'}
           </span>
           {(showSubtitle || variant === 'stacked') && (
             <span
-              className={`mt-1 font-medium tracking-widest uppercase ${
-                variant === 'stacked' ? 'text-xs' : 'text-[10px]'
+              className={`mt-1 font-medium ${
+                locale === 'ar' ? 'font-sans text-[11px]' : 'tracking-widest uppercase ' + (variant === 'stacked' ? 'text-xs' : 'text-[10px]')
               } ${subColor}`}
             >
               {locale === 'ar' ? 'أعمال خشبية يدوية' : 'HANDCRAFTED FURNITURE'}

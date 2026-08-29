@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import type { Locale } from '@/lib/types'
@@ -118,7 +118,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
     <div className={`rounded-3xl border border-[#E8DDD0] bg-white p-6 sm:p-10 shadow-sm ${className}`}>
       {/* Header */}
       <div className="mb-8 text-center max-w-2xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#C4854A]">
+        <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
           {isAr ? 'أسرار الحرفة' : 'Craftsmanship & Materials'}
         </span>
         <h2 className="mt-2 text-2xl font-bold text-[#1A1209] md:text-3xl">

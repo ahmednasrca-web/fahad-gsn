@@ -38,7 +38,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
       <div className="container-site">
         {/* Page header */}
         <div className="mb-10 text-center">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C4854A]">
+          <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
             {locale === 'ar' ? 'أعمالنا' : 'Our Works'}
           </p>
           <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl">

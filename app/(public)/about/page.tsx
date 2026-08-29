@@ -44,7 +44,7 @@ export default async function AboutPage() {
       {/* Hero */}
       <section className="section-padding bg-[#2C1810]">
         <div className="container-site text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-[#C4854A]">
+          <p className={`mb-3 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.3em]'}`}>
             {locale === 'ar' ? 'قصتنا' : 'Our Story'}
           </p>
           <h1 className="text-4xl font-bold text-[#FAF7F2] md:text-5xl">

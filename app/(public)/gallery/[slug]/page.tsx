@@ -253,7 +253,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
           <div className="container-site">
             <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#C4854A]">
+                <span className={`text-xs font-bold text-[#C4854A] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-widest'}`}>
                   {locale === 'ar' ? 'من داخل الورشة' : 'From The Workshop'}
                 </span>
                 <h2 className="mt-1 text-2xl font-bold md:text-3xl text-white">

@@ -37,7 +37,7 @@ export default async function SiteFooter() {
 
           {/* Navigation */}
           <nav aria-label={locale === 'ar' ? 'روابط الموقع' : 'Site links'}>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#A09080]">
+            <p className={`mb-3 text-xs font-bold text-[#A09080] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
               {locale === 'ar' ? 'الموقع' : 'Site'}
             </p>
             <ul className="flex flex-col gap-2">
@@ -61,7 +61,7 @@ export default async function SiteFooter() {
 
           {/* Contact */}
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#A09080]">
+            <p className={`mb-3 text-xs font-bold text-[#A09080] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
               {t(locale, 'contact')}
             </p>
             <ul className="flex flex-col gap-2 text-sm">

@@ -59,7 +59,7 @@ export default async function HomePage() {
 
         <div className="container-site relative z-10">
           {/* Eyebrow */}
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-[#C4854A]">
+          <p className={`mb-6 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-sm font-display' : 'text-xs uppercase tracking-[0.3em]'}`}>
             {locale === 'ar' ? 'صنع بيد كويتية' : 'Handcrafted in Kuwait'}
           </p>
 
@@ -103,7 +103,7 @@ export default async function HomePage() {
             {/* Section header */}
             <div className="mb-10 flex items-end justify-between">
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C4854A]">
+                <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
                   {locale === 'ar' ? 'من أعمالنا' : 'Our Works'}
                 </p>
                 <h2 className="text-3xl font-bold text-[#1A1209] md:text-4xl">
@@ -188,7 +188,7 @@ export default async function HomePage() {
       <section className="section-padding bg-[#F0E8D8]">
         <div className="container-site">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#A0522D]">
+            <p className={`mb-4 text-[#A0522D] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
               {locale === 'ar' ? 'من نحن' : 'About'}
             </p>
             <h2 className="mb-6 text-3xl font-bold text-[#1A1209] md:text-4xl">

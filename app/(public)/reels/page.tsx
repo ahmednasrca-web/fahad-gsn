@@ -26,10 +26,10 @@ export default async function ReelsPage() {
       <div className="container-site">
         {/* Page Header */}
         <div className="mb-12 text-center max-w-2xl mx-auto">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#C4854A]">
+          <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.25em]'}`}>
             {t(locale, 'reelsHeroTagline')}
           </p>
-          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl font-serif">
+          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl font-display">
             {t(locale, 'reelsHeroTitle')}
           </h1>
           <p className="mt-4 text-base text-[#6B5C4E] leading-relaxed">

@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -80,7 +80,7 @@ export default function RoomScaleSimulator({
       {/* Top Header */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#C4854A]">
+          <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
             {isAr ? 'محاكي الأبعاد والمساحات' : 'Spatial Room Simulator'}
           </span>
           <h3 className="mt-1 text-xl font-bold text-[#1A1209] md:text-2xl">
