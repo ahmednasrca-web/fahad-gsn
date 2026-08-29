@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -9,6 +9,7 @@ import { getFeaturedReels } from '@/lib/db/reels'
 import WorkImageGallery from '@/components/works/WorkImageGallery'
 import WhatsAppCTA from '@/components/works/WhatsAppCTA'
 import ReelCard from '@/components/reels/ReelCard'
+import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -207,6 +208,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 {locale === 'ar' ? 'أو أرسل استفساراً عبر نموذج التواصل' : 'Or send an inquiry via form'}
               </Link>
             </div>
+          </div>
+
+          {/* Spatial Room Scale Preview Section */}
+          <div className="mt-14 border-t border-[#E8DDD0] pt-12">
+            <RoomScaleSimulator
+              locale={locale}
+              workTitle={title}
+              workImage={allImages[0] ?? ''}
+              price={work.price ?? undefined}
+            />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { getLocale } from '@/lib/locale'
 import { getDir, getWorkTitle, getContentValue } from '@/lib/i18n'
 import { getFeaturedWorks } from '@/lib/db/works'
 import { getSiteContent } from '@/lib/db/content'
+import WoodTransformationSlider from '@/components/interactive/WoodTransformationSlider'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
@@ -178,6 +179,13 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Wood Transformation Showcase Section ─────────── */}
+      <section className="section-padding bg-[#FAF7F2] border-t border-[#E8DDD0]">
+        <div className="container-site">
+          <WoodTransformationSlider locale={locale} />
+        </div>
+      </section>
 
       {/* ── About Teaser Section ─────────────────────────── */}
       <section className="section-padding bg-[#F0E8D8]">

@@ -1,7 +1,7 @@
 import { getLocale } from '@/lib/locale'
 import { getDir } from '@/lib/i18n'
 import { SiteHeader, SiteFooter } from '@/components/layout'
-
+import AtelierAmbienceAudio from '@/components/interactive/AtelierAmbienceAudio'
 
 export default async function PublicLayout({
   children,
@@ -18,6 +18,7 @@ export default async function PublicLayout({
         {children}
       </main>
       <SiteFooter />
+      <AtelierAmbienceAudio locale={locale} />
     </div>
   )
 }
