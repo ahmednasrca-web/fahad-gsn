@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import type { Category, Locale } from '@/lib/types'
 import { getCategoryName, t } from '@/lib/i18n'
+import { Chip } from '@heroui/react'
 
 interface Props {
   categories: Category[]
@@ -11,43 +12,61 @@ interface Props {
 }
 
 export default function CategoryFilter({ categories, activeSlug, locale }: Props) {
-  const isActive = (slug?: string) => slug === activeSlug
+  const isActive = (slug?: string) => (!slug && !activeSlug) || slug === activeSlug
 
   return (
     <div
-      className="flex gap-2 overflow-x-auto pb-2"
-      role="list"
+      className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none"
+      role="tablist"
       aria-label={locale === 'ar' ? 'تصفية حسب التصنيف' : 'Filter by category'}
     >
-      {/* All works */}
+      {/* All works Tab/Chip */}
       <Link
         href="/gallery"
-        role="listitem"
-        className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-          !activeSlug
-            ? 'bg-[#2C1810] text-white'
-            : 'border border-[#E8DDD0] bg-white text-[#3D2B1A] hover:border-[#C4854A]'
-        }`}
-        aria-current={!activeSlug ? 'page' : undefined}
+        role="tab"
+        aria-selected={!activeSlug}
+        className="focus:outline-none"
       >
-        {t(locale, 'allWorks')}
+        <Chip.Root
+          color={!activeSlug ? 'accent' : 'default'}
+          size="md"
+          variant={!activeSlug ? 'primary' : 'soft'}
+          className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
+            !activeSlug
+              ? 'shadow-xs font-semibold'
+              : 'border border-[#E8DDD0] hover:border-[#C4854A] bg-white text-[#3D2B1A]'
+          }`}
+        >
+          <Chip.Label>{t(locale, 'allWorks')}</Chip.Label>
+        </Chip.Root>
       </Link>
 
-      {categories.map((cat) => (
-        <Link
-          key={cat.id}
-          href={`/gallery?category=${cat.slug}`}
-          role="listitem"
-          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-            isActive(cat.slug)
-              ? 'bg-[#2C1810] text-white'
-              : 'border border-[#E8DDD0] bg-white text-[#3D2B1A] hover:border-[#C4854A]'
-          }`}
-          aria-current={isActive(cat.slug) ? 'page' : undefined}
-        >
-          {getCategoryName(cat, locale)}
-        </Link>
-      ))}
+      {categories.map((cat) => {
+        const active = isActive(cat.slug)
+        return (
+          <Link
+            key={cat.id}
+            href={`/gallery?category=${cat.slug}`}
+            role="tab"
+            aria-selected={active}
+            className="focus:outline-none"
+          >
+            <Chip.Root
+              color={active ? 'accent' : 'default'}
+              size="md"
+              variant={active ? 'primary' : 'soft'}
+              className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
+                active
+                  ? 'shadow-xs font-semibold'
+                  : 'border border-[#E8DDD0] hover:border-[#C4854A] bg-white text-[#3D2B1A]'
+              }`}
+            >
+              <Chip.Label>{getCategoryName(cat, locale)}</Chip.Label>
+            </Chip.Root>
+          </Link>
+        )
+      })}
     </div>
   )
 }
+

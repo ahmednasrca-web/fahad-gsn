@@ -1,8 +1,9 @@
-'use client'
+﻿'use client'
 
 import { useRouter } from 'next/navigation'
 import { LOCALE_COOKIE } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
+import { Button } from '@heroui/react'
 
 interface Props {
   currentLocale: Locale
@@ -19,12 +20,14 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
   const isArabic = currentLocale === 'ar'
 
   return (
-    <button
-      onClick={() => switchLocale(isArabic ? 'en' : 'ar')}
-      className="flex h-9 items-center rounded-full border border-[#E8DDD0] bg-white/80 px-3 text-sm font-medium text-[#3D2B1A] backdrop-blur-sm transition hover:border-[#C4854A] hover:text-[#2C1810]"
+    <Button
+      size="sm"
+      variant="outline"
+      onPress={() => switchLocale(isArabic ? 'en' : 'ar')}
+      className="h-9 min-w-9 rounded-full border-[#E8DDD0] bg-white/80 px-3 text-xs font-bold text-[#3D2B1A] backdrop-blur-md shadow-2xs hover:border-[#C4854A] hover:bg-[#FAF7F2] transition-all"
       aria-label={isArabic ? 'Switch to English' : 'التبديل إلى العربية'}
     >
-      {isArabic ? 'EN' : 'ع'}
-    </button>
+      <span className="font-semibold">{isArabic ? 'English' : 'العربية'}</span>
+    </Button>
   )
 }
