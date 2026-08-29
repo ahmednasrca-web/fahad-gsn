@@ -1,5 +1,3 @@
-export const runtime = 'edge'
-
 import Link from 'next/link'
 import { getAllWorksAdmin } from '@/lib/db/works'
 import { getAllCategoriesAdmin } from '@/lib/db/categories'

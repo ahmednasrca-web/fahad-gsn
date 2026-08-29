@@ -1,5 +1,3 @@
-export const runtime = 'edge'
-
 import { notFound } from 'next/navigation'
 import CategoryForm from '@/components/admin/CategoryForm'
 import { getCategoryByIdAdmin } from '@/lib/db/categories'

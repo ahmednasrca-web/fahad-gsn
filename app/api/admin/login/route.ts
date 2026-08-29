@@ -1,5 +1,3 @@
-export const runtime = 'edge'
-
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { signSession, SESSION_COOKIE, SESSION_MAX_AGE } from '@/lib/session'

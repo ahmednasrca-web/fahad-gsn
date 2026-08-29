@@ -13,11 +13,11 @@
     "cf:dev": "wrangler dev"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "latest",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "zod": "^4.4.3",
-    "@opennextjs/cloudflare": "latest"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241230.0",
@@ -25,10 +25,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^3.109.0"
+    "wrangler": "^4.127.1"
   }
 }

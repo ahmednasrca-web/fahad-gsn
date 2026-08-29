@@ -1,5 +1,3 @@
-export const runtime = 'edge'
-
 import { getAllMessages } from '@/lib/db/messages'
 import MessagesClient from '@/components/admin/MessagesClient'
 
