@@ -1,23 +1,179 @@
 @import "tailwindcss";
 
+/* ── Fahad Gsn Design Tokens ────────────────────────────── */
 :root {
-  --background: #FAFAF7;
-  --foreground: #1A1A1A;
+  /* Brand colors — inspired by natural wood tones */
+  --walnut:        #2C1810;   /* Deep walnut — primary brand */
+  --wood-mid:      #6B3F1F;   /* Medium mahogany */
+  --wood-warm:     #A0522D;   /* Sienna wood */
+  --wood-light:    #C4854A;   /* Warm amber wood */
+  --sand:          #D4B896;   /* Natural sand */
+  --ivory:         #F0E8D8;   /* Warm ivory */
+  --cream:         #FAF7F2;   /* Off-white cream background */
+  --white:         #FFFFFF;
+
+  /* Text */
+  --text-primary:  #1A1209;   /* Rich charcoal */
+  --text-body:     #3D2B1A;   /* Warm dark brown body text */
+  --text-muted:    #6B5C4E;   /* Muted warm grey */
+  --text-subtle:   #A09080;   /* Subtle captions */
+
+  /* UI */
+  --border:        #E8DDD0;   /* Warm light border */
+  --border-dark:   #C8B8A0;   /* Darker border */
+  --surface:       #FFFFFF;   /* Card surfaces */
+  --surface-alt:   #F5F0E8;   /* Alt surface */
+
+  /* Semantic */
+  --accent:        #2C1810;   /* Primary action color */
+  --accent-hover:  #3D2316;
+  --accent-light:  #C4854A;   /* Light accent for highlights */
+
+  /* Spacing */
+  --section-y:     clamp(3rem, 8vw, 6rem);
+  --container-max: 1280px;
+
+  /* Transitions */
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ограничиваем максимальную ширину контента для мобильного вида */
-.page-container {
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100svh;
-  background: #FAFAF7;
+/* ── Typography ────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* ── Layout Utilities ──────────────────────────────────── */
+.container-site {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.section-padding {
+  padding-block: var(--section-y);
+}
+
+/* ── Gallery Grid ──────────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* ── Work Card Hover (GPU-only) ─────────────────────────── */
+.work-card-image {
+  transition: transform var(--transition-slow);
+  will-change: transform;
+}
+
+.work-card:hover .work-card-image {
+  transform: scale(1.04);
+}
+
+/* ── Focus Styles (Accessibility) ──────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--wood-light);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .work-card:hover .work-card-image {
+    transform: none;
+  }
+}
+
+/* ── Admin Styles ───────────────────────────────────────── */
+.admin-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--white);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.admin-input:focus {
+  border-color: var(--walnut);
+  box-shadow: 0 0 0 3px rgb(44 24 16 / 0.08);
+}
+
+.admin-input::placeholder {
+  color: var(--text-subtle);
+}
+
+.admin-btn-primary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  background: var(--walnut);
+  padding-inline: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+  transition: opacity var(--transition-base);
+  cursor: pointer;
+}
+
+.admin-btn-primary:hover { opacity: 0.88; }
+.admin-btn-primary:active { opacity: 0.75; }
+.admin-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Scrollbar (subtle) ─────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sand); }
+
+/* ── Image aspect ratios (CLS prevention) ───────────────── */
+.aspect-work-card {
+  aspect-ratio: 3 / 4;
+}
+
+.aspect-work-hero {
+  aspect-ratio: 4 / 3;
 }
