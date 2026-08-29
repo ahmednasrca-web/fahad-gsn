@@ -110,8 +110,7 @@ export default function WoodTransformationSlider({
             priority
           />
           {/* Badge Finished */}
-          <div className="absolute bottom-4 end-4 rounded-full bg-[#2C1810]/85 px-4 py-1.5 text-xs font-bold text-[#FAF7F2] backdrop-blur-md border border-[#C4854A]/40 flex items-center gap-2 shadow-lg">
-            <span>✨</span>
+          <div className="absolute bottom-4 end-4 rounded-full bg-[#2C1810]/85 px-4 py-1.5 text-xs font-bold text-[#FAF7F2] backdrop-blur-md border border-[#C4854A]/40 shadow-lg">
             <span>{actualFinishedLabel}</span>
           </div>
         </div>
@@ -132,8 +131,7 @@ export default function WoodTransformationSlider({
             priority
           />
           {/* Badge Raw */}
-          <div className="absolute top-4 start-4 rounded-full bg-black/75 px-4 py-1.5 text-xs font-bold text-[#D4B896] backdrop-blur-md border border-white/20 flex items-center gap-2 shadow-lg">
-            <span>🪵</span>
+          <div className="absolute top-4 start-4 rounded-full bg-black/75 px-4 py-1.5 text-xs font-bold text-[#D4B896] backdrop-blur-md border border-white/20 shadow-lg">
             <span>{actualRawLabel}</span>
           </div>
         </div>
