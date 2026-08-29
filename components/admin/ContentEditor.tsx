@@ -1,7 +1,8 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import type { SiteContent } from '@/lib/types'
+import { Button, Alert, Spinner } from '@heroui/react'
 
 interface Props {
   initialContent: Record<string, SiteContent>
@@ -19,7 +20,7 @@ const CONTENT_FIELDS = [
   { key: 'footer_tagline', label: 'شعار الفوتر' },
 ]
 
-const inputClass = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-3 py-2.5 text-sm text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080] resize-none'
+const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-3 py-2.5 text-sm text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080] resize-none'
 
 export default function ContentEditor({ initialContent }: Props) {
   const [content, setContent] = useState(initialContent)
@@ -30,31 +31,23 @@ export default function ContentEditor({ initialContent }: Props) {
   function handleChange(key: string, lang: 'ar' | 'en', value: string) {
     setContent((prev) => ({
       ...prev,
-      [key]: {
-        ...prev[key],
-        key,
-        [lang === 'ar' ? 'valueAr' : 'valueEn']: value,
-      } as SiteContent,
+      [key]: { ...prev[key], key, [lang === 'ar' ? 'valueAr' : 'valueEn']: value } as SiteContent,
     }))
     setSaved(false)
   }
 
   async function handleSave() {
-    setSaving(true)
-    setError(null)
+    setSaving(true); setError(null)
     try {
       const res = await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content }),
       })
-      if (!res.ok) throw new Error(((await res.json()) as Record<string,string>).error ?? 'حدث خطأ')
+      if (!res.ok) throw new Error(((await res.json()) as Record<string, string>).error ?? 'حدث خطأ')
       setSaved(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'حدث خطأ')
-    } finally {
-      setSaving(false)
-    }
+    } finally { setSaving(false) }
   }
 
   return (
@@ -68,24 +61,15 @@ export default function ContentEditor({ initialContent }: Props) {
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
                   <label className="mb-1 block text-xs font-medium text-[#6B5C4E]">عربي</label>
-                  <textarea
-                    rows={2}
-                    value={c?.valueAr ?? ''}
+                  <textarea rows={2} value={c?.valueAr ?? ''}
                     onChange={(e) => handleChange(field.key, 'ar', e.target.value)}
-                    className={inputClass}
-                    placeholder="النص بالعربية"
-                  />
+                    className={inputCls} placeholder="النص بالعربية" />
                 </div>
                 <div>
                   <label className="mb-1 block text-xs font-medium text-[#6B5C4E]">English</label>
-                  <textarea
-                    rows={2}
-                    dir="ltr"
-                    value={c?.valueEn ?? ''}
+                  <textarea rows={2} dir="ltr" value={c?.valueEn ?? ''}
                     onChange={(e) => handleChange(field.key, 'en', e.target.value)}
-                    className={inputClass}
-                    placeholder="English text"
-                  />
+                    className={inputCls} placeholder="English text" />
                 </div>
               </div>
             </div>
@@ -93,24 +77,25 @@ export default function ContentEditor({ initialContent }: Props) {
         })}
 
         {saved && (
-          <p role="status" className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
-            ✓ تم حفظ التغييرات بنجاح
-          </p>
+          <Alert.Root status="success" role="status">
+            <Alert.Indicator />
+            <Alert.Content><Alert.Title>تم حفظ التغييرات بنجاح</Alert.Title></Alert.Content>
+          </Alert.Root>
         )}
         {error && (
-          <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
+          <Alert.Root status="danger" role="alert">
+            <Alert.Indicator />
+            <Alert.Content><Alert.Title>{error}</Alert.Title></Alert.Content>
+          </Alert.Root>
         )}
 
         <div className="border-t border-[#E8DDD0] pt-4">
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="flex min-h-[44px] items-center rounded-xl bg-[#2C1810] px-8 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          >
-            {saving ? 'جارٍ الحفظ…' : 'حفظ جميع التغييرات'}
-          </button>
+          <Button variant="primary" isDisabled={saving} onPress={handleSave} aria-busy={saving}>
+            {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : 'حفظ جميع التغييرات'}
+          </Button>
         </div>
       </div>
     </div>
   )
 }
+

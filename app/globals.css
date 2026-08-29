@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 /* ── Fahad Gsn Design Tokens ────────────────────────────── */
 :root {

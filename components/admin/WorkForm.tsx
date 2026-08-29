@@ -4,6 +4,8 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { Work, Category } from '@/lib/types'
+import { Button, Switch, Alert, Spinner } from '@heroui/react'
+
 
 interface Props {
   work?: Work
@@ -21,9 +23,19 @@ interface FormState {
   isFeatured: boolean
 }
 
-const inputClass =
-  'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080]'
-const labelClass = 'mb-1.5 block text-sm font-medium text-[#1A1209]'
+// Brand-styled field wrapper
+function Field({ id, label, required, children }: { id?: string; label: string; required?: boolean; children: React.ReactNode }) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-[#1A1209]">
+        {label}{required && <span className="text-red-500 ms-1" aria-hidden="true">*</span>}
+      </label>
+      {children}
+    </div>
+  )
+}
+
+const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080]'
 
 export default function WorkForm({ work, categories }: Props) {
   const router = useRouter()
@@ -100,7 +112,7 @@ export default function WorkForm({ work, categories }: Props) {
       const method = isEditing ? 'PUT' : 'POST'
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       if (!res.ok) {
-        const json = await res.json().catch(() => ({})) as Record<string,string>
+        const json = await res.json().catch(() => ({})) as Record<string, string>
         throw new Error(json.error ?? 'حدث خطأ')
       }
       router.push('/admin/works')
@@ -128,77 +140,91 @@ export default function WorkForm({ work, categories }: Props) {
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl" noValidate>
       <div className="flex flex-col gap-6">
+
         {/* Titles */}
         <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="titleAr" className={labelClass}>
-              العنوان بالعربية <span className="text-red-500" aria-hidden="true">*</span>
-            </label>
-            <input id="titleAr" type="text" required value={form.titleAr} onChange={(e) => handleChange('titleAr', e.target.value)} className={inputClass} aria-required="true" />
-          </div>
-          <div>
-            <label htmlFor="titleEn" className={labelClass}>
-              العنوان بالإنجليزية <span className="text-red-500" aria-hidden="true">*</span>
-            </label>
-            <input id="titleEn" type="text" required dir="ltr" value={form.titleEn} onChange={(e) => handleChange('titleEn', e.target.value)} className={inputClass} aria-required="true" />
-          </div>
+          <Field id="titleAr" label="العنوان بالعربية" required>
+            <input id="titleAr" type="text" required value={form.titleAr}
+              onChange={(e) => handleChange('titleAr', e.target.value)}
+              className={inputCls} aria-required="true" />
+          </Field>
+          <Field id="titleEn" label="العنوان بالإنجليزية" required>
+            <input id="titleEn" type="text" required dir="ltr" value={form.titleEn}
+              onChange={(e) => handleChange('titleEn', e.target.value)}
+              className={inputCls} aria-required="true" />
+          </Field>
         </div>
 
         {/* Descriptions */}
         <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="descAr" className={labelClass}>الوصف بالعربية</label>
-            <textarea id="descAr" rows={4} value={form.descriptionAr} onChange={(e) => handleChange('descriptionAr', e.target.value)} className={`${inputClass} resize-none`} />
-          </div>
-          <div>
-            <label htmlFor="descEn" className={labelClass}>الوصف بالإنجليزية</label>
-            <textarea id="descEn" rows={4} dir="ltr" value={form.descriptionEn} onChange={(e) => handleChange('descriptionEn', e.target.value)} className={`${inputClass} resize-none`} />
-          </div>
+          <Field id="descAr" label="الوصف بالعربية">
+            <textarea id="descAr" rows={4} value={form.descriptionAr}
+              onChange={(e) => handleChange('descriptionAr', e.target.value)}
+              className={`${inputCls} resize-none`} />
+          </Field>
+          <Field id="descEn" label="الوصف بالإنجليزية">
+            <textarea id="descEn" rows={4} dir="ltr" value={form.descriptionEn}
+              onChange={(e) => handleChange('descriptionEn', e.target.value)}
+              className={`${inputCls} resize-none`} />
+          </Field>
         </div>
 
         {/* Category + Price */}
         <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="categoryId" className={labelClass}>التصنيف</label>
-            <select id="categoryId" value={form.categoryId} onChange={(e) => handleChange('categoryId', e.target.value)} className={inputClass}>
+          <Field id="categoryId" label="التصنيف">
+            <select id="categoryId" value={form.categoryId}
+              onChange={(e) => handleChange('categoryId', e.target.value)}
+              className={inputCls}>
               <option value="">بلا تصنيف</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.nameAr}</option>
               ))}
             </select>
-          </div>
-          <div>
-            <label htmlFor="price" className={labelClass}>السعر (د.ك) — اختياري</label>
-            <input id="price" type="number" min="0" step="0.001" dir="ltr" value={form.price} onChange={(e) => handleChange('price', e.target.value)} className={inputClass} placeholder="0.000" />
-          </div>
+          </Field>
+          <Field id="price" label="السعر (د.ك) — اختياري">
+            <input id="price" type="number" min="0" step="0.001" dir="ltr" value={form.price}
+              onChange={(e) => handleChange('price', e.target.value)}
+              className={inputCls} placeholder="0.000" />
+          </Field>
         </div>
 
-        {/* Toggles */}
+        {/* Toggles — HeroUI Switch compound */}
         <div className="flex flex-wrap gap-6">
-          <label className="flex cursor-pointer items-center gap-3">
-            <input type="checkbox" checked={form.isPublished} onChange={(e) => handleChange('isPublished', e.target.checked)} className="h-5 w-5 rounded accent-[#2C1810]" />
+          <Switch.Root
+            isSelected={form.isPublished}
+            onChange={(v) => handleChange('isPublished', v)}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <Switch.Content>
+              <Switch.Control className="switch-control" />
+              <Switch.Thumb />
+            </Switch.Content>
             <span className="text-sm font-medium text-[#1A1209]">منشور</span>
-          </label>
-          <label className="flex cursor-pointer items-center gap-3">
-            <input type="checkbox" checked={form.isFeatured} onChange={(e) => handleChange('isFeatured', e.target.checked)} className="h-5 w-5 rounded accent-[#2C1810]" />
+          </Switch.Root>
+          <Switch.Root
+            isSelected={form.isFeatured}
+            onChange={(v) => handleChange('isFeatured', v)}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <Switch.Content>
+              <Switch.Control />
+              <Switch.Thumb />
+            </Switch.Content>
             <span className="text-sm font-medium text-[#1A1209]">مميز في الرئيسية</span>
-          </label>
+          </Switch.Root>
         </div>
 
         {/* Images */}
         <div>
-          <p className={labelClass}>الصور</p>
+          <p className="mb-1.5 text-sm font-medium text-[#1A1209]">الصور</p>
           {images.length > 0 && (
             <div className="mb-3 grid grid-cols-4 gap-2 sm:grid-cols-6">
               {images.map((img, i) => (
                 <div key={i} className="group relative aspect-square overflow-hidden rounded-xl bg-[#F0E8D8]">
                   <Image src={img} alt={`صورة ${i + 1}`} fill sizes="120px" className="object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(i)}
+                  <button type="button" onClick={() => removeImage(i)}
                     className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
-                    aria-label={`حذف الصورة ${i + 1}`}
-                  >
+                    aria-label={`حذف الصورة ${i + 1}`}>
                     <span className="text-2xl text-white" aria-hidden="true">×</span>
                   </button>
                   {i === 0 && (
@@ -208,47 +234,43 @@ export default function WorkForm({ work, categories }: Props) {
               ))}
             </div>
           )}
-          <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple onChange={handleImageUpload} className="sr-only" id="image-upload" />
-          <label
-            htmlFor="image-upload"
-            className={`flex min-h-[48px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#E8DDD0] px-4 text-sm font-medium text-[#6B5C4E] transition-colors hover:border-[#C4854A] hover:text-[#2C1810] ${uploading ? 'pointer-events-none opacity-60' : ''}`}
-          >
+          <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple
+            onChange={handleImageUpload} className="sr-only" id="image-upload" />
+          <label htmlFor="image-upload"
+            className={`flex min-h-[48px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#E8DDD0] px-4 text-sm font-medium text-[#6B5C4E] transition-colors hover:border-[#C4854A] hover:text-[#2C1810] ${uploading ? 'pointer-events-none opacity-60' : ''}`}>
             {uploading ? 'جارٍ الرفع…' : '+ إضافة صور'}
           </label>
         </div>
 
+        {/* Error Alert — HeroUI Alert compound */}
         {error && (
-          <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
+          <Alert.Root status="danger" role="alert">
+            <Alert.Indicator />
+            <Alert.Content>
+              <Alert.Title>{error}</Alert.Title>
+            </Alert.Content>
+          </Alert.Root>
         )}
 
-        {/* Actions */}
+        {/* Actions — HeroUI Button */}
         <div className="flex flex-wrap items-center gap-3 border-t border-[#E8DDD0] pt-4">
-          <button
-            type="submit"
-            disabled={saving || uploading}
-            className="flex min-h-[44px] items-center rounded-xl bg-[#2C1810] px-6 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          >
-            {saving ? 'جارٍ الحفظ…' : isEditing ? 'حفظ التعديلات' : 'إضافة العمل'}
-          </button>
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="flex min-h-[44px] items-center rounded-xl border border-[#E8DDD0] px-5 text-sm font-medium text-[#6B5C4E] transition-colors hover:border-[#C4854A]"
-          >
+          <Button type="submit" variant="primary" isDisabled={saving || uploading}
+            aria-busy={saving}>
+            {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : isEditing ? 'حفظ التعديلات' : 'إضافة العمل'}
+          </Button>
+          <Button type="button" variant="outline" onPress={() => router.back()}>
             إلغاء
-          </button>
+          </Button>
           {isEditing && (
-            <button
-              type="button"
-              onClick={handleDelete}
-              disabled={deleting}
-              className="me-auto flex min-h-[44px] items-center rounded-xl bg-red-50 px-5 text-sm font-medium text-red-600 transition-colors hover:bg-red-100 disabled:opacity-50"
-            >
+            <Button type="button" variant="danger" isDisabled={deleting}
+              onPress={handleDelete} className="me-auto" aria-busy={deleting}>
               {deleting ? 'جارٍ الحذف…' : 'حذف العمل'}
-            </button>
+            </Button>
           )}
         </div>
+
       </div>
     </form>
   )
 }
+

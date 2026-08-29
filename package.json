@@ -13,7 +13,10 @@
     "cf:dev": "wrangler dev"
   },
   "dependencies": {
+    "@heroui/react": "^3.2.4",
+    "@heroui/styles": "^3.2.4",
     "@opennextjs/cloudflare": "latest",
+    "@react-aria/utils": "^3.34.1",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
