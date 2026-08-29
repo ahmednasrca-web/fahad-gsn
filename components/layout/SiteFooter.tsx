@@ -5,6 +5,8 @@ import { getDir } from '@/lib/i18n'
 import { getSiteContent } from '@/lib/db/content'
 import { getContentValue } from '@/lib/i18n'
 
+import Logo from '@/components/brand/Logo'
+
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '96598908022'
 
 export default async function SiteFooter() {
@@ -26,12 +28,10 @@ export default async function SiteFooter() {
       <div className="container-site py-12">
         <div className="grid gap-8 md:grid-cols-3">
           {/* Brand */}
-          <div>
-            <p className="mb-2 text-xl font-bold text-[#FAF7F2]">
-              {locale === 'ar' ? 'فهد غصن' : 'Fahad Gsn'}
-            </p>
+          <div className="flex flex-col gap-3">
+            <Logo locale={locale} theme="dark" showSubtitle={true} />
             {tagline && (
-              <p className="text-sm text-[#A09080]">{tagline}</p>
+              <p className="text-sm text-[#A09080] leading-relaxed">{tagline}</p>
             )}
           </div>
 

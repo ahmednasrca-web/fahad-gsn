@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
+import LogoIcon from '@/components/brand/LogoIcon'
+
 const NAV_ITEMS = [
   { href: '/admin', label: 'الرئيسية', icon: '⊞', exact: true },
   { href: '/admin/works', label: 'الأعمال', icon: '🪵' },
@@ -26,7 +28,10 @@ export default function AdminNav() {
     <>
       {/* Mobile top bar */}
       <div className="fixed inset-x-0 top-0 z-30 flex h-14 items-center justify-between border-b border-white/10 bg-[#2C1810] px-4 md:hidden">
-        <span className="font-bold text-white">فهد غصن — الإدارة</span>
+        <div className="flex items-center gap-2">
+          <LogoIcon size={24} color="copper" />
+          <span className="font-bold text-white text-sm">فهد غصن — الإدارة</span>
+        </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition hover:bg-white/10"
@@ -72,10 +77,16 @@ export default function AdminNav() {
 
       {/* Desktop sidebar */}
       <aside className="hidden w-56 shrink-0 flex-col bg-[#2C1810] md:flex" aria-label="الشريط الجانبي">
-        <div className="border-b border-white/10 px-4 py-5">
-          <p className="font-bold text-white">فهد غصن</p>
-          <p className="text-xs text-[#A09080]">لوحة التحكم</p>
+        <div className="border-b border-white/10 px-4 py-5 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+            <LogoIcon size={26} color="copper" />
+          </div>
+          <div>
+            <p className="font-bold text-white leading-tight">فهد غصن</p>
+            <p className="text-[11px] text-[#A09080]">لوحة التحكم</p>
+          </div>
         </div>
+
         <nav className="flex-1 p-3" aria-label="قائمة الإدارة">
           <ul className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getLocale } from '@/lib/locale'
 import { t } from '@/lib/i18n'
 import { getDir } from '@/lib/i18n'
+import Logo from '@/components/brand/Logo'
 import LocaleSwitcher from '@/components/LocaleSwitcher'
 import MobileMenu from './MobileMenu'
 
@@ -23,24 +24,8 @@ export default async function SiteHeader() {
       dir={dir}
     >
       <div className="container-site flex h-16 items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 text-[#1A1209] transition-opacity hover:opacity-80"
-          aria-label="فهد غصن — الرئيسية"
-        >
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#2C1810]">
-            <span
-              className="font-serif text-base font-bold text-[#C4854A]"
-              aria-hidden="true"
-            >
-              {locale === 'ar' ? 'ف' : 'F'}
-            </span>
-          </div>
-          <span className="text-base font-bold tracking-tight">
-            {locale === 'ar' ? 'فهد غصن' : 'Fahad Gsn'}
-          </span>
-        </Link>
+        {/* Official Brand Logo */}
+        <Logo locale={locale} />
 
         {/* Desktop Navigation */}
         <nav

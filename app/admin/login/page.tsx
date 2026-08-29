@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
+import Logo from '@/components/brand/Logo'
+
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -43,13 +45,10 @@ function LoginForm() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-[#FAF7F2] px-5">
       <div className="w-full max-w-sm">
-        {/* Logo / Brand */}
-        <div className="mb-10 text-center">
-          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#2C1810] shadow-lg">
-            <span className="font-serif text-2xl text-[#C4854A]">ف</span>
-          </div>
-          <h1 className="text-2xl font-bold text-[#1A1209]">فهد غصن</h1>
-          <p className="mt-1 text-sm text-[#6B5C4E]">لوحة التحكم</p>
+        {/* Official Logo / Brand */}
+        <div className="mb-10 flex flex-col items-center justify-center text-center">
+          <Logo variant="stacked" locale="ar" showSubtitle={true} href="" />
+          <p className="mt-2 text-xs font-semibold text-[#8A7968]">لوحة التحكم الإدارية</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
