@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import { Playfair_Display } from 'next/font/google'
 import { safeJsonLd } from '@/lib/json-ld'
 import './globals.css'
 
@@ -36,13 +35,6 @@ const thmanyahSerif = localFont({
   ],
   variable: '--font-thmanyah-serif',
   display: 'swap',
-})
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-playfair',
-  weight: ['400', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -104,7 +96,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${thmanyahSans.variable} ${thmanyahDisplay.variable} ${thmanyahSerif.variable} ${playfair.variable}`}
+      className={`${thmanyahSans.variable} ${thmanyahDisplay.variable} ${thmanyahSerif.variable}`}
     >
       <head>
         <script

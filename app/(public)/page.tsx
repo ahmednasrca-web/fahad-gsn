@@ -64,10 +64,7 @@ export default async function HomePage() {
           </p>
 
           {/* Main Headline */}
-          <h1
-            className="mb-6 text-5xl font-bold leading-tight text-[#FAF7F2] md:text-7xl lg:text-8xl"
-            style={{ fontFamily: 'var(--font-playfair), var(--font-noto-naskh), serif' }}
-          >
+          <h1 className="mb-6 text-5xl font-bold leading-tight text-[#FAF7F2] md:text-7xl lg:text-8xl font-display">
             {heroTitle}
           </h1>
 
