@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -13,10 +13,17 @@ interface PageProps {
 }
 
 export const revalidate = 60
+export const dynamicParams = true
 
 export async function generateStaticParams() {
-  const slugs = await getAllPublishedWorkSlugs()
-  return slugs.map((slug) => ({ slug }))
+  // Skip static generation if Supabase is not configured (e.g. CI/local build without .env)
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return []
+  try {
+    const slugs = await getAllPublishedWorkSlugs()
+    return slugs.map((slug) => ({ slug }))
+  } catch {
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
