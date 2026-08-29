@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
         hostname: process.env.R2_PUBLIC_HOSTNAME ?? 'placeholder.r2.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '/**',
+      },
     ],
   },
   async headers() {

@@ -75,3 +75,25 @@ CREATE TABLE IF NOT EXISTS admin_users (
   password_hash TEXT NOT NULL,
   created_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+-- ─── Reels (Social Video Gallery) ─────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS reels (
+  id             TEXT PRIMARY KEY,
+  provider       TEXT NOT NULL,               -- 'instagram' | 'youtube' | 'tiktok' | 'facebook'
+  original_url   TEXT NOT NULL,
+  content_id     TEXT NOT NULL,
+  title_ar       TEXT,
+  title_en       TEXT,
+  description_ar TEXT,
+  description_en TEXT,
+  thumbnail_url  TEXT,
+  is_published   INTEGER NOT NULL DEFAULT 1,
+  is_featured    INTEGER NOT NULL DEFAULT 0,
+  sort_order     INTEGER NOT NULL DEFAULT 0,
+  created_at     TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at     TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_reels_published ON reels (is_published, sort_order, created_at);
+CREATE INDEX IF NOT EXISTS idx_reels_featured  ON reels (is_featured, is_published);
+

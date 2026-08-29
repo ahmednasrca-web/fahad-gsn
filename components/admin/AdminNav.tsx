@@ -7,6 +7,7 @@ import { useState } from 'react'
 const NAV_ITEMS = [
   { href: '/admin', label: 'الرئيسية', icon: '⊞', exact: true },
   { href: '/admin/works', label: 'الأعمال', icon: '🪵' },
+  { href: '/admin/reels', label: 'الريلز', icon: '🎬' },
   { href: '/admin/categories', label: 'التصنيفات', icon: '📂' },
   { href: '/admin/content', label: 'المحتوى', icon: '✏️' },
   { href: '/admin/messages', label: 'الرسائل', icon: '💬' },

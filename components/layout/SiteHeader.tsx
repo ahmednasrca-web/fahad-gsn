@@ -12,6 +12,7 @@ export default async function SiteHeader() {
   const navLinks = [
     { href: '/', label: t(locale, 'home') },
     { href: '/gallery', label: t(locale, 'gallery') },
+    { href: '/reels', label: t(locale, 'reels') },
     { href: '/about', label: t(locale, 'about') },
     { href: '/contact', label: t(locale, 'contact') },
   ]

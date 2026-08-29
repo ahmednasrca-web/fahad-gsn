@@ -1,4 +1,4 @@
-﻿// Fahad Gsn — TypeScript Types
+// Fahad Gsn — TypeScript Types
 
 export type Locale = 'ar' | 'en'
 
@@ -97,3 +97,40 @@ export interface ContactMessageRow {
   is_read: boolean
   created_at: string
 }
+
+export type ReelProvider = 'instagram' | 'youtube' | 'tiktok' | 'facebook'
+
+export interface Reel {
+  id: string
+  provider: ReelProvider
+  originalUrl: string
+  contentId: string
+  titleAr?: string
+  titleEn?: string
+  descriptionAr?: string
+  descriptionEn?: string
+  thumbnailUrl?: string
+  isPublished: boolean
+  isFeatured: boolean
+  sortOrder: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ReelRow {
+  id: string
+  provider: string
+  original_url: string
+  content_id: string
+  title_ar: string | null
+  title_en: string | null
+  description_ar: string | null
+  description_en: string | null
+  thumbnail_url: string | null
+  is_published: number | boolean
+  is_featured: number | boolean
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+

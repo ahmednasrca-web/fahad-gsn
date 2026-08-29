@@ -19,6 +19,7 @@ export const translations = {
     // Navigation
     home: 'الرئيسية',
     gallery: 'المعرض',
+    reels: 'ريلز',
     about: 'من نحن',
     contact: 'تواصل',
     // Gallery
@@ -29,6 +30,14 @@ export const translations = {
     inquire: 'استفسار عبر واتساب',
     inquireMessage: 'مرحباً، أودّ الاستفسار عن هذا العمل: ',
     relatedWorks: 'أعمال مشابهة',
+    // Reels
+    allReels: 'جميع المقاطع',
+    noReels: 'لا توجد مقاطع ريلز منشورة حالياً',
+    watchOn: 'مشاهدة على',
+    playVideo: 'تشغيل الفيديو',
+    reelsHeroTagline: 'الحرفة في حركة',
+    reelsHeroTitle: 'ريلز & كواليس الحرفة',
+    reelsHeroSubtitle: 'شاهد تفاصيل الحفر والتشكيل اليدوي ولمسات الخشب الفاخر لحظة بلحظة',
     // Contact
     contactTitle: 'تواصل معنا',
     contactSubtitle: 'نحن هنا للإجابة على استفساراتك',
@@ -53,6 +62,7 @@ export const translations = {
     // Navigation
     home: 'Home',
     gallery: 'Gallery',
+    reels: 'Reels',
     about: 'About',
     contact: 'Contact',
     // Gallery
@@ -63,6 +73,14 @@ export const translations = {
     inquire: 'Inquire via WhatsApp',
     inquireMessage: 'Hello, I would like to inquire about this work: ',
     relatedWorks: 'Related Works',
+    // Reels
+    allReels: 'All Reels',
+    noReels: 'No reels published yet',
+    watchOn: 'Watch on',
+    playVideo: 'Play Video',
+    reelsHeroTagline: 'Craft in Motion',
+    reelsHeroTitle: 'Reels & Behind the Scenes',
+    reelsHeroSubtitle: 'Experience the moments of handcrafting, carving, and luxury wood details in motion',
     // Contact
     contactTitle: 'Contact Us',
     contactSubtitle: 'We are here to answer your inquiries',
@@ -104,6 +122,28 @@ export function getWorkDescription(
   return locale === 'ar' ? work.descriptionAr : work.descriptionEn
 }
 
+// Helper: get localized reel title
+export function getReelTitle(
+  reel: { titleAr?: string; titleEn?: string; provider?: string },
+  locale: Locale,
+): string {
+  const custom = locale === 'ar' ? reel.titleAr : reel.titleEn
+  if (custom) return custom
+  const fallback = locale === 'ar' ? reel.titleEn || reel.titleAr : reel.titleAr || reel.titleEn
+  if (fallback) return fallback
+  return locale === 'ar' ? 'مقطع حرفي' : 'Craft Video'
+}
+
+// Helper: get localized reel description
+export function getReelDescription(
+  reel: { descriptionAr?: string; descriptionEn?: string },
+  locale: Locale,
+): string | undefined {
+  return (locale === 'ar' ? reel.descriptionAr : reel.descriptionEn) ||
+    (locale === 'ar' ? reel.descriptionEn : reel.descriptionAr) ||
+    undefined
+}
+
 // Helper: get localized category name
 export function getCategoryName(
   category: { nameAr: string; nameEn: string },
@@ -120,3 +160,4 @@ export function getContentValue(
   const val = locale === 'ar' ? content.valueAr : content.valueEn
   return val ?? null
 }
+
