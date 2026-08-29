@@ -26,6 +26,10 @@ export interface Work {
   images: string[]
   isPublished: boolean
   isFeatured: boolean
+  isUniquePiece?: boolean
+  storyAr?: string
+  storyEn?: string
+  sortOrder?: number
   createdAt: string
 }
 

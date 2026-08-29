@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getLocale } from '@/lib/locale'
 import { getDir, t, getContentValue } from '@/lib/i18n'
 import { getSiteContent } from '@/lib/db/content'
+import WoodSpeciesGuide from '@/components/wood/WoodSpeciesGuide'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
@@ -87,17 +88,19 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Materials */}
+      {/* Materials & Wood Species Guide */}
       <section className="section-padding bg-[#FAF7F2]">
         <div className="container-site">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-3xl mb-12">
             <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
-              {locale === 'ar' ? 'موادنا' : 'Our Materials'}
+              {locale === 'ar' ? 'موادنا وأصالة خشبنا' : 'Our Sustainable Materials'}
             </h2>
             <p className="text-lg leading-relaxed text-[#3D2B1A]">
               {materials ?? defaultMaterials}
             </p>
           </div>
+
+          <WoodSpeciesGuide locale={locale} />
         </div>
       </section>
 

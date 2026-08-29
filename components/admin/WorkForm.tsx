@@ -17,10 +17,13 @@ interface FormState {
   titleEn: string
   descriptionAr: string
   descriptionEn: string
+  storyAr: string
+  storyEn: string
   categoryId: string
   price: string
   isPublished: boolean
   isFeatured: boolean
+  isUniquePiece: boolean
 }
 
 // Brand-styled field wrapper
@@ -47,10 +50,13 @@ export default function WorkForm({ work, categories }: Props) {
     titleEn: work?.titleEn ?? '',
     descriptionAr: work?.descriptionAr ?? '',
     descriptionEn: work?.descriptionEn ?? '',
+    storyAr: work?.storyAr ?? '',
+    storyEn: work?.storyEn ?? '',
     categoryId: work?.category?.id ?? '',
     price: work?.price?.toString() ?? '',
     isPublished: work?.isPublished ?? false,
     isFeatured: work?.isFeatured ?? false,
+    isUniquePiece: work?.isUniquePiece ?? false,
   })
 
   const [images, setImages] = useState<string[]>(work?.images ?? [])
@@ -157,16 +163,37 @@ export default function WorkForm({ work, categories }: Props) {
 
         {/* Descriptions */}
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field id="descAr" label="الوصف بالعربية">
-            <textarea id="descAr" rows={4} value={form.descriptionAr}
+          <Field id="descAr" label="الوصف والمواصفات بالعربية">
+            <textarea id="descAr" rows={3} value={form.descriptionAr}
               onChange={(e) => handleChange('descriptionAr', e.target.value)}
               className={`${inputCls} resize-none`} />
           </Field>
-          <Field id="descEn" label="الوصف بالإنجليزية">
-            <textarea id="descEn" rows={4} dir="ltr" value={form.descriptionEn}
+          <Field id="descEn" label="الوصف والمواصفات بالإنجليزية">
+            <textarea id="descEn" rows={3} dir="ltr" value={form.descriptionEn}
               onChange={(e) => handleChange('descriptionEn', e.target.value)}
               className={`${inputCls} resize-none`} />
           </Field>
+        </div>
+
+        {/* Woodcraft Story */}
+        <div className="rounded-2xl border border-[#C4854A]/30 bg-[#FAF7F2] p-4">
+          <p className="mb-3 text-sm font-bold text-[#2C1810] flex items-center gap-2">
+            <span>🪵</span> حكاية القطعة وتفاصيل الخشب (Story Behind the Craft)
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field id="storyAr" label="قصة القطعة — بالعربية">
+              <textarea id="storyAr" rows={3} value={form.storyAr}
+                placeholder="مثال: صُنعت هذه الطاولة من جذع جوز أمريكي معتق تم تجفيفه لثلاث سنوات..."
+                onChange={(e) => handleChange('storyAr', e.target.value)}
+                className={`${inputCls} resize-none`} />
+            </Field>
+            <Field id="storyEn" label="قصة القطعة — بالإنجليزية">
+              <textarea id="storyEn" rows={3} dir="ltr" value={form.storyEn}
+                placeholder="e.g. Handcrafted from a rare single-slab American Walnut..."
+                onChange={(e) => handleChange('storyEn', e.target.value)}
+                className={`${inputCls} resize-none`} />
+            </Field>
+          </div>
         </div>
 
         {/* Category + Price */}
@@ -189,7 +216,7 @@ export default function WorkForm({ work, categories }: Props) {
         </div>
 
         {/* Toggles — HeroUI Switch compound */}
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-6 rounded-2xl bg-[#F5F0E8] p-4">
           <Switch.Root
             isSelected={form.isPublished}
             onChange={(v) => handleChange('isPublished', v)}
@@ -201,6 +228,7 @@ export default function WorkForm({ work, categories }: Props) {
             </Switch.Content>
             <span className="text-sm font-medium text-[#1A1209]">منشور</span>
           </Switch.Root>
+
           <Switch.Root
             isSelected={form.isFeatured}
             onChange={(v) => handleChange('isFeatured', v)}
@@ -210,7 +238,19 @@ export default function WorkForm({ work, categories }: Props) {
               <Switch.Control />
               <Switch.Thumb />
             </Switch.Content>
-            <span className="text-sm font-medium text-[#1A1209]">مميز في الرئيسية</span>
+            <span className="text-sm font-medium text-[#1A1209]">⭐ مميز في الرئيسية</span>
+          </Switch.Root>
+
+          <Switch.Root
+            isSelected={form.isUniquePiece}
+            onChange={(v) => handleChange('isUniquePiece', v)}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <Switch.Content>
+              <Switch.Control />
+              <Switch.Thumb />
+            </Switch.Content>
+            <span className="text-sm font-bold text-[#C4854A]">💎 قطعة فريدة حصرية (1 of 1)</span>
           </Switch.Root>
         </div>
 

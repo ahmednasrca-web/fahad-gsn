@@ -178,3 +178,29 @@ h1, h2, h3, h4, h5, h6 {
 .aspect-work-hero {
   aspect-ratio: 4 / 3;
 }
+
+/* ── Luxury Micro-Interactions ─────────────────────────── */
+.hover-lift-luxury {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.hover-lift-luxury:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(44, 24, 16, 0.12);
+}
+
+@keyframes luxFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lux-fade-in {
+  animation: luxFadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

@@ -1,14 +1,19 @@
-{
-  "name": "Витрина в кармане",
-  "short_name": "Витрина",
-  "description": "Управляйте своей витриной с телефона",
-  "start_url": "/admin",
+﻿{
+  "name": "فهد غصن | Fahad Gsn — Handcrafted Wood",
+  "short_name": "فهد غصن",
+  "description": "أعمال خشبية يدوية فاخرة — Luxury Handcrafted Woodworks & Bespoke Furniture in Kuwait",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FAFAF7",
-  "theme_color": "#854F0B",
-  "lang": "ru",
+  "background_color": "#FAF7F2",
+  "theme_color": "#2C1810",
+  "lang": "ar",
   "icons": [
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
@@ -20,21 +25,24 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "/icon-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ],
-  "screenshots": [],
-  "categories": ["shopping", "business"],
+  "categories": ["lifestyle", "shopping"],
   "shortcuts": [
     {
-      "name": "Мои товары",
-      "url": "/admin/products",
-      "description": "Управление каталогом"
+      "name": "المعرض",
+      "url": "/gallery",
+      "description": "استعراض الأعمال الخشبية"
+    },
+    {
+      "name": "الريلز والفيديوهات",
+      "url": "/reels",
+      "description": "كواليس الحرفة والتشكيل اليدوي"
+    },
+    {
+      "name": "تواصل معنا",
+      "url": "/contact",
+      "description": "طلب قطعة خشبية مخصصة"
     }
   ]
 }

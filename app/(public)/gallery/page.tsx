@@ -71,7 +71,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
               <Link
                 key={work.id}
                 href={`/gallery/${work.slug}`}
-                className="work-card group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#E8DDD0] transition-shadow hover:shadow-md"
+                className="work-card group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#E8DDD0] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
               >
                 {/* Image */}
                 <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8]">
@@ -81,7 +81,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                       alt={getWorkTitle(work, locale)}
                       fill
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="work-card-image object-cover"
+                      className="work-card-image object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                   ) : (
@@ -89,6 +89,14 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                       <span className="text-4xl text-[#D4B896]" aria-hidden="true">🪵</span>
                     </div>
                   )}
+
+                  {/* 1 of 1 Exclusive Badge */}
+                  {work.isUniquePiece && (
+                    <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2.5 py-0.5 text-[11px] font-bold text-[#C4854A] backdrop-blur-sm border border-[#C4854A]/30">
+                      💎 1 of 1
+                    </span>
+                  )}
+
                   {/* Category badge */}
                   {work.category && (
                     <span className="absolute bottom-2 start-2 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
@@ -98,12 +106,12 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                 </div>
 
                 {/* Info */}
-                <div className="p-3">
-                  <p className="truncate text-sm font-semibold text-[#1A1209]">
+                <div className="p-3.5">
+                  <p className="truncate text-sm font-bold text-[#1A1209] group-hover:text-[#C4854A] transition-colors">
                     {getWorkTitle(work, locale)}
                   </p>
                   {work.price != null && (
-                    <p className="mt-0.5 text-sm text-[#6B5C4E]">
+                    <p className="mt-1 text-sm font-semibold text-[#2C1810]">
                       {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
                     </p>
                   )}

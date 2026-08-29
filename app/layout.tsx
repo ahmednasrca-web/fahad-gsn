@@ -41,12 +41,29 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
   },
+  manifest: '/manifest.json',
 }
 
 export const viewport: Viewport = {
   themeColor: '#2C1810',
   width: 'device-width',
   initialScale: 1,
+}
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'فهد غصن | Fahad Gsn',
+  image: 'https://fahadgsn.com/logo-full.png',
+  description: 'أعمال خشبية يدوية فاخرة وأثاث مخصص بالكويت',
+  url: 'https://fahadgsn.com',
+  telephone: '+96598908022',
+  priceRange: '$$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'KW',
+    addressLocality: 'Kuwait City',
+  },
 }
 
 export default function RootLayout({
@@ -60,6 +77,12 @@ export default function RootLayout({
       dir="rtl"
       className={`${playfair.variable} ${notoNaskh.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+      </head>
       <body className="font-sans antialiased">
         {children}
       </body>

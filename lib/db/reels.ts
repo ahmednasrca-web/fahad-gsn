@@ -99,3 +99,11 @@ export async function getReelByIdAdmin(id: string): Promise<Reel | null> {
   }
 }
 
+export async function reorderReelsAdmin(reelIds: string[]): Promise<void> {
+  const db = getDB()
+  const stmts = reelIds.map((id, index) =>
+    db.prepare('UPDATE reels SET sort_order = ?, updated_at = datetime(\'now\') WHERE id = ?').bind(index, id)
+  )
+  await db.batch(stmts)
+}
+

@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS works (
   image_urls       TEXT NOT NULL DEFAULT '[]',   -- JSON array of strings
   is_published     INTEGER NOT NULL DEFAULT 0,
   is_featured      INTEGER NOT NULL DEFAULT 0,
+  is_unique_piece  INTEGER NOT NULL DEFAULT 0,
+  story_ar         TEXT,
+  story_en         TEXT,
   sort_order       INTEGER NOT NULL DEFAULT 0,
   created_at       TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at       TEXT NOT NULL DEFAULT (datetime('now'))

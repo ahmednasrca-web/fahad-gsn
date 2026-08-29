@@ -10,11 +10,14 @@ interface D1WorkRow {
   title_en: string
   description_ar: string | null
   description_en: string | null
+  story_ar: string | null
+  story_en: string | null
   price: number | null
   primary_image_url: string | null
   image_urls: string // JSON string
   is_published: number
   is_featured: number
+  is_unique_piece: number
   sort_order: number
   created_at: string
   // From LEFT JOIN categories:
@@ -40,18 +43,23 @@ function mapWorkRow(row: D1WorkRow): Work {
     titleEn: row.title_en,
     descriptionAr: row.description_ar ?? undefined,
     descriptionEn: row.description_en ?? undefined,
+    storyAr: row.story_ar ?? undefined,
+    storyEn: row.story_en ?? undefined,
     price: row.price ?? undefined,
     primaryImage: row.primary_image_url ?? images[0] ?? '',
     images,
     isPublished: Boolean(row.is_published),
     isFeatured: Boolean(row.is_featured),
+    isUniquePiece: Boolean(row.is_unique_piece),
+    sortOrder: row.sort_order,
     createdAt: row.created_at,
   }
 }
 
 const SELECT_COLS = `
   w.id, w.slug, w.category_id, w.title_ar, w.title_en, w.description_ar, w.description_en,
-  w.price, w.primary_image_url, w.image_urls, w.is_published, w.is_featured, w.sort_order, w.created_at,
+  w.story_ar, w.story_en, w.price, w.primary_image_url, w.image_urls, w.is_published,
+  w.is_featured, w.is_unique_piece, w.sort_order, w.created_at,
   c.id AS cat_id, c.slug AS cat_slug, c.name_ar AS cat_name_ar, c.name_en AS cat_name_en
 `
 
@@ -151,4 +159,12 @@ export async function getWorkByIdAdmin(id: string): Promise<Work | null> {
     .bind(id)
     .first<D1WorkRow>()
   return row ? mapWorkRow(row) : null
+}
+
+export async function reorderWorksAdmin(workIds: string[]): Promise<void> {
+  const db = getDB()
+  const stmts = workIds.map((id, index) =>
+    db.prepare('UPDATE works SET sort_order = ?, updated_at = datetime(\'now\') WHERE id = ?').bind(index, id)
+  )
+  await db.batch(stmts)
 }
