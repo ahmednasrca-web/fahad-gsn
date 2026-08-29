@@ -14,14 +14,14 @@ interface PageProps {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
   return {
-    title: locale === 'ar' ? '?????? | ??? ???' : 'Gallery | Fahad Gsn',
+    title: locale === 'ar' ? 'المعرض | فهد غصن' : 'Gallery | Fahad Gsn',
     description: locale === 'ar'
-      ? '?????? ??????? ??????? ??????? ???????'
+      ? 'استعرض أعمالنا الخشبية الفاخرة المصنوعة يدوياً'
       : 'Browse our luxury handcrafted wood works',
   }
 }
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export default async function GalleryPage({ searchParams }: PageProps) {
   const locale = await getLocale()
@@ -39,7 +39,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
         {/* Page header */}
         <div className="mb-10 text-center">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C4854A]">
-            {locale === 'ar' ? '???????' : 'Our Works'}
+            {locale === 'ar' ? 'أعمالنا' : 'Our Works'}
           </p>
           <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl">
             {t(locale, 'gallery')}
@@ -60,7 +60,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
         {/* Works grid */}
         {works.length === 0 ? (
           <div className="py-20 text-center">
-            <p className="text-4xl" aria-hidden="true">??</p>
+            <p className="text-4xl" aria-hidden="true">🪵</p>
             <p className="mt-4 text-lg font-medium text-[#3D2B1A]">
               {t(locale, 'noWorks')}
             </p>
@@ -86,7 +86,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center">
-                      <span className="text-4xl text-[#D4B896]" aria-hidden="true">??</span>
+                      <span className="text-4xl text-[#D4B896]" aria-hidden="true">🪵</span>
                     </div>
                   )}
                   {/* Category badge */}
@@ -104,7 +104,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                   </p>
                   {work.price != null && (
                     <p className="mt-0.5 text-sm text-[#6B5C4E]">
-                      {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? '?.?' : 'KWD'}
+                      {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
                     </p>
                   )}
                 </div>

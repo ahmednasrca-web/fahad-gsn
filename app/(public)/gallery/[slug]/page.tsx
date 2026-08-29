@@ -12,19 +12,8 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-export const revalidate = 60
-export const dynamicParams = true
+export const dynamic = 'force-dynamic'
 
-export async function generateStaticParams() {
-  // Skip static generation if Supabase is not configured (e.g. CI/local build without .env)
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return []
-  try {
-    const slugs = await getAllPublishedWorkSlugs()
-    return slugs.map((slug) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
