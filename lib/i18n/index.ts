@@ -53,7 +53,7 @@ export const translations = {
     // About
     aboutTitle: 'من نحن',
     // Footer
-    footerRights: '© 2025 فهد غصن. جميع الحقوق محفوظة.',
+    footerRights: '© فهد غصن. جميع الحقوق محفوظة.',
     // Errors
     notFound: 'الصفحة غير موجودة',
     backHome: 'العودة للرئيسية',
@@ -96,7 +96,7 @@ export const translations = {
     // About
     aboutTitle: 'About Us',
     // Footer
-    footerRights: '© 2025 Fahad Gsn. All rights reserved.',
+    footerRights: '© Fahad Gsn. All rights reserved.',
     // Errors
     notFound: 'Page Not Found',
     backHome: 'Back to Home',

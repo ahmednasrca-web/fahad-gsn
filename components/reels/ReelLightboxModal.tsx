@@ -63,7 +63,7 @@ export default function ReelLightboxModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-2xl transition-all duration-300 animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/92 backdrop-blur-2xl transition-all duration-300 animate-in fade-in"
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -75,15 +75,15 @@ export default function ReelLightboxModal({
         aria-hidden="true"
       />
 
-      {/* Top Controls Bar */}
-      <div className="absolute top-4 inset-x-4 sm:top-6 sm:inset-x-8 z-30 flex items-center justify-between pointer-events-auto">
+      {/* Top Floating Bar */}
+      <div className="absolute top-3 inset-x-3 sm:top-5 sm:inset-x-8 z-30 flex items-center justify-between pointer-events-auto">
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white backdrop-blur-md border border-white/15 shadow-md">
+          <span className="flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold text-white backdrop-blur-md border border-white/20 shadow-md">
             <span>{meta?.icon ?? '📸'}</span>
             <span>{isAr ? meta?.nameAr : meta?.name}</span>
           </span>
           {reel.isFeatured && (
-            <span className="rounded-full bg-[#C4854A] px-3 py-1 text-xs font-bold text-white shadow-md">
+            <span className="rounded-full bg-[#C4854A] px-3.5 py-1 text-xs font-bold text-white shadow-md">
               ⭐ {isAr ? 'كواليس مميزة' : 'Featured'}
             </span>
           )}
@@ -93,24 +93,24 @@ export default function ReelLightboxModal({
         <button
           type="button"
           onClick={onClose}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xl border border-white/20 shadow-xl transition-all hover:scale-110 hover:bg-white hover:text-black focus:outline-none"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-xl border border-white/30 shadow-2xl transition-all hover:scale-110 hover:bg-white hover:text-black focus:outline-none"
           aria-label={isAr ? 'إغلاق المقطع' : 'Close video'}
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      {/* Navigation Arrows (Desktop) */}
+      {/* Navigation Arrows (Desktop / Tablet) */}
       {hasPrev && (
         <button
           type="button"
           onClick={onPrev}
-          className={`hidden sm:flex absolute start-6 z-30 h-12 w-12 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xl border border-white/20 shadow-2xl transition-all hover:scale-110 hover:bg-[#C4854A] hover:border-[#C4854A]`}
+          className="hidden md:flex absolute start-6 lg:start-12 z-30 h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xl border border-white/25 shadow-2xl transition-all hover:scale-110 hover:bg-[#C4854A] hover:border-[#C4854A]"
           aria-label={isAr ? 'المقطع السابق' : 'Previous video'}
         >
-          <span className="text-xl">{isAr ? '→' : '←'}</span>
+          <span className="text-2xl font-bold">{isAr ? '→' : '←'}</span>
         </button>
       )}
 
@@ -118,17 +118,17 @@ export default function ReelLightboxModal({
         <button
           type="button"
           onClick={onNext}
-          className={`hidden sm:flex absolute end-6 z-30 h-12 w-12 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xl border border-white/20 shadow-2xl transition-all hover:scale-110 hover:bg-[#C4854A] hover:border-[#C4854A]`}
+          className="hidden md:flex absolute end-6 lg:end-12 z-30 h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-xl border border-white/25 shadow-2xl transition-all hover:scale-110 hover:bg-[#C4854A] hover:border-[#C4854A]"
           aria-label={isAr ? 'المقطع التالي' : 'Next video'}
         >
-          <span className="text-xl">{isAr ? '←' : '→'}</span>
+          <span className="text-2xl font-bold">{isAr ? '←' : '→'}</span>
         </button>
       )}
 
-      {/* Center Cinematic Theater Card */}
-      <div className="relative z-20 flex flex-col items-center w-full max-w-[420px] max-h-[90vh]">
+      {/* Center Theater Player Container (Responsive across PC, Laptop, iPad, Mobile) */}
+      <div className="relative z-20 flex flex-col items-center w-full max-w-[540px] pt-12 sm:pt-14 pb-2">
         {/* The Frame */}
-        <div className="relative w-full aspect-[9/16] max-h-[75vh] sm:max-h-[78vh] overflow-hidden rounded-3xl border-2 border-white/15 bg-black shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+        <div className="relative w-full h-[72vh] sm:h-[76vh] md:h-[78vh] max-h-[760px] min-h-[480px] overflow-hidden rounded-3xl border border-white/20 bg-black shadow-[0_0_60px_rgba(0,0,0,0.9)]">
           <iframe
             src={embedUrl}
             title={title}
@@ -139,14 +139,14 @@ export default function ReelLightboxModal({
           />
         </div>
 
-        {/* Modal Bottom Information & Action */}
-        <div className="mt-4 w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-white px-2">
+        {/* Modal Bottom Information & Action Bar */}
+        <div className="mt-3.5 w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-white px-2">
           <div className="text-center sm:text-start flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-[#FAF7F2] truncate drop-shadow-sm font-display">
+            <h3 className="text-sm md:text-base font-bold text-[#FAF7F2] truncate drop-shadow-sm font-display">
               {title}
             </h3>
             {description && (
-              <p className="text-xs text-[#D4B896] truncate mt-0.5">
+              <p className="text-xs text-[#D4B896] truncate mt-0.5 font-medium">
                 {description}
               </p>
             )}
@@ -156,7 +156,7 @@ export default function ReelLightboxModal({
             href={watchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] px-5 py-2 text-xs font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-[#fd1d1d]/40 active:scale-95"
+            className="shrink-0 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] px-5 py-2.5 text-xs font-bold text-white shadow-xl transition-all hover:scale-105 hover:shadow-[#fd1d1d]/40 active:scale-95"
           >
             <span>{isAr ? 'شاهد وتفاعل على إنستغرام' : 'Open in Instagram'}</span>
             <span aria-hidden="true">↗</span>
