@@ -1,18 +1,20 @@
+export const runtime = 'edge'
+
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { cookies } from 'next/headers'
 import { verifySession, SESSION_COOKIE } from '@/lib/session'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+import { getDB } from '@/lib/db/client'
 
 const schema = z.object({
   titleAr: z.string().min(1).max(200),
   titleEn: z.string().min(1).max(200),
   descriptionAr: z.string().max(5000).optional().nullable(),
   descriptionEn: z.string().max(5000).optional().nullable(),
-  categoryId: z.string().uuid().optional().nullable(),
+  categoryId: z.string().optional().nullable(),
   price: z.number().min(0).optional().nullable(),
-  images: z.array(z.string().url()).max(20),
-  primaryImage: z.string().url().optional().nullable(),
+  images: z.array(z.string()).max(20),
+  primaryImage: z.string().optional().nullable(),
   isPublished: z.boolean(),
   isFeatured: z.boolean(),
 })
@@ -29,34 +31,37 @@ export async function PUT(
 ) {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const { id } = await params
-  const body = await request.json().catch(() => null)
+  const _raw: unknown = await request.json().catch(() => null)
+  const body = _raw as Record<string, unknown> | null
   const parsed = schema.safeParse(body)
   if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
 
   const { titleAr, titleEn, descriptionAr, descriptionEn, categoryId, price, images, primaryImage, isPublished, isFeatured } = parsed.data
 
-  const supabase = createSupabaseAdminClient()
-  const { data, error } = await supabase
-    .from('works')
-    .update({
-      title_ar: titleAr,
-      title_en: titleEn,
-      description_ar: descriptionAr || null,
-      description_en: descriptionEn || null,
-      category_id: categoryId || null,
-      price: price ?? null,
-      image_urls: images,
-      primary_image_url: primaryImage || images[0] || null,
-      is_published: isPublished,
-      is_featured: isFeatured,
-    })
-    .eq('id', id)
-    .select()
-    .single()
+  const db = getDB()
+  const { success } = await db
+    .prepare(
+      `UPDATE works SET
+        title_ar = ?, title_en = ?, description_ar = ?, description_en = ?,
+        category_id = ?, price = ?, image_urls = ?, primary_image_url = ?,
+        is_published = ?, is_featured = ?, updated_at = datetime('now')
+       WHERE id = ?`,
+    )
+    .bind(
+      titleAr, titleEn,
+      descriptionAr ?? null, descriptionEn ?? null,
+      categoryId ?? null, price ?? null,
+      JSON.stringify(images),
+      primaryImage ?? images[0] ?? null,
+      isPublished ? 1 : 0, isFeatured ? 1 : 0,
+      id,
+    )
+    .run()
 
-  if (error) return NextResponse.json({ error: 'Failed to update' }, { status: 500 })
-  return NextResponse.json(data)
+  if (!success) return NextResponse.json({ error: 'Failed to update' }, { status: 500 })
+  return NextResponse.json({ ok: true })
 }
 
 export async function DELETE(
@@ -65,9 +70,9 @@ export async function DELETE(
 ) {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const { id } = await params
-  const supabase = createSupabaseAdminClient()
-  const { error } = await supabase.from('works').delete().eq('id', id)
-  if (error) return NextResponse.json({ error: 'Failed to delete' }, { status: 500 })
+  const db = getDB()
+  await db.prepare('DELETE FROM works WHERE id = ?').bind(id).run()
   return NextResponse.json({ ok: true })
 }

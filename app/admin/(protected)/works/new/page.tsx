@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import WorkForm from '@/components/admin/WorkForm'
 import { getAllCategoriesAdmin } from '@/lib/db/categories'
 

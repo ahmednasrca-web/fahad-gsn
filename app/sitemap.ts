@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import type { MetadataRoute } from 'next'
 import { getAllPublishedWorkSlugs } from '@/lib/db/works'
 

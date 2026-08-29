@@ -48,7 +48,7 @@ export default function ContentEditor({ initialContent }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content }),
       })
-      if (!res.ok) throw new Error((await res.json()).error ?? 'حدث خطأ')
+      if (!res.ok) throw new Error(((await res.json()) as Record<string,string>).error ?? 'حدث خطأ')
       setSaved(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'حدث خطأ')

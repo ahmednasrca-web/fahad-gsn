@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import type { Metadata } from 'next'
 import { getLocale } from '@/lib/locale'
 import { getDir, t, getContentValue } from '@/lib/i18n'

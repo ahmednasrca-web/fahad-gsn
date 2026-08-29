@@ -1,25 +1,12 @@
+export const runtime = 'edge'
+
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { verifySession, SESSION_COOKIE } from '@/lib/session'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
-import sharp from 'sharp'
+import { getBucket, getR2PublicUrl } from '@/lib/db/client'
 
-// Magic bytes for file type validation
-const MAGIC: Record<string, number[][]> = {
-  'image/jpeg': [[0xff, 0xd8, 0xff]],
-  'image/png': [[0x89, 0x50, 0x4e, 0x47]],
-  'image/webp': [[0x52, 0x49, 0x46, 0x46]],
-  'image/heic': [[0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70]],
-}
-
-function detectMimeType(buffer: Buffer): string | null {
-  for (const [mime, signatures] of Object.entries(MAGIC)) {
-    for (const sig of signatures) {
-      if (sig.every((byte, i) => buffer[i] === byte)) return mime
-    }
-  }
-  return null
-}
+const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'])
+const MAX_SIZE = 8 * 1024 * 1024 // 8 MB
 
 export async function POST(request: Request) {
   // Admin auth — session cookie only
@@ -44,51 +31,41 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 })
   }
 
-  // File size limit — generous, Sharp will compress to WebP ≤1080²
-  const maxSize = 8 * 1024 * 1024
-  if (file.size > maxSize) {
-    return NextResponse.json({ error: 'File too large (max 8 MB)' }, { status: 413 })
+  // File type validation
+  if (!ALLOWED_TYPES.has(file.type)) {
+    return NextResponse.json(
+      { error: 'نوع الملف غير مدعوم. يرجى رفع صورة JPEG أو PNG أو WebP' },
+      { status: 415 },
+    )
   }
 
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-
-  // Magic bytes validation
-  const detectedMime = detectMimeType(buffer)
-  if (!detectedMime) {
-    return NextResponse.json({ error: 'Unsupported file type' }, { status: 415 })
+  // File size limit
+  if (file.size > MAX_SIZE) {
+    return NextResponse.json(
+      { error: 'حجم الملف كبير جداً (الحد الأقصى 8 ميجابايت)' },
+      { status: 413 },
+    )
   }
 
-  // Process with Sharp: auto-rotate EXIF, resize to max 1080², convert to WebP
-  let processed: Buffer
-  try {
-    processed = await sharp(buffer)
-      .rotate() // auto-rotate based on EXIF (fixes iPhone photos)
-      .resize(1080, 1080, { fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 80 })
-      .toBuffer()
-  } catch {
-    return NextResponse.json({ error: 'Image processing failed' }, { status: 422 })
-  }
-
-  // Storage path: works/{workId}/{timestamp}.webp
+  // Build R2 storage key: works/{workId}/{timestamp}.{ext}
+  const ext = file.type.includes('jpeg') ? 'jpg'
+    : file.type.includes('heic') || file.type.includes('heif') ? 'heic'
+    : file.type.split('/')[1]
   const timestamp = Date.now()
-  const storagePath = `works/${workId}/${timestamp}.webp`
+  const key = `works/${workId}/${timestamp}.${ext}`
 
-  const supabase = createSupabaseAdminClient()
-  const { error: uploadError } = await supabase.storage
-    .from('works')
-    .upload(storagePath, processed, {
-      contentType: 'image/webp',
-      upsert: false,
+  // Upload to R2
+  const bucket = getBucket()
+  try {
+    await bucket.put(key, await file.arrayBuffer(), {
+      httpMetadata: { contentType: file.type },
     })
-
-  if (uploadError) {
-    console.error('Storage upload error:', uploadError)
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+  } catch (err) {
+    console.error('R2 upload error:', err)
+    return NextResponse.json({ error: 'فشل رفع الصورة. حاول مرة أخرى.' }, { status: 500 })
   }
 
-  const { data: urlData } = supabase.storage.from('works').getPublicUrl(storagePath)
-
-  return NextResponse.json({ url: urlData.publicUrl })
+  // Return public URL
+  const publicUrl = `${getR2PublicUrl()}/${key}`
+  return NextResponse.json({ url: publicUrl })
 }

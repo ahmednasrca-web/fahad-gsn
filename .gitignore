@@ -45,3 +45,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Admin seed SQL (contains password hash)
+d1/seed-admin.sql
+

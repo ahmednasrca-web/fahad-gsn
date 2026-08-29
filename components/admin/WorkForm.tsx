@@ -64,7 +64,7 @@ export default function WorkForm({ work, categories }: Props) {
         if (work?.id) data.append('productId', work.id)
         const res = await fetch('/api/upload', { method: 'POST', body: data })
         if (!res.ok) throw new Error('فشل رفع الصورة')
-        const json = await res.json()
+        const json = await res.json() as Record<string, string>
         setImages((prev) => [...prev, json.url])
       }
     } catch (err) {
@@ -100,7 +100,7 @@ export default function WorkForm({ work, categories }: Props) {
       const method = isEditing ? 'PUT' : 'POST'
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       if (!res.ok) {
-        const json = await res.json().catch(() => ({}))
+        const json = await res.json().catch(() => ({})) as Record<string,string>
         throw new Error(json.error ?? 'حدث خطأ')
       }
       router.push('/admin/works')

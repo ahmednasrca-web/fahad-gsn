@@ -1,7 +1,9 @@
+export const runtime = 'edge'
+
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { verifySession, SESSION_COOKIE } from '@/lib/session'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+import { getDB } from '@/lib/db/client'
 import type { SiteContent } from '@/lib/types'
 
 async function requireAdmin() {
@@ -14,32 +16,26 @@ export async function POST(request: Request) {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const body = await request.json().catch(() => null)
-  if (!body?.content || typeof body.content !== 'object') {
+  const raw = await request.json().catch(() => null) as Record<string, unknown> | null
+  if (!raw?.content || typeof raw.content !== 'object') {
     return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
   }
 
-  const supabase = createSupabaseAdminClient()
-  const updates = Object.entries(body.content as Record<string, SiteContent>).map(
-    ([key, val]) => ({
-      key,
-      value_ar: val.valueAr ?? null,
-      value_en: val.valueEn ?? null,
-    }),
+  const db = getDB()
+  const entries = Object.entries(raw.content as Record<string, SiteContent>)
+
+  // D1 batch upserts
+  const statements = entries.map(([key, val]) =>
+    db
+      .prepare(
+        `INSERT INTO site_content (key, value_ar, value_en) VALUES (?, ?, ?)
+         ON CONFLICT(key) DO UPDATE SET value_ar = excluded.value_ar, value_en = excluded.value_en, updated_at = datetime('now')`,
+      )
+      .bind(key, val.valueAr ?? null, val.valueEn ?? null),
   )
 
-  // Upsert all content fields
-  const errors: string[] = []
-  for (const item of updates) {
-    const { error } = await supabase
-      .from('site_content')
-      .upsert(item, { onConflict: 'key' })
-    if (error) errors.push(item.key)
-  }
-
-  if (errors.length > 0) {
-    console.error('Content save errors for keys:', errors)
-    return NextResponse.json({ error: 'Some fields failed to save' }, { status: 500 })
+  if (statements.length > 0) {
+    await db.batch(statements)
   }
 
   return NextResponse.json({ ok: true })

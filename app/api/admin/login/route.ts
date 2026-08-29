@@ -1,14 +1,17 @@
+export const runtime = 'edge'
+
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { signSession, SESSION_COOKIE, SESSION_MAX_AGE } from '@/lib/session'
+import { verifyPassword } from '@/lib/auth'
+import { getDB } from '@/lib/db/client'
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(1),
 })
 
 export async function POST(request: Request) {
-  // Parse + validate body
   let body: unknown
   try {
     body = await request.json()
@@ -23,24 +26,31 @@ export async function POST(request: Request) {
 
   const { email, password } = parsed.data
 
-  // Authenticate via Supabase Auth
-  // We use the regular Supabase client for auth, then create our own HMAC session
-  const { createSupabaseServerClient } = await import('@/lib/supabase/server')
-  const supabase = await createSupabaseServerClient()
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+  // Look up admin user in D1
+  const db = getDB()
+  const adminUser = await db
+    .prepare('SELECT id, password_hash FROM admin_users WHERE email = ?')
+    .bind(email.toLowerCase().trim())
+    .first<{ id: string; password_hash: string }>()
 
-  if (error || !data.user) {
-    // Generic error — don't reveal whether email or password is wrong
+  if (!adminUser) {
+    // Generic error — don't reveal whether email exists
     return NextResponse.json({ error: 'بيانات الدخول غير صحيحة' }, { status: 401 })
   }
 
-  // Create our HMAC session token
-  const token = await signSession({ adminId: data.user.id })
+  // Verify password using PBKDF2 (Web Crypto API)
+  const isValid = await verifyPassword(password, adminUser.password_hash)
+  if (!isValid) {
+    return NextResponse.json({ error: 'بيانات الدخول غير صحيحة' }, { status: 401 })
+  }
+
+  // Create HMAC session token
+  const token = await signSession({ adminId: adminUser.id })
 
   const response = NextResponse.json({ ok: true })
   response.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'lax',
     maxAge: SESSION_MAX_AGE,
     path: '/',

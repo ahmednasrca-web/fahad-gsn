@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import { notFound } from 'next/navigation'
 import WorkForm from '@/components/admin/WorkForm'
 import { getWorkByIdAdmin } from '@/lib/db/works'

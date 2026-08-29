@@ -1,18 +1,20 @@
+export const runtime = 'edge'
+
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { cookies } from 'next/headers'
 import { verifySession, SESSION_COOKIE } from '@/lib/session'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+import { getDB } from '@/lib/db/client'
 
 const schema = z.object({
   titleAr: z.string().min(1).max(200),
   titleEn: z.string().min(1).max(200),
   descriptionAr: z.string().max(5000).optional().nullable(),
   descriptionEn: z.string().max(5000).optional().nullable(),
-  categoryId: z.string().uuid().optional().nullable(),
+  categoryId: z.string().optional().nullable(),
   price: z.number().min(0).optional().nullable(),
-  images: z.array(z.string().url()).max(20),
-  primaryImage: z.string().url().optional().nullable(),
+  images: z.array(z.string()).max(20),
+  primaryImage: z.string().optional().nullable(),
   isPublished: z.boolean(),
   isFeatured: z.boolean(),
 })
@@ -30,6 +32,7 @@ function generateSlug(titleEn: string): string {
       .replace(/[^a-z0-9\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
+      .trim()
       .slice(0, 80) +
     '-' +
     Date.now().toString(36)
@@ -39,44 +42,48 @@ function generateSlug(titleEn: string): string {
 export async function GET() {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const supabase = createSupabaseAdminClient()
-  const { data, error } = await supabase.from('works').select('*').order('created_at', { ascending: false })
-  if (error) return NextResponse.json({ error: 'DB error' }, { status: 500 })
-  return NextResponse.json(data)
+
+  const db = getDB()
+  const { results } = await db
+    .prepare('SELECT * FROM works ORDER BY created_at DESC')
+    .all()
+  return NextResponse.json(results)
 }
 
 export async function POST(request: Request) {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const body = await request.json().catch(() => null)
+
+  const _raw: unknown = await request.json().catch(() => null)
+  const body = _raw as Record<string, unknown> | null
   const parsed = schema.safeParse(body)
   if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
 
   const { titleAr, titleEn, descriptionAr, descriptionEn, categoryId, price, images, primaryImage, isPublished, isFeatured } = parsed.data
 
-  const supabase = createSupabaseAdminClient()
+  const db = getDB()
+  const id = crypto.randomUUID()
   let slug = generateSlug(titleEn)
-  const { data: existing } = await supabase.from('works').select('id').eq('slug', slug).maybeSingle()
+
+  // Ensure slug uniqueness
+  const existing = await db.prepare('SELECT id FROM works WHERE slug = ?').bind(slug).first()
   if (existing) slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`
 
-  const { data, error } = await supabase.from('works').insert({
-    slug,
-    title_ar: titleAr,
-    title_en: titleEn,
-    description_ar: descriptionAr || null,
-    description_en: descriptionEn || null,
-    category_id: categoryId || null,
-    price: price ?? null,
-    image_urls: images,
-    primary_image_url: primaryImage || images[0] || null,
-    is_published: isPublished,
-    is_featured: isFeatured,
-  }).select().single()
+  await db
+    .prepare(
+      `INSERT INTO works (id, slug, title_ar, title_en, description_ar, description_en, category_id, price,
+        image_urls, primary_image_url, is_published, is_featured)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(
+      id, slug, titleAr, titleEn,
+      descriptionAr ?? null, descriptionEn ?? null,
+      categoryId ?? null, price ?? null,
+      JSON.stringify(images),
+      primaryImage ?? images[0] ?? null,
+      isPublished ? 1 : 0, isFeatured ? 1 : 0,
+    )
+    .run()
 
-  if (error) {
-    console.error('Create work error:', error)
-    return NextResponse.json({ error: 'Failed to create' }, { status: 500 })
-  }
-
-  return NextResponse.json(data, { status: 201 })
+  return NextResponse.json({ id, slug }, { status: 201 })
 }

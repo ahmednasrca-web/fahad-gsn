@@ -1,18 +1,20 @@
 import type { NextConfig } from 'next'
-import path from 'path'
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: path.resolve(__dirname),
-  },
   images: {
+    // Allow images from Cloudflare R2 public URLs
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_SUPABASE_URL
-          ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
-          : 'placeholder.supabase.co',
-        pathname: '/storage/v1/object/public/**',
+        // R2 development subdomain pattern
+        hostname: '**.r2.dev',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        // Custom domain on R2 (if configured)
+        hostname: process.env.R2_PUBLIC_HOSTNAME ?? 'placeholder.r2.dev',
+        pathname: '/**',
       },
     ],
   },

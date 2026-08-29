@@ -42,7 +42,7 @@ export default function ContactForm({ locale, workSlug }: Props) {
         setPhone('')
         setMessage('')
       } else {
-        const data = await res.json().catch(() => ({}))
+        const data = await res.json().catch(() => ({}) as Record<string, string>) as Record<string, string>
         setError(data.error ?? t(locale, 'messageError'))
       }
     } catch {

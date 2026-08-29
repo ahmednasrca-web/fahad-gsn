@@ -1,3 +1,5 @@
+export const runtime = 'edge'
+
 import { getSiteContent } from '@/lib/db/content'
 import ContentEditor from '@/components/admin/ContentEditor'
 

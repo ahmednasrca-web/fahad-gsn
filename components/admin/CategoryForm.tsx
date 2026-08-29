@@ -34,7 +34,7 @@ export default function CategoryForm({ category }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nameAr, nameEn, descriptionAr: descAr, descriptionEn: descEn, isActive }),
       })
-      if (!res.ok) throw new Error((await res.json()).error ?? 'حدث خطأ')
+      if (!res.ok) throw new Error(((await res.json()) as Record<string,string>).error ?? 'حدث خطأ')
       router.push('/admin/categories')
       router.refresh()
     } catch (err) {

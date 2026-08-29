@@ -30,8 +30,8 @@ function LoginForm() {
       if (res.ok) {
         router.replace(from)
       } else {
-        const data = await res.json().catch(() => ({}))
-        setError(data.error ?? 'بيانات الدخول غير صحيحة')
+        const data = await res.json().catch(() => ({}) as Record<string, string>)
+        setError((data as Record<string, string>).error ?? 'بيانات الدخول غير صحيحة')
       }
     } catch {
       setError('حدث خطأ في الاتصال. حاول مرة أخرى.')

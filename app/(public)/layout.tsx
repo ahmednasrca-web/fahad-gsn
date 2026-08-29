@@ -1,6 +1,9 @@
+export const runtime = 'edge'
+
 import { getLocale } from '@/lib/locale'
 import { getDir } from '@/lib/i18n'
 import { SiteHeader, SiteFooter } from '@/components/layout'
+
 
 export default async function PublicLayout({
   children,
