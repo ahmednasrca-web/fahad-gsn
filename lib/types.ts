@@ -1,59 +1,99 @@
-// Типы данных мастера и товаров
+﻿// Fahad Gsn — TypeScript Types
 
-export interface ProductRaw {
+export type Locale = 'ar' | 'en'
+
+export interface Category {
   id: string
-  name: string
-  price: number
-  image: string
-  discount?: number
-}
-
-export interface SaleRaw {
-  percent: number
-  until?: string
-  text: string
-}
-
-export interface MerchantRaw {
   slug: string
-  name: string
-  tagline: string
-  avatar: string
-  telegram: string
-  accentColor?: string
-  sale?: SaleRaw
-  products: ProductRaw[]
-}
-
-// Обогащённый товар с рассчитанной скидкой
-export interface Product {
-  id: string
-  name: string
-  price: number
-  image: string                // первое фото (обложка) — для обратной совместимости
-  images: string[]             // все фото в порядке (до 10)
-  video?: string               // короткое видео товара (опционально)
-  description?: string         // описание (опционально)
-  discountPercent?: number     // итоговый процент скидки (свой или из sale)
-  discountedPrice?: number     // цена со скидкой
-  isAvailable: boolean         // наличие товара
-}
-
-export interface Sale {
-  percent: number
-  until?: string
-  text: string
+  nameAr: string
+  nameEn: string
+  descriptionAr?: string
+  descriptionEn?: string
+  sortOrder: number
   isActive: boolean
 }
 
-export interface Merchant {
+export interface Work {
+  id: string
   slug: string
+  category?: Pick<Category, 'id' | 'slug' | 'nameAr' | 'nameEn'>
+  titleAr: string
+  titleEn: string
+  descriptionAr?: string
+  descriptionEn?: string
+  price?: number
+  primaryImage: string
+  images: string[]
+  isPublished: boolean
+  isFeatured: boolean
+  createdAt: string
+}
+
+export interface SiteContent {
+  key: string
+  valueAr?: string | null
+  valueEn?: string | null
+}
+
+export interface ContactMessage {
+  id: string
   name: string
-  tagline: string
-  avatar: string
-  telegram: string
-  accentColor: string
-  bgImage?: string             // картинка-фон витрины (Pro)
-  sale?: Sale
-  products: Product[]
+  email?: string | null
+  phone?: string | null
+  message: string
+  workSlug?: string | null
+  isRead: boolean
+  createdAt: string
+}
+
+// DB row types (snake_case from Supabase)
+export interface CategoryRow {
+  id: string
+  slug: string
+  name_ar: string
+  name_en: string
+  description_ar: string | null
+  description_en: string | null
+  sort_order: number
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface WorkRow {
+  id: string
+  slug: string
+  category_id: string | null
+  title_ar: string
+  title_en: string
+  description_ar: string | null
+  description_en: string | null
+  price: number | null
+  primary_image_url: string | null
+  image_urls: string[]
+  is_published: boolean
+  is_featured: boolean
+  sort_order: number
+  created_at: string
+  updated_at: string
+  // joined
+  categories?: CategoryRow | null
+}
+
+export interface SiteContentRow {
+  key: string
+  value_ar: string | null
+  value_en: string | null
+  updated_at: string
+}
+
+export interface ContactMessageRow {
+  id: string
+  name: string
+  email: string | null
+  phone: string | null
+  message: string
+  work_slug: string | null
+  is_read: boolean
+  created_at: string
 }

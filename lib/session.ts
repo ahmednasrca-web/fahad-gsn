@@ -1,9 +1,8 @@
-// Session management using Web Crypto API (works in Edge Runtime + Node.js)
+﻿// Fahad Gsn — Session management using Web Crypto API
+// Works in Edge Runtime + Node.js
 
 export interface SessionPayload {
-  merchantId: string
-  telegramId: number
-  slug: string | null
+  adminId: string
   iat: number
 }
 
@@ -43,12 +42,10 @@ function fromBase64url(str: string): ArrayBuffer {
   return bytes.buffer
 }
 
-// Подписываем payload → "base64url.hmac"
 export async function signSession(
   payload: Omit<SessionPayload, 'iat'>,
 ): Promise<string> {
   const data: SessionPayload = { ...payload, iat: Date.now() }
-  // encodeURIComponent + unescape — безопасный btoa для Unicode (кириллица в slug)
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
@@ -58,7 +55,6 @@ export async function signSession(
   return `${encoded}.${toBase64url(sig)}`
 }
 
-// Проверяем подпись → возвращаем payload или null
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   try {
     const dotIndex = token.lastIndexOf('.')
@@ -81,5 +77,5 @@ export async function verifySession(token: string): Promise<SessionPayload | nul
   }
 }
 
-export const SESSION_COOKIE = 'vitrina_session'
-export const SESSION_MAX_AGE = 30 * 24 * 60 * 60 // 30 дней в секундах
+export const SESSION_COOKIE = 'fahad_gsn_admin'
+export const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days in seconds
