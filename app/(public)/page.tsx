@@ -39,21 +39,26 @@ export default async function HomePage() {
         className="relative flex min-h-[90svh] flex-col items-center justify-center overflow-hidden bg-[#2C1810] text-center"
         aria-label={locale === 'ar' ? 'القسم الرئيسي' : 'Hero section'}
       >
-        {/* Warm gradient overlay */}
+        {/* Background Cinematic Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-1000"
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          <source src="/videos/18366463-hd_1920_1080_30fps.mp4" type="video/mp4" />
+        </video>
+
+        {/* Multi-layered Luxury Cinematic Gradient Overlay */}
         <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 60%, rgba(196,133,74,0.12) 0%, transparent 70%)',
-          }}
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/55 to-[#2C1810]"
           aria-hidden="true"
         />
-
-        {/* Subtle texture lines — decorative */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(90deg, #C4854A 0px, #C4854A 1px, transparent 1px, transparent 60px)',
-          }}
+          className="pointer-events-none absolute inset-0 bg-radial-at-c from-transparent via-black/30 to-black/70"
           aria-hidden="true"
         />
 
@@ -77,13 +82,13 @@ export default async function HomePage() {
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/gallery"
-              className="flex min-h-[52px] items-center rounded-full bg-[#C4854A] px-8 font-semibold text-[#FAF7F2] transition-opacity hover:opacity-90 active:opacity-75"
+              className="flex min-h-[54px] items-center rounded-full bg-[#C4854A] px-9 font-bold text-white shadow-xl shadow-[#C4854A]/30 transition-all hover:scale-105 hover:bg-[#d69355] active:scale-95"
             >
               {locale === 'ar' ? 'استعرض الأعمال' : 'View Works'}
             </Link>
             <Link
               href="/contact"
-              className="flex min-h-[52px] items-center rounded-full border border-[#C4854A]/50 px-8 font-medium text-[#D4B896] transition-colors hover:border-[#C4854A] hover:text-[#FAF7F2]"
+              className="flex min-h-[54px] items-center rounded-full border-2 border-white/30 bg-white/10 px-9 font-bold text-white backdrop-blur-md transition-all hover:scale-105 hover:border-white hover:bg-white/20 active:scale-95"
             >
               {locale === 'ar' ? 'تواصل معنا' : 'Contact Us'}
             </Link>
