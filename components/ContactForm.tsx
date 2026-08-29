@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useId } from 'react'
 import type { Locale } from '@/lib/types'
@@ -10,8 +10,8 @@ interface Props {
   workSlug?: string
 }
 
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080]'
-const labelCls = 'mb-1.5 block text-sm font-medium text-[#1A1209]'
+const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#6B5C4E]'
+const labelCls = 'mb-1.5 block text-sm font-bold text-[#1A1209]'
 
 export default function ContactForm({ locale, workSlug }: Props) {
   const formId = useId()

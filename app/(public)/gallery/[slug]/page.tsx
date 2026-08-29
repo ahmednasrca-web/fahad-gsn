@@ -163,7 +163,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   </Link>
                 )}
                 {work.isUniquePiece && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C4854A] bg-[#C4854A]/10 px-3.5 py-1 text-xs font-bold text-[#8A4F1D]">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C4854A] bg-[#C4854A]/15 px-3.5 py-1 text-xs font-bold text-[#5C2E0B]">
                     <span>💎</span>
                     {locale === 'ar' ? 'قطعة فريدة حصرية (1 of 1)' : 'Exclusive Piece (1 of 1)'}
                   </span>
@@ -181,7 +181,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   <p className="text-3xl font-bold text-[#2C1810]">
                     {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')}
                   </p>
-                  <span className="text-base font-semibold text-[#8A7968]">
+                  <span className="text-base font-bold text-[#5C4B3E]">
                     {locale === 'ar' ? 'د.ك' : 'KWD'}
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
               {/* Description */}
               {description && (
                 <div className="mb-8 rounded-2xl bg-[#FAF7F2] border border-[#E8DDD0] p-5">
-                  <p className="text-base leading-relaxed text-[#3D2B1A] whitespace-pre-line">
+                  <p className="text-base leading-relaxed text-[#1A1209] font-medium whitespace-pre-line">
                     {description}
                   </p>
                 </div>
@@ -204,7 +204,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
               {/* Secondary Message link */}
               <Link
                 href="/contact"
-                className="mt-3 flex min-h-[48px] items-center justify-center rounded-2xl border border-[#E8DDD0] text-sm font-medium text-[#6B5C4E] transition-colors hover:border-[#C4854A] hover:text-[#2C1810]"
+                className="mt-3 flex min-h-[48px] items-center justify-center rounded-2xl border border-[#E8DDD0] bg-white text-sm font-bold text-[#3D2B1A] transition-colors hover:border-[#C4854A] hover:text-[#2C1810]"
               >
                 {locale === 'ar' ? 'أو أرسل استفساراً عبر نموذج التواصل' : 'Or send an inquiry via form'}
               </Link>
@@ -235,12 +235,12 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 <h2 className="text-2xl font-bold text-[#1A1209]">
                   {locale === 'ar' ? 'حكاية القطعة والإلهام' : 'Story Behind the Craft'}
                 </h2>
-                <p className="text-xs text-[#8A7968]">
+                <p className="text-xs text-[#5C4B3E] font-bold">
                   {locale === 'ar' ? 'أصل الخشب، تفاصيل التشكيل، ولمسة الحرفي' : 'Wood origin, shaping details, and craftsman spirit'}
                 </p>
               </div>
             </div>
-            <div className="prose prose-stone text-base leading-loose text-[#3D2B1A] mt-6 bg-white border border-[#E8DDD0] rounded-2xl p-6 sm:p-8 shadow-xs">
+            <div className="prose prose-stone text-base leading-loose text-[#1A1209] font-medium mt-6 bg-white border border-[#E8DDD0] rounded-2xl p-6 sm:p-8 shadow-xs">
               <p className="whitespace-pre-line leading-relaxed">{story}</p>
             </div>
           </div>

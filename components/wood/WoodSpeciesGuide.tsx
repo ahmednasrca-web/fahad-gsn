@@ -142,7 +142,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
               className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition-all ${
                 isSelected
                   ? 'bg-[#2C1810] text-[#FAF7F2] shadow-md scale-105 ring-2 ring-[#C4854A]'
-                  : 'bg-[#FAF7F2] text-[#6B5C4E] border border-[#E8DDD0] hover:bg-[#F0E8D8] hover:text-[#1A1209]'
+                  : 'bg-[#FAF7F2] text-[#3D2B1A] border border-[#E8DDD0] hover:bg-[#F0E8D8] hover:text-[#1A1209]'
               }`}
             >
               <span
@@ -166,18 +166,18 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
               {/* Shimmer subtle grain overlay */}
               <div className="absolute inset-0 bg-black/15 backdrop-blur-[0.5px]" />
               <div className="relative z-10">
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-mono backdrop-blur-sm">
+                <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-mono text-white backdrop-blur-sm border border-white/20 font-bold">
                   {selected.hardness}
                 </span>
-                <h3 className="mt-4 text-2xl font-bold leading-tight drop-shadow-sm">
+                <h3 className="mt-4 text-2xl font-bold leading-tight drop-shadow-md text-white">
                   {isAr ? selected.nameAr : selected.nameEn}
                 </h3>
               </div>
               <div className="relative z-10 mt-6">
-                <p className="text-xs text-white/80 uppercase tracking-wider font-semibold">
+                <p className="text-xs text-white/90 uppercase tracking-wider font-bold">
                   {isAr ? 'المصدر الأصلي' : 'Origin'}
                 </p>
-                <p className="text-sm font-bold drop-shadow-sm">
+                <p className="text-sm font-bold drop-shadow-md text-white">
                   {isAr ? selected.originAr : selected.originEn}
                 </p>
               </div>
@@ -190,25 +190,25 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4854A]">
                     {isAr ? 'الخصائص والملمس الطبيعي' : 'Natural Characteristics'}
                   </h4>
-                  <p className="mt-1 text-sm text-[#3D2B1A] leading-relaxed">
+                  <p className="mt-1 text-sm text-[#1A1209] leading-relaxed font-medium">
                     {isAr ? selected.characteristicsAr : selected.characteristicsEn}
                   </p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 pt-3 border-t border-[#E8DDD0]">
                   <div>
-                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#8A7968]">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F]">
                       {isAr ? 'اللون والعروق' : 'Grain & Hues'}
                     </h5>
-                    <p className="mt-1 text-xs text-[#3D2B1A] font-medium leading-normal">
+                    <p className="mt-1 text-xs text-[#2C1810] font-medium leading-normal">
                       {isAr ? selected.colorDescAr : selected.colorDescEn}
                     </p>
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#8A7968]">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F]">
                       {isAr ? 'أبرز الاستخدامات' : 'Ideal Applications'}
                     </h5>
-                    <p className="mt-1 text-xs text-[#3D2B1A] font-medium leading-normal">
+                    <p className="mt-1 text-xs text-[#2C1810] font-medium leading-normal">
                       {isAr ? selected.applicationsAr : selected.applicationsEn}
                     </p>
                   </div>
@@ -216,7 +216,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
               </div>
 
               <div className="mt-6 pt-4 border-t border-[#E8DDD0] flex items-center justify-between">
-                <span className="text-xs text-[#8A7968]">
+                <span className="text-xs font-bold text-[#4A3B2C]">
                   {isAr ? '💎 قطعة مخصصة حسب اختيارك لنوع الخشب' : '💎 Custom commissions available in this wood'}
                 </span>
                 <Chip.Root color="accent" size="sm" variant="soft">

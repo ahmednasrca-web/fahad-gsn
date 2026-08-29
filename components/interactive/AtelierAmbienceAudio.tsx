@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import type { Locale } from '@/lib/types'
@@ -124,31 +124,31 @@ export default function AtelierAmbienceAudio({ locale = 'ar' }: Props) {
         aria-label={isPlaying ? 'كتم صوت الورشة' : 'تشغيل الأجواء الحسية للورشة'}
         className={`group flex items-center gap-2.5 rounded-full px-4 py-2.5 shadow-xl backdrop-blur-xl border transition-all duration-300 ${
           isPlaying
-            ? 'bg-[#2C1810]/90 text-[#FAF7F2] border-[#C4854A] shadow-[0_0_15px_rgba(196,133,74,0.3)] ring-2 ring-[#C4854A]/30'
-            : 'bg-[#FAF7F2]/85 text-[#6B5C4E] border-[#E8DDD0] hover:bg-white hover:text-[#2C1810]'
+            ? 'bg-[#2C1810] text-[#FAF7F2] border-[#C4854A] shadow-[0_0_15px_rgba(196,133,74,0.3)] ring-2 ring-[#C4854A]/30'
+            : 'bg-white text-[#1A1209] font-bold border-[#C8B8A0] hover:bg-[#FAF7F2] hover:text-[#2C1810]'
         }`}
       >
         {/* Animated Soundwave Bars */}
         <div className="flex items-center gap-0.5 h-4">
           <span
             className={`w-0.5 rounded-full transition-all duration-300 ${
-              isPlaying ? 'bg-[#C4854A] animate-pulse h-3' : 'bg-current h-1.5'
+              isPlaying ? 'bg-[#C4854A] animate-pulse h-3' : 'bg-[#C4854A] h-1.5'
             }`}
           />
           <span
             className={`w-0.5 rounded-full transition-all duration-300 ${
-              isPlaying ? 'bg-[#C4854A] animate-bounce h-4' : 'bg-current h-2.5'
+              isPlaying ? 'bg-[#C4854A] animate-bounce h-4' : 'bg-[#C4854A] h-2.5'
             }`}
           />
           <span
             className={`w-0.5 rounded-full transition-all duration-300 ${
-              isPlaying ? 'bg-[#C4854A] animate-pulse h-2' : 'bg-current h-1'
+              isPlaying ? 'bg-[#C4854A] animate-pulse h-2' : 'bg-[#C4854A] h-1'
             }`}
           />
         </div>
 
         {/* Text Label */}
-        <span className="text-xs font-bold font-sans tracking-wide">
+        <span className="text-xs font-bold font-sans">
           {isPlaying
             ? (isAr ? 'أجواء الورشة: نشطة 🪵' : 'Atelier Ambience: ON')
             : (isAr ? 'أجواء الورشة 🎧' : 'Atelier Ambience')}

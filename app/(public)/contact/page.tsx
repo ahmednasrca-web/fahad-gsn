@@ -67,10 +67,10 @@ export default async function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#6B5C4E]">
+                      <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                         {t(locale, 'whatsapp')}
                       </p>
-                      <p className="text-base font-medium text-[#1A1209]">
+                      <p className="text-base font-bold text-[#1A1209]">
                         +965 98908022
                       </p>
                     </div>
@@ -89,10 +89,10 @@ export default async function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wider text-[#6B5C4E]">
+                      <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                         {t(locale, 'phone')}
                       </p>
-                      <p className="text-base font-medium text-[#1A1209]">{phone}</p>
+                      <p className="text-base font-bold text-[#1A1209]">{phone}</p>
                     </div>
                   </a>
                 </li>
@@ -114,10 +114,10 @@ export default async function ContactPage() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-[#6B5C4E]">
+                        <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                           Instagram
                         </p>
-                        <p className="text-base font-medium text-[#1A1209]">{instagram}</p>
+                        <p className="text-base font-bold text-[#1A1209]">{instagram}</p>
                       </div>
                     </a>
                   </li>
@@ -137,10 +137,10 @@ export default async function ContactPage() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-[#6B5C4E]">
+                        <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                           {locale === 'ar' ? 'البريد الإلكتروني' : 'Email'}
                         </p>
-                        <p className="text-base font-medium text-[#1A1209]">{email}</p>
+                        <p className="text-base font-bold text-[#1A1209]">{email}</p>
                       </div>
                     </a>
                   </li>

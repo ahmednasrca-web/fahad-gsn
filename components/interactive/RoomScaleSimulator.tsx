@@ -114,7 +114,7 @@ export default function RoomScaleSimulator({
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
                 isSelected
                   ? 'bg-[#C4854A] text-white shadow-xs scale-102'
-                  : 'bg-[#FAF7F2] text-[#6B5C4E] border border-[#E8DDD0] hover:bg-[#F0E8D8]'
+                  : 'bg-[#FAF7F2] text-[#3D2B1A] border border-[#E8DDD0] hover:bg-[#F0E8D8]'
               }`}
             >
               <span>{env.id === 'salon' ? '🏛️' : env.id === 'dining' ? '🍽️' : '☕'}</span>
@@ -135,10 +135,10 @@ export default function RoomScaleSimulator({
 
         {/* Top Dimensions Guide Overlay */}
         <div className="relative z-10 flex items-center justify-between">
-          <span className="rounded-full bg-black/60 px-3 py-1 text-[11px] font-mono text-white backdrop-blur-md border border-white/10">
+          <span className="rounded-full bg-black/75 px-3 py-1 text-[11px] font-mono text-white backdrop-blur-md border border-white/20">
             {workTitle}
           </span>
-          <span className="rounded-full bg-black/60 px-3 py-1 text-[11px] font-mono text-[#C4854A] backdrop-blur-md border border-white/10">
+          <span className="rounded-full bg-black/75 px-3 py-1 text-[11px] font-mono text-[#D4B896] backdrop-blur-md border border-white/20">
             {isAr ? 'تناسب حقيقي 1:1 Scale' : 'True Proportion 1:1'}
           </span>
         </div>
@@ -147,12 +147,12 @@ export default function RoomScaleSimulator({
         <div className="relative z-10 flex items-end justify-center gap-6 sm:gap-12 my-auto">
           {/* Optional Human Silhouette for Scale */}
           {showHumanScale && (
-            <div className="flex flex-col items-center opacity-85 transition-opacity duration-300">
-              <div className="h-32 sm:h-44 w-10 sm:w-14 rounded-t-full bg-gradient-to-b from-white/70 to-white/30 backdrop-blur-sm border border-white/30 flex flex-col items-center justify-between py-2 shadow-lg">
-                <div className="h-4 w-4 rounded-full bg-white/90" />
-                <span className="text-[9px] font-mono text-white/90">1.80m</span>
+            <div className="flex flex-col items-center opacity-90 transition-opacity duration-300">
+              <div className="h-32 sm:h-44 w-10 sm:w-14 rounded-t-full bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-sm border border-white/40 flex flex-col items-center justify-between py-2 shadow-lg">
+                <div className="h-4 w-4 rounded-full bg-white" />
+                <span className="text-[9px] font-mono font-bold text-[#1A1209]">1.80m</span>
               </div>
-              <span className="mt-1 text-[9px] font-bold text-white/70">
+              <span className="mt-1 text-[9px] font-bold text-white bg-black/60 px-2 py-0.5 rounded-full backdrop-blur-xs">
                 {isAr ? 'شخص بالغ' : 'Adult'}
               </span>
             </div>
@@ -175,24 +175,24 @@ export default function RoomScaleSimulator({
             <div className="mt-1 h-3 w-40 sm:w-60 rounded-full bg-black/60 blur-xs" />
 
             {/* Dimension Indicators */}
-            <div className="mt-2 flex items-center gap-3 text-[10px] font-mono text-white/90 bg-black/50 px-3 py-0.5 rounded-full backdrop-blur-xs">
+            <div className="mt-2 flex items-center gap-3 text-[10px] font-mono font-bold text-white bg-black/75 px-3 py-1 rounded-full backdrop-blur-md border border-white/15 shadow-md">
               <span>↔ L: 200-240cm</span>
-              <span>•</span>
+              <span className="text-[#C4854A]">•</span>
               <span>↕ W: 90-100cm</span>
             </div>
           </div>
         </div>
 
-        {/* Bottom Environment Vibe Subtitle */}
+        {/* Bottom Environment Vibe Subtitle with Contrast Pill */}
         <div className="relative z-10 text-center">
-          <p className="text-xs text-white/70 drop-shadow-sm font-medium">
+          <p className="inline-block rounded-full bg-black/65 px-4 py-1 text-xs text-white backdrop-blur-md border border-white/10 font-medium">
             {isAr ? currentEnv.vibeAr : currentEnv.vibeEn}
           </p>
         </div>
       </div>
 
       {/* Helper Footer Tips */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-[#8A7968]">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-[#4A3B2C] font-medium">
         <div className="flex items-center gap-1.5">
           <span>📐</span>
           <span>{isAr ? 'إمكانية تفصيل وتعديل المقاسات بالمليمتر حسب مساحة غرفتك.' : 'Custom tailoring to exact architectural dimensions available.'}</span>

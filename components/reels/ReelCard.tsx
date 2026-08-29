@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -127,7 +127,7 @@ export default function ReelCard({ reel, locale }: Props) {
             href={watchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-medium text-[#6B5C4E] transition-colors hover:text-[#C4854A]"
+            className="inline-flex items-center gap-1.5 font-bold text-[#3D2B1A] transition-colors hover:text-[#C4854A]"
             title={`${t(locale, 'watchOn')} ${locale === 'ar' ? meta?.nameAr : meta?.name}`}
           >
             <span>{t(locale, 'watchOn')} {locale === 'ar' ? meta?.nameAr : meta?.name}</span>

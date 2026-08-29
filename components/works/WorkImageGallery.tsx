@@ -250,7 +250,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
         </div>
 
         {/* Dynamic Atmosphere Description */}
-        <p className="mt-2 text-[11px] text-[#8A7968] leading-relaxed transition-opacity duration-300">
+        <p className="mt-2 text-[11px] font-medium text-[#4A3B2C] leading-relaxed transition-opacity duration-300">
           {isAr ? activeConfig.descAr : activeConfig.descEn}
         </p>
       </div>
