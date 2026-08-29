@@ -10,6 +10,7 @@ import WorkImageGallery from '@/components/works/WorkImageGallery'
 import WhatsAppCTA from '@/components/works/WhatsAppCTA'
 import ReelCard from '@/components/reels/ReelCard'
 import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
+import StickyVIPInquiryBar from '@/components/works/StickyVIPInquiryBar'
 import { safeJsonLd } from '@/lib/json-ld'
 
 interface PageProps {
@@ -330,6 +331,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* Sticky VIP Inquiry & Share Bar */}
+      <StickyVIPInquiryBar work={work} locale={locale} />
     </div>
   )
 }

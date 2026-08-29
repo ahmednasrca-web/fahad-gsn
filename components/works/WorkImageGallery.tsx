@@ -1,6 +1,6 @@
-'use client'
+﻿'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
 type LightingMode = 'day' | 'warm' | 'night'
@@ -14,8 +14,10 @@ interface Props {
 export default function WorkImageGallery({ images, title, locale = 'ar' }: Props) {
   const isAr = locale === 'ar'
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isZooming, setIsZooming] = useState(false)
-  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 })
+  const [isLoupeEnabled, setIsLoupeEnabled] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50, px: 0, py: 0 })
+  const [zoomLevel, setZoomLevel] = useState<2.5 | 3.5 | 5>(3.5)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [lightingMode, setLightingMode] = useState<LightingMode>('day')
   const imageContainerRef = useRef<HTMLDivElement>(null)
@@ -30,16 +32,18 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
   const current = images[activeIndex]
 
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageContainerRef.current) return
     const rect = imageContainerRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    setZoomPos({
-      x: Math.max(0, Math.min(100, x)),
-      y: Math.max(0, Math.min(100, y)),
+    const xPct = ((e.clientX - rect.left) / rect.width) * 100
+    const yPct = ((e.clientY - rect.top) / rect.height) * 100
+    setMousePos({
+      x: Math.max(0, Math.min(100, xPct)),
+      y: Math.max(0, Math.min(100, yPct)),
+      px: e.clientX - rect.left,
+      py: e.clientY - rect.top,
     })
-  }
+  }, [])
 
   // Keyboard navigation for Fullscreen Lightbox
   useEffect(() => {
@@ -108,14 +112,14 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
   return (
     <div>
-      {/* Primary Interactive Image with Wood Grain Magnifier & Lighting Atmosphere */}
+      {/* Primary Interactive Image with Macro 4K Loupe & Lighting Atmosphere */}
       <div
         ref={imageContainerRef}
-        onMouseEnter={() => setIsZooming(true)}
-        onMouseLeave={() => setIsZooming(false)}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         onMouseMove={handleMouseMove}
         onClick={() => setIsFullscreen(true)}
-        className={`group relative mb-3 aspect-work-hero w-full cursor-zoom-in overflow-hidden rounded-3xl border border-[#E8DDD0] shadow-sm select-none transition-colors duration-500 ${activeConfig.containerBg}`}
+        className={`group relative mb-3 aspect-work-hero w-full overflow-hidden rounded-3xl border border-[#E8DDD0] shadow-sm select-none transition-colors duration-500 cursor-crosshair ${activeConfig.containerBg}`}
         style={{
           boxShadow: lightingMode !== 'day' ? `0 10px 30px -10px ${activeConfig.glowColor}` : undefined,
         }}
@@ -126,12 +130,9 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           alt={`${title} — ${activeIndex + 1}`}
           fill
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className={`object-cover transition-all duration-500 ease-out ${
-            isZooming ? 'scale-125' : 'scale-100'
-          }`}
+          className="object-cover transition-all duration-500"
           style={{
             filter: activeConfig.filter,
-            transformOrigin: isZooming ? `${zoomPos.x}% ${zoomPos.y}%` : undefined,
           }}
           priority={activeIndex === 0}
         />
@@ -142,14 +143,51 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           aria-hidden="true"
         />
 
-        {/* Magnifier Tip Badge */}
-        <div className="absolute top-3 start-3 flex items-center gap-1.5 rounded-full bg-black/50 px-3 py-1 text-xs text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* ── 4K Macro Grain Loupe Magnifier Lens (Active when hovering or toggled) ── */}
+        {(isLoupeEnabled || isHovering) && (
+          <div
+            className="pointer-events-none absolute z-30 hidden sm:block h-48 w-48 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border-3 border-[#C4854A] bg-black shadow-[0_0_40px_rgba(196,133,74,0.6)]"
+            style={{
+              left: `${mousePos.px}px`,
+              top: `${mousePos.py}px`,
+            }}
+          >
+            {/* Magnified Image */}
+            <div
+              className="absolute h-full w-full"
+              style={{
+                backgroundImage: `url(${current})`,
+                backgroundPosition: `${mousePos.x}% ${mousePos.y}%`,
+                backgroundSize: `${zoomLevel * 100}%`,
+                backgroundRepeat: 'no-repeat',
+                filter: activeConfig.filter,
+              }}
+            />
+
+            {/* Precision Crosshair Reticle */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-40">
+              <div className="h-px w-full bg-[#C4854A]" />
+              <div className="absolute h-full w-px bg-[#C4854A]" />
+              <div className="absolute h-10 w-10 rounded-full border border-[#C4854A]" />
+            </div>
+
+            {/* Loupe Badge */}
+            <div className="absolute bottom-2 inset-x-0 text-center">
+              <span className="rounded-full bg-black/80 px-2 py-0.5 font-mono text-[9px] font-bold text-[#E8DDD0] border border-[#C4854A]/40 shadow-sm">
+                4K MACRO · {zoomLevel}X
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Top Floating Badge: Macro Loupe Indicator */}
+        <div className="absolute top-3 start-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3.5 py-1 text-xs font-bold text-white backdrop-blur-md border border-white/20 shadow-md transition-opacity">
           <span>🔍</span>
-          <span>{isAr ? 'تكبير تفاصيل الخشب' : 'Zoom Wood Details'}</span>
+          <span>{isAr ? 'عدسة فحص العروق 4K' : '4K Macro Grain Lens'}</span>
         </div>
 
         {/* Current Lighting Mode Pill on Image */}
-        <div className="absolute bottom-3 start-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1 text-[11px] font-bold text-white backdrop-blur-md border border-white/15">
+        <div className="absolute bottom-3 start-3 flex items-center gap-1.5 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold text-white backdrop-blur-md border border-white/15 shadow-sm">
           <span>{activeConfig.icon}</span>
           <span className="font-mono text-[#D4B896]">{activeConfig.temp}</span>
           <span className="text-white/80">·</span>
@@ -163,10 +201,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
             e.stopPropagation()
             setIsFullscreen(true)
           }}
-          className="absolute top-3 end-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+          className="absolute top-3 end-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 shadow-md transition-all hover:scale-110 hover:bg-black/90"
           aria-label={isAr ? 'عرض ملء الشاشة' : 'Fullscreen view'}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
           </svg>
         </button>
@@ -180,10 +218,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                 setActiveIndex((i) => Math.max(0, i - 1))
               }}
               disabled={activeIndex === 0}
-              className="absolute start-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white disabled:opacity-30"
+              className="absolute start-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0]"
               aria-label={isAr ? 'الصورة السابقة' : 'Previous image'}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
@@ -193,10 +231,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                 setActiveIndex((i) => Math.min(images.length - 1, i + 1))
               }}
               disabled={activeIndex === images.length - 1}
-              className="absolute end-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition hover:bg-white disabled:opacity-30"
+              className="absolute end-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0]"
               aria-label={isAr ? 'الصورة التالية' : 'Next image'}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
@@ -205,53 +243,74 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
         {/* Image count */}
         {images.length > 1 && (
-          <span className="absolute bottom-3 end-3 rounded-full bg-black/60 px-3 py-1 text-xs font-mono font-medium text-white backdrop-blur-sm">
+          <span className="absolute bottom-3 end-3 rounded-full bg-black/70 px-3 py-1 text-xs font-mono font-bold text-white backdrop-blur-sm border border-white/15">
             {activeIndex + 1} / {images.length}
           </span>
         )}
       </div>
 
-      {/* ── Day & Night Atmosphere Lighting Switcher Bar ── */}
-      <div className="mb-4 rounded-2xl border border-[#E8DDD0] bg-[#FAF7F2] p-3 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+      {/* ── Interactive Atelier Controls Bar: Macro Zoom Level & Day/Night Atmosphere ── */}
+      <div className="mb-4 rounded-2xl border border-[#E8DDD0] bg-[#FAF7F2] p-3.5 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          {/* Zoom Level Switcher */}
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2C1810] text-xs text-[#FAF7F2]">
-              💡
+            <span className="text-xs font-bold text-[#1A1209] flex items-center gap-1.5">
+              <span>🔬</span>
+              <span>{isAr ? 'قوة تكبير العدسة:' : 'Macro Loupe Power:'}</span>
             </span>
-            <span className="text-xs font-bold text-[#1A1209]">
-              {isAr ? 'محاكي إضاءة الغرفة:' : 'Room Atmosphere Simulator:'}
-            </span>
+            <div className="flex items-center gap-1 rounded-xl bg-white p-1 border border-[#E8DDD0]">
+              {([2.5, 3.5, 5] as const).map((lvl) => (
+                <button
+                  key={lvl}
+                  type="button"
+                  onClick={() => setZoomLevel(lvl)}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-mono font-bold transition-all ${
+                    zoomLevel === lvl
+                      ? 'bg-[#C4854A] text-white shadow-sm'
+                      : 'text-[#6B5C4E] hover:bg-[#F5F0E8]'
+                  }`}
+                >
+                  {lvl}X
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* 3 Atmosphere Mode Buttons */}
-          <div className="flex items-center gap-1.5 rounded-xl bg-white p-1 border border-[#E8DDD0]">
-            {(['day', 'warm', 'night'] as const).map((mode) => {
-              const cfg = lightingConfigs[mode]
-              const isSelected = lightingMode === mode
-              return (
-                <button
-                  key={mode}
-                  type="button"
-                  onClick={() => setLightingMode(mode)}
-                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-bold transition-all ${
-                    isSelected
-                      ? 'bg-[#2C1810] text-[#FAF7F2] shadow-sm'
-                      : 'text-[#6B5C4E] hover:bg-[#F5F0E8] hover:text-[#1A1209]'
-                  }`}
-                  aria-pressed={isSelected}
-                >
-                  <span className="text-xs">{cfg.icon}</span>
-                  <span className="hidden xs:inline">{isAr ? cfg.labelAr : cfg.labelEn}</span>
-                  <span className="font-mono text-[10px] opacity-75">{cfg.temp}</span>
-                </button>
-              )
-            })}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-[#1A1209] flex items-center gap-1.5">
+              <span>💡</span>
+              <span>{isAr ? 'محاكي الإضاءة:' : 'Atmosphere:'}</span>
+            </span>
+            <div className="flex items-center gap-1 rounded-xl bg-white p-1 border border-[#E8DDD0]">
+              {(['day', 'warm', 'night'] as const).map((mode) => {
+                const cfg = lightingConfigs[mode]
+                const isSelected = lightingMode === mode
+                return (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setLightingMode(mode)}
+                    className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                      isSelected
+                        ? 'bg-[#2C1810] text-[#FAF7F2] shadow-sm'
+                        : 'text-[#6B5C4E] hover:bg-[#F5F0E8] hover:text-[#1A1209]'
+                    }`}
+                    aria-pressed={isSelected}
+                  >
+                    <span className="text-xs">{cfg.icon}</span>
+                    <span className="hidden xs:inline">{isAr ? cfg.labelAr : cfg.labelEn}</span>
+                    <span className="font-mono text-[10px] opacity-75">{cfg.temp}</span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Dynamic Atmosphere Description */}
-        <p className="mt-2 text-[11px] font-medium text-[#4A3B2C] leading-relaxed transition-opacity duration-300">
-          {isAr ? activeConfig.descAr : activeConfig.descEn}
+        {/* Atmosphere explanation */}
+        <p className="mt-2 text-[11px] font-medium text-[#6B5C4E] leading-relaxed">
+          {isAr ? activeConfig.descAr : activeConfig.descEn} · {isAr ? 'حرّك الماوس فوق الصورة لفحص تفاصيل الألياف والمسام بدقة 4K.' : 'Hover over image to inspect micro wood fibers in 4K.'}
         </p>
       </div>
 
@@ -262,10 +321,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
             <button
               key={i}
               onClick={() => setActiveIndex(i)}
-              className={`relative h-18 w-18 shrink-0 overflow-hidden rounded-xl border transition-all ${
+              className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border transition-all ${
                 i === activeIndex
-                  ? 'border-[#C4854A] ring-2 ring-[#C4854A] ring-offset-2 scale-105 shadow-sm'
-                  : 'border-[#E8DDD0] opacity-60 hover:opacity-100'
+                  ? 'border-[#C4854A] ring-2 ring-[#C4854A] ring-offset-2 scale-105 shadow-md'
+                  : 'border-[#E8DDD0] opacity-65 hover:opacity-100'
               }`}
               aria-label={isAr ? `صورة ${i + 1}` : `Image ${i + 1}`}
               aria-pressed={i === activeIndex}
@@ -274,7 +333,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                 src={img}
                 alt={`${title} thumbnail ${i + 1}`}
                 fill
-                sizes="72px"
+                sizes="80px"
                 className="object-cover"
               />
             </button>
@@ -282,7 +341,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
         </div>
       )}
 
-      {/* Fullscreen Lightbox Modal with Atmosphere Support */}
+      {/* Fullscreen Lightbox Modal */}
       {isFullscreen && (
         <div
           role="dialog"
@@ -295,7 +354,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           <button
             type="button"
             onClick={() => setIsFullscreen(false)}
-            className="absolute top-5 end-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition z-50 text-xl"
+            className="absolute top-5 end-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/30 transition z-50 text-xl border border-white/20"
             aria-label={isAr ? 'إغلاق' : 'Close'}
           >
             ✕
@@ -303,7 +362,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
           {/* Top Bar Lighting Switcher in Fullscreen */}
           <div
-            className="absolute top-5 start-5 z-50 flex items-center gap-1.5 rounded-2xl bg-black/70 p-1.5 backdrop-blur-md border border-white/20"
+            className="absolute top-5 start-5 z-50 flex items-center gap-1.5 rounded-2xl bg-black/80 p-1.5 backdrop-blur-md border border-white/20"
             onClick={(e) => e.stopPropagation()}
           >
             {(['day', 'warm', 'night'] as const).map((mode) => {
@@ -337,10 +396,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                   e.stopPropagation()
                   setActiveIndex((i) => (i - 1 + images.length) % images.length)
                 }}
-                className="absolute start-6 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition z-50"
+                className="absolute start-6 top-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white hover:bg-[#C4854A] transition z-50 text-xl border border-white/20"
                 aria-label={isAr ? 'السابق' : 'Previous'}
               >
-                ◀
+                {isAr ? '▶' : '◀'}
               </button>
               <button
                 type="button"
@@ -348,10 +407,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                   e.stopPropagation()
                   setActiveIndex((i) => (i + 1) % images.length)
                 }}
-                className="absolute end-6 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition z-50"
+                className="absolute end-6 top-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/15 text-white hover:bg-[#C4854A] transition z-50 text-xl border border-white/20"
                 aria-label={isAr ? 'التالي' : 'Next'}
               >
-                ▶
+                {isAr ? '◀' : '▶'}
               </button>
             </>
           )}

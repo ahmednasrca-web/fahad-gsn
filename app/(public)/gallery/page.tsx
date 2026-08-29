@@ -6,6 +6,7 @@ import { getDir, t, getWorkTitle, getCategoryName } from '@/lib/i18n'
 import { getPublishedWorks } from '@/lib/db/works'
 import { getActiveCategories } from '@/lib/db/categories'
 import CategoryFilter from '@/components/works/CategoryFilter'
+import MuseumShowcaseModal from '@/components/gallery/MuseumShowcaseModal'
 
 interface PageProps {
   searchParams: Promise<{ category?: string }>
@@ -37,13 +38,20 @@ export default async function GalleryPage({ searchParams }: PageProps) {
     <div dir={dir} className="section-padding">
       <div className="container-site">
         {/* Page header */}
-        <div className="mb-10 text-center">
+        <div className="mb-10 text-center max-w-2xl mx-auto">
           <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
-            {locale === 'ar' ? 'أعمالنا' : 'Our Works'}
+            {locale === 'ar' ? 'أعمالنا والمقتنيات' : 'Our Works & Haute Collection'}
           </p>
-          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl">
+          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl font-display">
             {t(locale, 'gallery')}
           </h1>
+
+          {/* Museum Mode Launch Trigger */}
+          {works.length > 0 && (
+            <div className="mt-5 flex justify-center">
+              <MuseumShowcaseModal works={works} locale={locale} />
+            </div>
+          )}
         </div>
 
         {/* Category filter */}
