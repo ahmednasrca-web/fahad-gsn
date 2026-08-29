@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { cookies } from 'next/headers'
-import { verifySession, SESSION_COOKIE } from '@/lib/session'
+import { requireAdmin } from '@/lib/session'
 import { getDB } from '@/lib/db/client'
 import { detectAndValidateReelUrl } from '@/lib/reels/providers'
 
@@ -15,12 +14,6 @@ const schema = z.object({
   isPublished: z.boolean(),
   isFeatured: z.boolean(),
 })
-
-async function requireAdmin() {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(SESSION_COOKIE)?.value
-  return token ? await verifySession(token) : null
-}
 
 export async function PUT(
   request: Request,

@@ -1,10 +1,12 @@
-﻿import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { verifySession, SESSION_COOKIE } from './lib/session'
 
 export async function proxy(request: NextRequest) {
-  // Don't protect the login page itself
-  if (request.nextUrl.pathname === '/admin/login') {
+  const { pathname } = request.nextUrl
+
+  // Allow login and logout routes
+  if (pathname === '/admin/login' || pathname === '/api/admin/login' || pathname === '/api/admin/logout') {
     return NextResponse.next()
   }
 
@@ -12,8 +14,13 @@ export async function proxy(request: NextRequest) {
   const session = token ? await verifySession(token) : null
 
   if (!session) {
+    // Return 401 JSON for API routes
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    // Redirect to login for pages
     const loginUrl = new URL('/admin/login', request.url)
-    loginUrl.searchParams.set('from', request.nextUrl.pathname)
+    loginUrl.searchParams.set('from', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
@@ -24,5 +31,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*', '/api/upload'],
 }

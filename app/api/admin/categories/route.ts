@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { cookies } from 'next/headers'
-import { verifySession, SESSION_COOKIE } from '@/lib/session'
+import { requireAdmin } from '@/lib/session'
 import { getDB } from '@/lib/db/client'
 
 const schema = z.object({
@@ -11,12 +10,6 @@ const schema = z.object({
   descriptionEn: z.string().max(500).optional().nullable(),
   isActive: z.boolean(),
 })
-
-async function requireAdmin() {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(SESSION_COOKIE)?.value
-  return token ? await verifySession(token) : null
-}
 
 export async function POST(request: Request) {
   const session = await requireAdmin()

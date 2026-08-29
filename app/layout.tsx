@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Noto_Naskh_Arabic } from 'next/font/google'
+import { safeJsonLd } from '@/lib/json-ld'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -80,7 +81,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(orgJsonLd) }}
         />
       </head>
       <body className="font-sans antialiased">

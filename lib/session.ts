@@ -1,4 +1,4 @@
-﻿// Fahad Gsn — Session management using Web Crypto API
+// Fahad Gsn — Session management using Web Crypto API
 // Works in Edge Runtime + Node.js
 
 export interface SessionPayload {
@@ -79,3 +79,13 @@ export async function verifySession(token: string): Promise<SessionPayload | nul
 
 export const SESSION_COOKIE = 'fahad_gsn_admin'
 export const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days in seconds
+
+/**
+ * Server-side helper to verify admin session from incoming cookies.
+ */
+export async function requireAdmin(): Promise<SessionPayload | null> {
+  const { cookies } = await import('next/headers')
+  const cookieStore = await cookies()
+  const token = cookieStore.get(SESSION_COOKIE)?.value
+  return token ? await verifySession(token) : null
+}

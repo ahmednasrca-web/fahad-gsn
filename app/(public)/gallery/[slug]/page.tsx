@@ -10,6 +10,7 @@ import WorkImageGallery from '@/components/works/WorkImageGallery'
 import WhatsAppCTA from '@/components/works/WhatsAppCTA'
 import ReelCard from '@/components/reels/ReelCard'
 import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
+import { safeJsonLd } from '@/lib/json-ld'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -99,7 +100,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
       {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
       {/* Breadcrumb */}

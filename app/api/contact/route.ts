@@ -11,7 +11,33 @@ const schema = z.object({
   honeypot: z.string().max(0, 'Bot detected'), // must be empty
 })
 
+const ipSubmissions = new Map<string, { count: number; expiresAt: number }>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const record = ipSubmissions.get(ip)
+  if (!record || record.expiresAt < now) {
+    ipSubmissions.set(ip, { count: 1, expiresAt: now + 10 * 60 * 1000 }) // 10 minutes window
+    return false
+  }
+  if (record.count >= 5) {
+    return true
+  }
+  record.count += 1
+  return false
+}
+
 export async function POST(request: Request) {
+  // Rate limiting by client IP
+  const forwardedFor = request.headers.get('x-forwarded-for') ?? request.headers.get('cf-connecting-ip') ?? 'unknown'
+  const clientIp = forwardedFor.split(',')[0].trim()
+  if (isRateLimited(clientIp)) {
+    return NextResponse.json(
+      { error: 'تم تجاوز عدد المحاولات المسموح بها. يرجى المحاولة لاحقاً.' },
+      { status: 429 },
+    )
+  }
+
   let body: unknown
   try {
     body = await request.json()
