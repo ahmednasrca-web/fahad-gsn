@@ -1,20 +1,48 @@
 import type { Metadata, Viewport } from 'next'
-import { Playfair_Display, Noto_Naskh_Arabic } from 'next/font/google'
+import localFont from 'next/font/local'
+import { Playfair_Display } from 'next/font/google'
 import { safeJsonLd } from '@/lib/json-ld'
 import './globals.css'
+
+const thmanyahSans = localFont({
+  src: [
+    { path: '../public/fonts/thmanyah-sans/thmanyahsans-Light.woff2', weight: '300', style: 'normal' },
+    { path: '../public/fonts/thmanyah-sans/thmanyahsans-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/thmanyah-sans/thmanyahsans-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/thmanyah-sans/thmanyahsans-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../public/fonts/thmanyah-sans/thmanyahsans-Black.woff2', weight: '900', style: 'normal' },
+  ],
+  variable: '--font-thmanyah-sans',
+  display: 'swap',
+})
+
+const thmanyahDisplay = localFont({
+  src: [
+    { path: '../public/fonts/thmanyah-serif-display/thmanyahserifdisplay-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-display/thmanyahserifdisplay-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-display/thmanyahserifdisplay-Bold.woff2', weight: '700', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-display/thmanyahserifdisplay-Black.woff2', weight: '900', style: 'normal' },
+  ],
+  variable: '--font-thmanyah-display',
+  display: 'swap',
+})
+
+const thmanyahSerif = localFont({
+  src: [
+    { path: '../public/fonts/thmanyah-serif-text/thmanyahseriftext-Light.woff2', weight: '300', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-text/thmanyahseriftext-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-text/thmanyahseriftext-Medium.woff2', weight: '500', style: 'normal' },
+    { path: '../public/fonts/thmanyah-serif-text/thmanyahseriftext-Bold.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-thmanyah-serif',
+  display: 'swap',
+})
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-playfair',
   weight: ['400', '600', '700'],
-})
-
-const notoNaskh = Noto_Naskh_Arabic({
-  subsets: ['arabic'],
-  display: 'swap',
-  variable: '--font-noto-naskh',
-  weight: ['400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -76,7 +104,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${playfair.variable} ${notoNaskh.variable}`}
+      className={`${thmanyahSans.variable} ${thmanyahDisplay.variable} ${thmanyahSerif.variable} ${playfair.variable}`}
     >
       <head>
         <script

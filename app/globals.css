@@ -47,6 +47,7 @@ html {
 body {
   background: var(--cream);
   color: var(--text-body);
+  font-family: var(--font-thmanyah-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -54,7 +55,21 @@ body {
 /* ── Typography ────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
+  font-family: var(--font-thmanyah-display), var(--font-playfair), serif;
   line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.font-display {
+  font-family: var(--font-thmanyah-display), var(--font-playfair), serif;
+}
+
+.font-serif-story {
+  font-family: var(--font-thmanyah-serif), serif;
+}
+
+.font-sans-clean {
+  font-family: var(--font-thmanyah-sans), sans-serif;
 }
 
 /* ── Layout Utilities ──────────────────────────────────── */
