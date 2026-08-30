@@ -13,7 +13,6 @@ import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
 import StickyVIPInquiryBar from '@/components/works/StickyVIPInquiryBar'
 import SculpturalHotspotsViewer from '@/components/works/SculpturalHotspotsViewer'
 import SculptorVisionSection from '@/components/works/SculptorVisionSection'
-import SculpturalShadowTheater from '@/components/works/SculpturalShadowTheater'
 import ChatoyancyReflex from '@/components/interactive/ChatoyancyReflex'
 import GoldenRatioCalculator from '@/components/interactive/GoldenRatioCalculator'
 import { safeJsonLd } from '@/lib/json-ld'
@@ -158,7 +157,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
             {/* Work details */}
             <div className="flex flex-col">
-              {/* Badges: Category & 1 of 1 */}
+              {/* Badges: Category & Unique Piece */}
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 {work.category && (
                   <Link
@@ -169,9 +168,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   </Link>
                 )}
                 {work.isUniquePiece && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C4854A] bg-[#C4854A]/15 dark:bg-[#C4854A]/25 px-3.5 py-1 text-xs font-bold text-[#5C2E0B] dark:text-[#E8DDD0]">
-                    <span>💎</span>
-                    {locale === 'ar' ? 'قطعة فريدة حصرية (1 of 1)' : 'Exclusive Piece (1 of 1)'}
+                  <span className="inline-flex items-center rounded-full border border-[#C4854A] bg-[#C4854A]/15 dark:bg-[#C4854A]/25 px-3.5 py-1 text-xs font-bold text-[#5C2E0B] dark:text-[#E8DDD0]">
+                    {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Exclusive Unique Piece'}
                   </span>
                 )}
               </div>
@@ -197,7 +195,6 @@ export default async function WorkDetailPage({ params }: PageProps) {
               {work.physicalSpecs && (
                 <div className="mb-6 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#170E09] p-4">
                   <p className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] mb-2 flex items-center gap-1.5">
-                    <span>📐</span>
                     <span>{locale === 'ar' ? 'المقاسات والمواصفات الفيزيائية' : 'Physical Specifications'}</span>
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
@@ -234,11 +231,6 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   </div>
                 </div>
               )}
-
-              {/* Theater Mode Button & CTAs */}
-              <div className="mb-4">
-                <SculpturalShadowTheater imageUrl={allImages[0] ?? ''} title={title} locale={locale} />
-              </div>
 
               {/* WhatsApp CTA */}
               <div className="mt-auto">
@@ -383,8 +375,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
                       </div>
                     )}
                     {related.isUniquePiece && (
-                      <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-[#C4854A] backdrop-blur-sm">
-                        💎 1 of 1
+                      <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2.5 py-0.5 text-[10px] font-bold text-[#C4854A] backdrop-blur-sm border border-white/10">
+                        {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Unique Piece'}
                       </span>
                     )}
                   </div>

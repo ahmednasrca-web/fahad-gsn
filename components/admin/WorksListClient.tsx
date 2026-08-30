@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -52,7 +52,7 @@ export default function WorksListClient({ initialWorks }: Props) {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="🔍 بحث في الأعمال..."
+          placeholder="بحث في الأعمال..."
           className="w-full max-w-xs rounded-xl border border-[#E8DDD0] bg-white px-3.5 py-2 text-sm text-[#1A1209] outline-none focus:border-[#C4854A]"
         />
         {savingOrder && (
@@ -146,12 +146,12 @@ export default function WorksListClient({ initialWorks }: Props) {
                         </Chip.Root>
                         {work.isFeatured && (
                           <Chip.Root color="warning" size="sm" variant="soft">
-                            <Chip.Label>⭐ مميز</Chip.Label>
+                            <Chip.Label>مميز</Chip.Label>
                           </Chip.Root>
                         )}
                         {work.isUniquePiece && (
                           <Chip.Root color="accent" size="sm" variant="soft">
-                            <Chip.Label>💎 1 of 1</Chip.Label>
+                            <Chip.Label>قطعة فريدة حصرية</Chip.Label>
                           </Chip.Root>
                         )}
                       </div>

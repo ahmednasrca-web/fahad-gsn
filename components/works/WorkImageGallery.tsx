@@ -18,33 +18,57 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
   const [activeIndex, setActiveIndex] = useState(0)
   const [isLoupeEnabled, setIsLoupeEnabled] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50, px: 0, py: 0 })
   const [zoomLevel, setZoomLevel] = useState<2.5 | 3.5 | 5>(3.5)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [lightingMode, setLightingMode] = useState<LightingMode>('day')
+
   const imageContainerRef = useRef<HTMLDivElement>(null)
+  const loupeLensRef = useRef<HTMLDivElement>(null)
+  const loupeBgRef = useRef<HTMLDivElement>(null)
+  const rafIdRef = useRef<number | null>(null)
 
   if (images.length === 0) {
     return (
       <div className="flex aspect-work-hero w-full items-center justify-center rounded-2xl bg-[#F5F0E8] border border-[#E8DDD0]">
-        <span className="text-6xl" aria-hidden="true">🪵</span>
+        <span className="text-4xl text-[#C4854A] font-bold">FAHAD GSN</span>
       </div>
     )
   }
 
   const current = images[activeIndex]
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const updateLoupe = useCallback((clientX: number, clientY: number) => {
     if (!imageContainerRef.current) return
     const rect = imageContainerRef.current.getBoundingClientRect()
-    const xPct = ((e.clientX - rect.left) / rect.width) * 100
-    const yPct = ((e.clientY - rect.top) / rect.height) * 100
-    setMousePos({
-      x: Math.max(0, Math.min(100, xPct)),
-      y: Math.max(0, Math.min(100, yPct)),
-      px: e.clientX - rect.left,
-      py: e.clientY - rect.top,
+    const px = clientX - rect.left
+    const py = clientY - rect.top
+    const xPct = Math.max(0, Math.min(100, (px / rect.width) * 100))
+    const yPct = Math.max(0, Math.min(100, (py / rect.height) * 100))
+
+    if (loupeLensRef.current) {
+      loupeLensRef.current.style.transform = `translate3d(${px}px, ${py}px, 0) translate(-50%, -50%)`
+    }
+    if (loupeBgRef.current) {
+      loupeBgRef.current.style.backgroundPosition = `${xPct}% ${yPct}%`
+    }
+  }, [])
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e
+    if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
+    rafIdRef.current = requestAnimationFrame(() => {
+      updateLoupe(clientX, clientY)
     })
+  }, [updateLoupe])
+
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    setIsHovering(true)
+    updateLoupe(e.clientX, e.clientY)
+  }, [updateLoupe])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false)
+    if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
   }, [])
 
   // Keyboard navigation for Fullscreen Lightbox
@@ -117,8 +141,8 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
       {/* Primary Interactive Image with Macro 4K Loupe & Lighting Atmosphere */}
       <div
         ref={imageContainerRef}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
         onClick={() => setIsFullscreen(true)}
         className={`group relative mb-3 aspect-work-hero w-full overflow-hidden rounded-3xl border border-[#E8DDD0] shadow-sm select-none transition-colors duration-500 cursor-crosshair ${activeConfig.containerBg}`}
@@ -145,52 +169,52 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           aria-hidden="true"
         />
 
-        {/* ── 4K Macro Grain Loupe Magnifier Lens (Active when hovering or toggled) ── */}
-        {(isLoupeEnabled || isHovering) && (
+        {/* ── 4K Macro Grain Loupe Magnifier Lens (Pure Hardware-Accelerated 120FPS GPU Transform) ── */}
+        <div
+          ref={loupeLensRef}
+          className={`pointer-events-none absolute left-0 top-0 z-30 hidden sm:block h-52 w-52 overflow-hidden rounded-full border-3 border-[#C4854A] bg-black shadow-[0_0_35px_rgba(196,133,74,0.6)] will-change-transform transition-opacity duration-150 ${
+            isLoupeEnabled || isHovering ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          style={{
+            transform: 'translate3d(-9999px, -9999px, 0) translate(-50%, -50%)',
+          }}
+        >
+          {/* Magnified Image */}
           <div
-            className="pointer-events-none absolute z-30 hidden sm:block h-48 w-48 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full border-3 border-[#C4854A] bg-black shadow-[0_0_40px_rgba(196,133,74,0.6)]"
+            ref={loupeBgRef}
+            className="absolute inset-0 h-full w-full will-change-[background-position]"
             style={{
-              left: `${mousePos.px}px`,
-              top: `${mousePos.py}px`,
+              backgroundImage: `url(${current})`,
+              backgroundPosition: '50% 50%',
+              backgroundSize: `${zoomLevel * 100}%`,
+              backgroundRepeat: 'no-repeat',
+              filter: activeConfig.filter,
             }}
-          >
-            {/* Magnified Image */}
-            <div
-              className="absolute h-full w-full"
-              style={{
-                backgroundImage: `url(${current})`,
-                backgroundPosition: `${mousePos.x}% ${mousePos.y}%`,
-                backgroundSize: `${zoomLevel * 100}%`,
-                backgroundRepeat: 'no-repeat',
-                filter: activeConfig.filter,
-              }}
-            />
+          />
 
-            {/* Precision Crosshair Reticle */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-40">
-              <div className="h-px w-full bg-[#C4854A]" />
-              <div className="absolute h-full w-px bg-[#C4854A]" />
-              <div className="absolute h-10 w-10 rounded-full border border-[#C4854A]" />
-            </div>
-
-            {/* Loupe Badge */}
-            <div className="absolute bottom-2 inset-x-0 text-center">
-              <span className="rounded-full bg-black/80 px-2 py-0.5 font-mono text-[9px] font-bold text-[#E8DDD0] border border-[#C4854A]/40 shadow-sm">
-                4K MACRO · {zoomLevel}X
-              </span>
-            </div>
+          {/* Precision Crosshair Reticle */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-40">
+            <div className="h-px w-full bg-[#C4854A]" />
+            <div className="absolute h-full w-px bg-[#C4854A]" />
+            <div className="absolute h-10 w-10 rounded-full border border-[#C4854A]" />
           </div>
-        )}
+
+          {/* Loupe Badge */}
+          <div className="absolute bottom-2 inset-x-0 text-center">
+            <span className="rounded-full bg-black/85 px-2 py-0.5 font-mono text-[9px] font-bold text-[#E8DDD0] border border-[#C4854A]/40 shadow-sm">
+              4K MACRO · {zoomLevel}X
+            </span>
+          </div>
+        </div>
 
         {/* Top Floating Badge: Macro Loupe Indicator */}
         <div className="absolute top-3 start-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3.5 py-1 text-xs font-bold text-white backdrop-blur-md border border-white/20 shadow-md transition-opacity">
-          <span>🔍</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-[#C4854A] shadow-[0_0_6px_#C4854A]" />
           <span>{isAr ? 'عدسة فحص العروق 4K' : '4K Macro Grain Lens'}</span>
         </div>
 
         {/* Current Lighting Mode Pill on Image */}
         <div className="absolute bottom-3 start-3 flex items-center gap-1.5 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold text-white backdrop-blur-md border border-white/15 shadow-sm">
-          <span>{activeConfig.icon}</span>
           <span className="font-mono text-[#D4B896]">{activeConfig.temp}</span>
           <span className="text-white/80">·</span>
           <span>{isAr ? activeConfig.labelAr : activeConfig.labelEn}</span>
@@ -203,7 +227,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
             e.stopPropagation()
             setIsFullscreen(true)
           }}
-          className="absolute top-3 end-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 shadow-md transition-all hover:scale-110 hover:bg-black/90"
+          className="absolute top-3 end-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 shadow-md transition-all hover:scale-110 hover:bg-black/90 cursor-pointer"
           aria-label={isAr ? 'عرض ملء الشاشة' : 'Fullscreen view'}
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -220,7 +244,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                 setActiveIndex((i) => Math.max(0, i - 1))
               }}
               disabled={activeIndex === 0}
-              className="absolute start-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0]"
+              className="absolute start-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0] cursor-pointer"
               aria-label={isAr ? 'الصورة السابقة' : 'Previous image'}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -233,7 +257,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                 setActiveIndex((i) => Math.min(images.length - 1, i + 1))
               }}
               disabled={activeIndex === images.length - 1}
-              className="absolute end-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0]"
+              className="absolute end-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-[#1A1209] shadow-xl backdrop-blur-sm transition-all hover:scale-105 hover:bg-white disabled:opacity-30 border border-[#E8DDD0] cursor-pointer"
               aria-label={isAr ? 'الصورة التالية' : 'Next image'}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -257,7 +281,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           {/* Zoom Level Switcher */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-1.5">
-              <span>🔬</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#C4854A]" />
               <span>{isAr ? 'قوة تكبير العدسة:' : 'Macro Loupe Power:'}</span>
             </span>
             <div className="flex items-center gap-1 rounded-xl bg-white dark:bg-[#1E130B] p-1 border border-[#E8DDD0] dark:border-[#2C1B10]">
@@ -281,7 +305,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
           {/* 3 Atmosphere Mode Buttons */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-1.5">
-              <span>💡</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#C4854A]" />
               <span>{isAr ? 'محاكي الإضاءة:' : 'Atmosphere:'}</span>
             </span>
             <div className="flex items-center gap-1 rounded-xl bg-white dark:bg-[#1E130B] p-1 border border-[#E8DDD0] dark:border-[#2C1B10]">
@@ -300,8 +324,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                     }`}
                     aria-pressed={isSelected}
                   >
-                    <span className="text-xs">{cfg.icon}</span>
-                    <span className="hidden xs:inline">{isAr ? cfg.labelAr : cfg.labelEn}</span>
+                    <span>{isAr ? cfg.labelAr : cfg.labelEn}</span>
                     <span className="font-mono text-[10px] opacity-75">{cfg.temp}</span>
                   </button>
                 )
@@ -312,7 +335,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
         {/* Atmosphere explanation */}
         <p className="mt-2 text-[11px] font-medium text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
-          {isAr ? activeConfig.descAr : activeConfig.descEn} · {isAr ? 'حرّك الماوس فوق الصورة لفحص تفاصيل الألياف والمسام بدقة 4K.' : 'Hover over image to inspect micro wood fibers in 4K.'}
+          {isAr ? activeConfig.descAr : activeConfig.descEn} · {isAr ? 'حرّك الماوس فوق الصورة لفحص تفاصيل الألياف والمسام بدقة 4K فائقة السلاسة.' : 'Hover over image to inspect micro wood fibers in ultra-smooth 4K.'}
         </p>
       </div>
 
@@ -381,7 +404,6 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                       : 'text-white/70 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <span>{cfg.icon}</span>
                   <span>{isAr ? cfg.labelAr : cfg.labelEn}</span>
                   <span className="font-mono text-[10px] opacity-75">{cfg.temp}</span>
                 </button>

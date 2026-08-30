@@ -150,7 +150,7 @@ export default async function HomePage() {
                     )}
                     {work.isUniquePiece && (
                       <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2.5 py-0.5 text-[11px] font-bold text-[#C4854A] backdrop-blur-sm border border-[#C4854A]/30">
-                        💎 1 of 1
+                        {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Unique Piece'}
                       </span>
                     )}
                   </div>

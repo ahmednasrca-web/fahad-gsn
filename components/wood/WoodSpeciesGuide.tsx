@@ -206,7 +206,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
 
               <div className="mt-6 pt-4 border-t border-[#E8DDD0] dark:border-[#2C1B10] flex items-center justify-between">
                 <span className="text-xs font-bold text-[#4A3B2C] dark:text-[#D4B896]">
-                  {isAr ? '💎 قطعة مخصصة حسب اختيارك لنوع الخشب' : '💎 Custom commissions available in this wood'}
+                  {isAr ? 'قطعة مخصصة حسب اختيارك لنوع الخشب' : 'Custom commissions available in this wood'}
                 </span>
                 <Chip.Root color="accent" size="sm" variant="soft">
                   <Chip.Label>Fahad Gsn Certified</Chip.Label>

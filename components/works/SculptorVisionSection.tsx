@@ -112,7 +112,7 @@ export default function SculptorVisionSection({ vision, finishedImage, title, lo
             {/* Story details */}
             <div className="rounded-3xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white/70 dark:bg-[#150D08]/70 p-6 backdrop-blur-md">
               <h4 className="text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] mb-2 flex items-center gap-2">
-                <span>🔍</span>
+                <span className="h-2 w-2 rounded-full bg-[#C4854A]" />
                 <span>{isAr ? 'حكاية الاستخراج الحرفي' : 'The Extraction Journey'}</span>
               </h4>
               <p className="text-xs sm:text-sm text-[#4A3B2C] dark:text-[#D4B896] leading-relaxed font-medium">

@@ -364,7 +364,7 @@ export default function WorkForm({ work, categories }: Props) {
               <Switch.Control />
               <Switch.Thumb />
             </Switch.Content>
-            <span className="text-sm font-bold text-[#C4854A]">💎 قطعة فريدة حصرية (1 of 1)</span>
+            <span className="text-sm font-bold text-[#C4854A]">قطعة فريدة حصرية (Exclusive Piece)</span>
           </Switch.Root>
         </div>
 

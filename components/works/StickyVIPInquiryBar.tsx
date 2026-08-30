@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
@@ -85,8 +85,8 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 {work.isUniquePiece && (
-                  <span className="hidden sm:inline-flex rounded-full bg-[#C4854A]/30 border border-[#C4854A]/60 px-2 py-0.5 text-[10px] font-bold text-[#E8DDD0]">
-                    💎 1 of 1
+                  <span className="hidden sm:inline-flex rounded-full bg-[#C4854A]/30 border border-[#C4854A]/60 px-2.5 py-0.5 text-[10px] font-bold text-[#E8DDD0]">
+                    {isAr ? 'قطعة فريدة حصرية' : 'Unique Piece'}
                   </span>
                 )}
                 <h4 className="truncate text-xs sm:text-sm font-bold text-[#FAF7F2] font-display">

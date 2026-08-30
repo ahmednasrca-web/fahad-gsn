@@ -61,7 +61,7 @@ export default function MediaQualityInspector({ imageUrl, file, className = '' }
   if (loading || !stats) {
     return (
       <div className="flex items-center gap-2 text-xs text-[#8A7968] animate-pulse py-1">
-        <span>🔍</span>
+        <span className="h-2 w-2 rounded-full bg-[#C4854A] animate-ping" />
         <span>جارٍ فحص دقة وجودة الصورة…</span>
       </div>
     )

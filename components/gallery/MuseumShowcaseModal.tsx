@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
@@ -131,7 +131,7 @@ export default function MuseumShowcaseModal({ works, locale }: Props) {
 
               {current.isUniquePiece && (
                 <span className="absolute top-4 start-4 rounded-full bg-black/75 px-3 py-1 text-xs font-bold text-[#C4854A] backdrop-blur-md border border-[#C4854A]/40 shadow-md">
-                  💎 1 of 1 · {isAr ? 'قطعة فريدة غير مكررة' : 'Unique Piece'}
+                  {isAr ? 'قطعة فريدة حصرية' : 'Exclusive Unique Piece'}
                 </span>
               )}
 
