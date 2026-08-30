@@ -75,7 +75,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
           </div>
         ) : (
           <div className="gallery-grid">
-            {works.map((work) => (
+            {works.map((work, i) => (
               <Link
                 key={work.id}
                 href={`/gallery/${work.slug}`}
@@ -90,7 +90,8 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                       fill
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       className="work-card-image object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
+                      priority={i < 4}
+                      loading={i < 4 ? undefined : 'lazy'}
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center">
