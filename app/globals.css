@@ -106,6 +106,24 @@
   --font-serif: 'ThmanyahDisplay', var(--font-thmanyah-display), serif;
   --font-display: 'ThmanyahDisplay', var(--font-thmanyah-display), serif;
   --font-story: 'ThmanyahSerif', var(--font-thmanyah-serif), serif;
+
+  /* ── Unified Fahad Gsn Master Atelier Color Palette ── */
+  --color-atelier-walnut: #2C1810;
+  --color-atelier-noir: #0E0805;
+  --color-atelier-card-dark: #170E09;
+  --color-atelier-card-nested: #1F140D;
+  --color-atelier-gold: #C4854A;
+  --color-atelier-gold-hover: #D6965C;
+  --color-atelier-gold-antique: #D4AF37;
+  --color-atelier-sand: #D4B896;
+  --color-atelier-cream: #FAF7F2;
+  --color-atelier-ivory: #F0E8D8;
+  --color-atelier-charcoal: #1A1209;
+  --color-atelier-body: #3D2B1A;
+  --color-atelier-muted: #6B5C4E;
+  --color-atelier-subtle: #A09080;
+  --color-atelier-border-light: #E8DDD0;
+  --color-atelier-border-dark: #2C1B10;
 }
 
 /* ── Universal Font Enforcement ────────────────────────── */
