@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
@@ -159,16 +159,16 @@ export default function WoodTransformationSlider({
   }, [isDragging, handleMouseMove, handleTouchMove, handleStopDrag])
 
   return (
-    <div className={`overflow-hidden rounded-3xl border border-[#E8DDD0] bg-white p-6 sm:p-10 shadow-sm ${className}`}>
+    <div className={`overflow-hidden rounded-3xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] p-6 sm:p-10 shadow-sm transition-colors duration-400 ${className}`}>
       {/* Section Header */}
       <div className="mb-8 text-center max-w-3xl mx-auto">
         <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
           {isAr ? 'رحلة التحول الحرفي (قبل وبعد)' : 'The Transformation Journey (Before & After)'}
         </span>
-        <h2 className="mt-2 text-2xl font-bold text-[#1A1209] md:text-4xl font-display">
+        <h2 className="mt-2 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-4xl font-display">
           {isAr ? 'من الجذع الخام إلى التحفة الملكية' : 'From Raw Trunk to Masterpiece'}
         </h2>
-        <p className="mt-3 text-sm md:text-base text-[#6B5C4E] leading-relaxed">
+        <p className="mt-3 text-sm md:text-base text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
           {isAr ? current.descAr : current.descEn}
         </p>
 
@@ -184,8 +184,8 @@ export default function WoodTransformationSlider({
               }}
               className={`rounded-full px-4 py-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
                 activePresetIndex === idx
-                  ? 'bg-[#2C1810] text-[#FAF7F2] shadow-md ring-2 ring-[#C4854A]'
-                  : 'bg-[#F0E8D8] text-[#3D2B1A] hover:bg-[#E4D8C4]'
+                  ? 'bg-[#2C1810] dark:bg-[#C4854A] text-[#FAF7F2] shadow-md ring-2 ring-[#C4854A]'
+                  : 'bg-[#F0E8D8] dark:bg-[#23150D] text-[#3D2B1A] dark:text-[#E8DDD0] hover:bg-[#E4D8C4] dark:hover:bg-[#2E1C12]'
               }`}
             >
               {isAr ? preset.nameAr : preset.nameEn}
@@ -205,7 +205,7 @@ export default function WoodTransformationSlider({
           setIsDragging(true)
           handleMove(e.touches[0].clientX)
         }}
-        className="relative aspect-16/10 sm:aspect-21/9 w-full select-none overflow-hidden rounded-2xl border-2 border-[#D4B896] bg-[#2C1810] cursor-ew-resize shadow-xl group"
+        className="relative aspect-16/10 sm:aspect-21/9 w-full select-none overflow-hidden rounded-2xl border-2 border-[#D4B896] dark:border-[#3D2619] bg-[#2C1810] cursor-ew-resize shadow-xl group"
       >
         {/* Base Layer: Finished Masterpiece (Right / Underneath) */}
         <div className="absolute inset-0">
@@ -278,22 +278,22 @@ export default function WoodTransformationSlider({
       </div>
 
       {/* Footer Info / Key Craft Standards */}
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 text-center border-t border-[#E8DDD0] pt-6">
-        <div className="bg-[#FAF7F2] p-3 rounded-2xl border border-[#E8DDD0]/60">
-          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] font-display">{current.stats.purity}</p>
-          <p className="text-xs text-[#6B5C4E] mt-0.5 font-medium">{isAr ? 'خشب طبيعي 100%' : '100% Solid Wood'}</p>
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 text-center border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-6">
+        <div className="bg-[#FAF7F2] dark:bg-[#1A1009] p-3.5 rounded-2xl border border-[#E8DDD0]/60 dark:border-[#2C1B10]">
+          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] dark:text-[#FAF7F2] font-display">{current.stats.purity}</p>
+          <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5 font-medium">{isAr ? 'خشب طبيعي 100%' : '100% Solid Wood'}</p>
         </div>
-        <div className="bg-[#FAF7F2] p-3 rounded-2xl border border-[#E8DDD0]/60">
-          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] font-display">{isAr ? current.stats.curingAr.split(' ')[0] + ' ' + current.stats.curingAr.split(' ')[1] : current.stats.curing}</p>
-          <p className="text-xs text-[#6B5C4E] mt-0.5 font-medium">{isAr ? 'فترة التجفيف الهوائي' : 'Kiln-Air Curing'}</p>
+        <div className="bg-[#FAF7F2] dark:bg-[#1A1009] p-3.5 rounded-2xl border border-[#E8DDD0]/60 dark:border-[#2C1B10]">
+          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] dark:text-[#FAF7F2] font-display">{isAr ? current.stats.curingAr.split(' ')[0] + ' ' + current.stats.curingAr.split(' ')[1] : current.stats.curing}</p>
+          <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5 font-medium">{isAr ? 'فترة التجفيف الهوائي' : 'Kiln-Air Curing'}</p>
         </div>
-        <div className="bg-[#FAF7F2] p-3 rounded-2xl border border-[#E8DDD0]/60">
-          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] font-display">{isAr ? current.stats.hoursAr.split(' ')[0] : current.stats.hours}</p>
-          <p className="text-xs text-[#6B5C4E] mt-0.5 font-medium">{isAr ? 'ساعة تشكيل يدوي' : 'Handcrafting Hours'}</p>
+        <div className="bg-[#FAF7F2] dark:bg-[#1A1009] p-3.5 rounded-2xl border border-[#E8DDD0]/60 dark:border-[#2C1B10]">
+          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] dark:text-[#FAF7F2] font-display">{isAr ? current.stats.hoursAr.split(' ')[0] : current.stats.hours}</p>
+          <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5 font-medium">{isAr ? 'ساعة تشكيل يدوي' : 'Handcrafting Hours'}</p>
         </div>
-        <div className="bg-[#FAF7F2] p-3 rounded-2xl border border-[#E8DDD0]/60">
-          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] font-display">{isAr ? '0%' : '0%'}</p>
-          <p className="text-xs text-[#6B5C4E] mt-0.5 font-medium">{isAr ? 'كيماويات (زيوت عضوية)' : 'Zero Chemicals'}</p>
+        <div className="bg-[#FAF7F2] dark:bg-[#1A1009] p-3.5 rounded-2xl border border-[#E8DDD0]/60 dark:border-[#2C1B10]">
+          <p className="text-xl sm:text-2xl font-bold text-[#2C1810] dark:text-[#FAF7F2] font-display">{isAr ? '0%' : '0%'}</p>
+          <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5 font-medium">{isAr ? 'كيماويات (زيوت عضوية)' : 'Zero Chemicals'}</p>
         </div>
       </div>
     </div>

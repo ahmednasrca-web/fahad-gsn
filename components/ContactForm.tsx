@@ -10,8 +10,8 @@ interface Props {
   workSlug?: string
 }
 
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#6B5C4E]'
-const labelCls = 'mb-1.5 block text-sm font-bold text-[#1A1209]'
+const inputCls = 'w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] px-4 py-3 text-[15px] text-[#1A1209] dark:text-[#FAF7F2] outline-none transition focus:border-[#C4854A] focus:ring-2 focus:ring-[#C4854A]/20 placeholder:text-[#6B5C4E] dark:placeholder:text-[#8A7968]'
+const labelCls = 'mb-1.5 block text-sm font-bold text-[#1A1209] dark:text-[#E8DDD0]'
 
 export default function ContactForm({ locale, workSlug }: Props) {
   const formId = useId()

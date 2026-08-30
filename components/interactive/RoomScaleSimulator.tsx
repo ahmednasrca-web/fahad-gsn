@@ -76,14 +76,14 @@ export default function RoomScaleSimulator({
     ROOM_ENVIRONMENTS.find((e) => e.id === selectedEnvId) ?? ROOM_ENVIRONMENTS[0]
 
   return (
-    <div className={`rounded-3xl border border-[#E8DDD0] bg-white p-6 sm:p-8 shadow-sm ${className}`}>
+    <div className={`rounded-3xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] p-6 sm:p-8 shadow-sm transition-colors duration-400 ${className}`}>
       {/* Top Header */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
             {isAr ? 'محاكي الأبعاد والمساحات' : 'Spatial Room Simulator'}
           </span>
-          <h3 className="mt-1 text-xl font-bold text-[#1A1209] md:text-2xl">
+          <h3 className="mt-1 text-xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-2xl font-display">
             {isAr ? 'معاينة القطعة داخل أبعاد منزلك' : 'True-to-Scale Room Preview'}
           </h3>
         </div>
@@ -92,10 +92,10 @@ export default function RoomScaleSimulator({
         <button
           type="button"
           onClick={() => setShowHumanScale(!showHumanScale)}
-          className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all border ${
+          className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all border cursor-pointer ${
             showHumanScale
-              ? 'bg-[#2C1810] text-[#FAF7F2] border-[#2C1810]'
-              : 'bg-[#FAF7F2] text-[#6B5C4E] border-[#E8DDD0] hover:bg-[#F0E8D8]'
+              ? 'bg-[#2C1810] dark:bg-[#C4854A] text-[#FAF7F2] border-[#2C1810] dark:border-[#C4854A]'
+              : 'bg-[#FAF7F2] dark:bg-[#23150D] text-[#6B5C4E] dark:text-[#D4B896] border-[#E8DDD0] dark:border-[#3D2619] hover:bg-[#F0E8D8]'
           }`}
         >
           <span>👤</span>
@@ -111,10 +111,10 @@ export default function RoomScaleSimulator({
             <button
               key={env.id}
               onClick={() => setSelectedEnvId(env.id)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
                 isSelected
                   ? 'bg-[#C4854A] text-white shadow-xs scale-102'
-                  : 'bg-[#FAF7F2] text-[#3D2B1A] border border-[#E8DDD0] hover:bg-[#F0E8D8]'
+                  : 'bg-[#FAF7F2] dark:bg-[#23150D] text-[#3D2B1A] dark:text-[#E8DDD0] border border-[#E8DDD0] dark:border-[#3D2619] hover:bg-[#F0E8D8]'
               }`}
             >
               <span>{env.id === 'salon' ? '🏛️' : env.id === 'dining' ? '🍽️' : '☕'}</span>

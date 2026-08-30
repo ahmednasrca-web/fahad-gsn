@@ -54,13 +54,13 @@ export default async function AboutPage() {
       </section>
 
       {/* Introduction */}
-      <section className="section-padding bg-[#FAF7F2]">
+      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
         <div className="container-site">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
+            <h2 className="mb-6 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
               {locale === 'ar' ? 'من نحن' : 'Who We Are'}
             </h2>
-            <p className="text-lg leading-relaxed text-[#3D2B1A]">
+            <p className="text-lg leading-relaxed text-[#3D2B1A] dark:text-[#E8DDD0]">
               {intro ?? defaultIntro}
             </p>
           </div>
@@ -68,20 +68,20 @@ export default async function AboutPage() {
       </section>
 
       {/* Decorative divider */}
-      <div className="flex items-center justify-center py-2" aria-hidden="true">
+      <div className="flex items-center justify-center py-2 bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400" aria-hidden="true">
         <div className="h-px w-24 bg-[#C4854A]" />
         <div className="mx-4 h-2 w-2 rounded-full bg-[#C4854A]" />
         <div className="h-px w-24 bg-[#C4854A]" />
       </div>
 
       {/* Philosophy */}
-      <section className="section-padding bg-[#F0E8D8]">
+      <section className="section-padding bg-[#F0E8D8] dark:bg-[#140D08] transition-colors duration-400 border-y border-[#E8DDD0] dark:border-[#2C1B10]">
         <div className="container-site">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
+            <h2 className="mb-6 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
               {locale === 'ar' ? 'فلسفتنا' : 'Our Philosophy'}
             </h2>
-            <p className="text-lg leading-relaxed text-[#3D2B1A]">
+            <p className="text-lg leading-relaxed text-[#3D2B1A] dark:text-[#E8DDD0]">
               {philosophy ?? defaultPhilosophy}
             </p>
           </div>
@@ -89,13 +89,13 @@ export default async function AboutPage() {
       </section>
 
       {/* Materials & Wood Species Guide */}
-      <section className="section-padding bg-[#FAF7F2]">
+      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
         <div className="container-site">
           <div className="mx-auto max-w-3xl mb-12">
-            <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
+            <h2 className="mb-6 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
               {locale === 'ar' ? 'موادنا وأصالة خشبنا' : 'Our Sustainable Materials'}
             </h2>
-            <p className="text-lg leading-relaxed text-[#3D2B1A]">
+            <p className="text-lg leading-relaxed text-[#3D2B1A] dark:text-[#E8DDD0]">
               {materials ?? defaultMaterials}
             </p>
           </div>

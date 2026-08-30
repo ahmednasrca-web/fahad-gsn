@@ -43,12 +43,12 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <section className="section-padding bg-[#FAF7F2]">
+      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
         <div className="container-site">
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Contact info */}
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
+              <h2 className="mb-6 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
                 {locale === 'ar' ? 'معلومات التواصل' : 'Contact Information'}
               </h2>
 
@@ -59,7 +59,7 @@ export default async function ContactPage() {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] bg-white p-4 transition-colors hover:border-[#C4854A]"
+                    className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] p-4 transition-all hover:border-[#C4854A] shadow-xs"
                   >
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/10">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
@@ -67,10 +67,10 @@ export default async function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
+                      <p className={`text-xs font-bold text-[#6B3F1F] dark:text-[#D4B896] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                         {t(locale, 'whatsapp')}
                       </p>
-                      <p className="text-base font-bold text-[#1A1209]">
+                      <p className="text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">
                         +965 98908022
                       </p>
                     </div>
@@ -81,18 +81,18 @@ export default async function ContactPage() {
                 <li>
                   <a
                     href={`tel:${phone.replace(/\s/g, '')}`}
-                    className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] bg-white p-4 transition-colors hover:border-[#C4854A]"
+                    className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] p-4 transition-all hover:border-[#C4854A] shadow-xs"
                   >
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8]">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B3F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8] dark:bg-[#2C1B10]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4854A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.13 1.05.37 2.08.72 3.07a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.01-1.01a2 2 0 012.11-.45c.99.35 2.02.59 3.07.72A2 2 0 0122 16.92z"/>
                       </svg>
                     </div>
                     <div>
-                      <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
+                      <p className={`text-xs font-bold text-[#6B3F1F] dark:text-[#D4B896] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                         {t(locale, 'phone')}
                       </p>
-                      <p className="text-base font-bold text-[#1A1209]">{phone}</p>
+                      <p className="text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">{phone}</p>
                     </div>
                   </a>
                 </li>
@@ -104,20 +104,20 @@ export default async function ContactPage() {
                       href={`https://instagram.com/${instagram.replace('@', '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] bg-white p-4 transition-colors hover:border-[#C4854A]"
+                      className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] p-4 transition-all hover:border-[#C4854A] shadow-xs"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8]">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B3F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8] dark:bg-[#2C1B10]">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4854A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                           <circle cx="12" cy="12" r="4"/>
                           <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
                         </svg>
                       </div>
                       <div>
-                        <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
+                        <p className={`text-xs font-bold text-[#6B3F1F] dark:text-[#D4B896] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                           Instagram
                         </p>
-                        <p className="text-base font-bold text-[#1A1209]">{instagram}</p>
+                        <p className="text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">{instagram}</p>
                       </div>
                     </a>
                   </li>
@@ -128,19 +128,19 @@ export default async function ContactPage() {
                   <li>
                     <a
                       href={`mailto:${email}`}
-                      className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] bg-white p-4 transition-colors hover:border-[#C4854A]"
+                      className="flex items-center gap-4 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] p-4 transition-all hover:border-[#C4854A] shadow-xs"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8]">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B3F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F0E8D8] dark:bg-[#2C1B10]">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4854A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                           <polyline points="22,6 12,13 2,6"/>
                         </svg>
                       </div>
                       <div>
-                        <p className={`text-xs font-bold text-[#6B3F1F] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
+                        <p className={`text-xs font-bold text-[#6B3F1F] dark:text-[#D4B896] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-wider'}`}>
                           {locale === 'ar' ? 'البريد الإلكتروني' : 'Email'}
                         </p>
-                        <p className="text-base font-bold text-[#1A1209]">{email}</p>
+                        <p className="text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">{email}</p>
                       </div>
                     </a>
                   </li>
@@ -150,7 +150,7 @@ export default async function ContactPage() {
 
             {/* Contact form */}
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-[#1A1209]">
+              <h2 className="mb-6 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
                 {t(locale, 'sendMessage')}
               </h2>
               <ContactForm locale={locale} />

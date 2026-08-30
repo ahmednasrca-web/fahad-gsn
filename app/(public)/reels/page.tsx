@@ -22,17 +22,17 @@ export default async function ReelsPage() {
   const reels = await getPublishedReels()
 
   return (
-    <div dir={dir} className="section-padding">
+    <div dir={dir} className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400 min-h-[70vh]">
       <div className="container-site">
         {/* Page Header */}
         <div className="mb-12 text-center max-w-2xl mx-auto">
           <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.25em]'}`}>
             {t(locale, 'reelsHeroTagline')}
           </p>
-          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl font-display">
+          <h1 className="text-4xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-5xl font-display">
             {t(locale, 'reelsHeroTitle')}
           </h1>
-          <p className="mt-4 text-base text-[#6B5C4E] leading-relaxed">
+          <p className="mt-4 text-base text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
             {t(locale, 'reelsHeroSubtitle')}
           </p>
         </div>

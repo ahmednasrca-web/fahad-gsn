@@ -134,7 +134,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 </>
               )}
               <li aria-hidden="true" className="text-[#D4B896]">/</li>
-              <li className="text-[#1A1209] font-medium truncate" aria-current="page">
+              <li className="text-[#1A1209] dark:text-[#FAF7F2] font-medium truncate" aria-current="page">
                 {title}
               </li>
             </ol>
@@ -143,7 +143,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
       </div>
 
       {/* Main Work Overview */}
-      <div className="section-padding">
+      <div className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
         <div className="container-site">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
             {/* Image gallery */}
@@ -158,13 +158,13 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 {work.category && (
                   <Link
                     href={`/gallery?category=${work.category.slug}`}
-                    className="inline-flex items-center rounded-full bg-[#F0E8D8] px-3.5 py-1 text-xs font-semibold text-[#6B3F1F] transition-colors hover:bg-[#E8DDD0]"
+                    className="inline-flex items-center rounded-full bg-[#F0E8D8] dark:bg-[#2C1B10] px-3.5 py-1 text-xs font-semibold text-[#6B3F1F] dark:text-[#D4B896] transition-colors hover:bg-[#E8DDD0] dark:hover:bg-[#3D2619]"
                   >
                     {getCategoryName(work.category, locale)}
                   </Link>
                 )}
                 {work.isUniquePiece && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C4854A] bg-[#C4854A]/15 px-3.5 py-1 text-xs font-bold text-[#5C2E0B]">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C4854A] bg-[#C4854A]/15 dark:bg-[#C4854A]/25 px-3.5 py-1 text-xs font-bold text-[#5C2E0B] dark:text-[#E8DDD0]">
                     <span>💎</span>
                     {locale === 'ar' ? 'قطعة فريدة حصرية (1 of 1)' : 'Exclusive Piece (1 of 1)'}
                   </span>
@@ -172,17 +172,17 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </div>
 
               {/* Title */}
-              <h1 className="mb-4 text-3xl font-bold leading-tight text-[#1A1209] md:text-4xl">
+              <h1 className="mb-4 text-3xl font-bold leading-tight text-[#1A1209] dark:text-[#FAF7F2] md:text-4xl font-display">
                 {title}
               </h1>
 
               {/* Price */}
               {work.price != null && (
                 <div className="mb-6 flex items-baseline gap-2">
-                  <p className="text-3xl font-bold text-[#2C1810]">
+                  <p className="text-3xl font-bold text-[#2C1810] dark:text-[#D4B896] font-mono">
                     {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')}
                   </p>
-                  <span className="text-base font-bold text-[#5C4B3E]">
+                  <span className="text-base font-bold text-[#5C4B3E] dark:text-[#A09080]">
                     {locale === 'ar' ? 'د.ك' : 'KWD'}
                   </span>
                 </div>
@@ -190,8 +190,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
               {/* Description */}
               {description && (
-                <div className="mb-8 rounded-2xl bg-[#FAF7F2] border border-[#E8DDD0] p-5">
-                  <p className="text-base leading-relaxed text-[#1A1209] font-medium whitespace-pre-line">
+                <div className="mb-8 rounded-2xl bg-[#F5F0E8] dark:bg-[#170E09] border border-[#E8DDD0] dark:border-[#2C1B10] p-5">
+                  <p className="text-base leading-relaxed text-[#1A1209] dark:text-[#E8DDD0] font-medium whitespace-pre-line">
                     {description}
                   </p>
                 </div>
@@ -205,7 +205,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
               {/* Secondary Message link */}
               <Link
                 href="/contact"
-                className="mt-3 flex min-h-[48px] items-center justify-center rounded-2xl border border-[#E8DDD0] bg-white text-sm font-bold text-[#3D2B1A] transition-colors hover:border-[#C4854A] hover:text-[#2C1810]"
+                className="mt-3 flex min-h-[48px] items-center justify-center rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] text-sm font-bold text-[#3D2B1A] dark:text-[#E8DDD0] transition-all hover:border-[#C4854A] hover:text-[#2C1810] dark:hover:text-[#FAF7F2]"
               >
                 {locale === 'ar' ? 'أو أرسل استفساراً عبر نموذج التواصل' : 'Or send an inquiry via form'}
               </Link>
@@ -213,7 +213,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </div>
 
           {/* Spatial Room Scale Preview Section */}
-          <div className="mt-14 border-t border-[#E8DDD0] pt-12">
+          <div className="mt-14 border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-12">
             <RoomScaleSimulator
               locale={locale}
               workTitle={title}
@@ -226,22 +226,22 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       {/* Story Behind the Craft (if available) */}
       {story && (
-        <section className="border-y border-[#E8DDD0] bg-[#FAF7F2] py-16">
+        <section className="border-y border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#0E0805] py-16 transition-colors duration-400">
           <div className="container-site max-w-4xl">
             <div className="flex items-center gap-3 mb-4">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2C1810] text-lg text-[#C4854A]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2C1810] dark:bg-[#C4854A] text-lg text-[#C4854A] dark:text-[#FAF7F2]">
                 🪵
               </span>
               <div>
-                <h2 className="text-2xl font-bold text-[#1A1209]">
+                <h2 className="text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
                   {locale === 'ar' ? 'حكاية القطعة والإلهام' : 'Story Behind the Craft'}
                 </h2>
-                <p className="text-xs text-[#5C4B3E] font-bold">
+                <p className="text-xs text-[#5C4B3E] dark:text-[#D4B896] font-bold">
                   {locale === 'ar' ? 'أصل الخشب، تفاصيل التشكيل، ولمسة الحرفي' : 'Wood origin, shaping details, and craftsman spirit'}
                 </p>
               </div>
             </div>
-            <div className="prose prose-stone text-base leading-loose text-[#1A1209] font-medium mt-6 bg-white border border-[#E8DDD0] rounded-2xl p-6 sm:p-8 shadow-xs">
+            <div className="prose prose-stone text-base leading-loose text-[#1A1209] dark:text-[#E8DDD0] font-medium mt-6 bg-white dark:bg-[#170E09] border border-[#E8DDD0] dark:border-[#2C1B10] rounded-2xl p-6 sm:p-8 shadow-xs">
               <p className="whitespace-pre-line leading-relaxed">{story}</p>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 <span className={`text-xs font-bold text-[#C4854A] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-widest'}`}>
                   {locale === 'ar' ? 'من داخل الورشة' : 'From The Workshop'}
                 </span>
-                <h2 className="mt-1 text-2xl font-bold md:text-3xl text-white">
+                <h2 className="mt-1 text-2xl font-bold md:text-3xl text-white font-display">
                   {locale === 'ar' ? 'كواليس التشكيل والحرفة' : 'Behind The Craft in Action'}
                 </h2>
               </div>
@@ -280,9 +280,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       {/* Related Works */}
       {relatedWorks.length > 0 && (
-        <section className="section-padding bg-[#F5F0E8]">
+        <section className="section-padding bg-[#F5F0E8] dark:bg-[#120B07] transition-colors duration-400">
           <div className="container-site">
-            <h2 className="mb-8 text-2xl font-bold text-[#1A1209]">
+            <h2 className="mb-8 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
               {t(locale, 'relatedWorks')}
             </h2>
             <div className="gallery-grid">
@@ -290,9 +290,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 <Link
                   key={related.id}
                   href={`/gallery/${related.slug}`}
-                  className="work-card group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 border-[#E8DDD0] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
+                  className="work-card group block overflow-hidden rounded-2xl bg-white dark:bg-[#170E09] shadow-sm ring-1 ring-[#E8DDD0] dark:ring-[#2C1B10] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
                 >
-                  <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8]">
+                  <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8] dark:bg-[#1F130B]">
                     {related.primaryImage ? (
                       <Image
                         src={related.primaryImage}
@@ -314,11 +314,11 @@ export default async function WorkDetailPage({ params }: PageProps) {
                     )}
                   </div>
                   <div className="p-4">
-                    <p className="truncate text-base font-bold text-[#1A1209]">
+                    <p className="truncate text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">
                       {getWorkTitle(related, locale)}
                     </p>
                     {related.price != null ? (
-                      <p className="mt-1 text-sm font-semibold text-[#2C1810]">
+                      <p className="mt-1 text-sm font-semibold text-[#2C1810] dark:text-[#D4B896]">
                         {related.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
                       </p>
                     ) : (

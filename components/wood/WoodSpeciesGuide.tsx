@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import type { Locale } from '@/lib/types'
@@ -58,49 +58,33 @@ const WOOD_SPECIES: WoodSpecies[] = [
     id: 'oak',
     nameAr: 'البلوط الأبيض الملكي (European White Oak)',
     nameEn: 'European White Oak',
-    originAr: 'أوروبا وأمريكا الشمالية',
-    originEn: 'Europe & North America',
+    originAr: 'غابات أوروبا المستدامة',
+    originEn: 'Sustainable European Forests',
     hardness: '1,360 Janka',
-    colorDescAr: 'بيج رملي طبيعي مع لمسات عاجية هادئة',
-    colorDescEn: 'Natural sandy beige with serene ivory undertones',
-    characteristicsAr: 'عروق خطية مستقيمة واضحة تمنح شعوراً بالاتزان والهدوء العصري مع متانة استثنائية.',
-    characteristicsEn: 'Clean, linear medullary rays providing modern organic calm with extreme structural durability.',
-    applicationsAr: 'الأثاث العصري، خزائن العرض، وتصاميم النمط الاسكندنافي الفاخر.',
-    applicationsEn: 'Contemporary architectural furniture, display vitrines, and bespoke casework.',
-    colorHex: '#C4A482',
-    grainTone: 'bg-gradient-to-br from-[#D9C4A8] via-[#B89B74] to-[#8C6D47]',
+    colorDescAr: 'بيج عاجي طبيعي مع لمسات ترابية رصينة',
+    colorDescEn: 'Natural pale ivory with subtle earthy neutral tones',
+    characteristicsAr: 'متانة استثنائية، مقاوم للتشقق والانحناء، يتماشى بامتياز مع التصاميم المعمارية الهادئة والمودرن.',
+    characteristicsEn: 'Exceptional structural stability and straight grain, complementing modern architectural spaces.',
+    applicationsAr: 'طاولات الاجتماعات، خزائن العرض، وأسطح الجلسات الراقية.',
+    applicationsEn: 'Boardroom tables, bespoke consoles, and architectural elements.',
+    colorHex: '#C4A47C',
+    grainTone: 'bg-gradient-to-br from-[#C4A47C] via-[#9E7D56] to-[#6E5034]',
   },
   {
     id: 'teak',
-    nameAr: 'التيك البورمي الفاخر (Burmese Teak)',
-    nameEn: 'Burmese Royal Teak',
+    nameAr: 'الساج البورمي النادر (Burmese Teak)',
+    nameEn: 'Burmese Golden Teak',
     originAr: 'جنوب شرق آسيا',
     originEn: 'Southeast Asia',
-    hardness: '1,070 Janka',
-    colorDescAr: 'بني ذهبي متوهج مع بريق طبيعي ناعم',
-    colorDescEn: 'Luminous golden honey with natural silky luster',
-    characteristicsAr: 'سيد الأخشاب في مقاومة الماء والحرارة بفضل احتوائه على سيليكا وزيوت طبيعية عازلة.',
-    characteristicsEn: 'The benchmark of weather and water resistance due to dense natural oils and silica.',
-    applicationsAr: 'الأثاث الخارجي الفاخر، مساحات اليخوت، وقطع الاسترخاء ذات العمر المديد.',
-    applicationsEn: 'Superyacht woodwork, bespoke outdoor lounge furniture, and wet-area luxury consoles.',
-    colorHex: '#996633',
-    grainTone: 'bg-gradient-to-br from-[#B37736] via-[#805022] to-[#4D2E11]',
-  },
-  {
-    id: 'wenge',
-    nameAr: 'خشب الوينجي الإفريقي (African Wenge)',
-    nameEn: 'African Wenge',
-    originAr: 'وسط إفريقيا الاستوائية',
-    originEn: 'Central Africa',
-    hardness: '1,930 Janka (عالي الكثافة)',
-    colorDescAr: 'أسود فحمي داكن مع خيوط رفيعة بلون الكاكاو',
-    colorDescEn: 'Near-black espresso with subtle micro-stripes of rich cocoa',
-    characteristicsAr: 'خشب صلب ونادر يتميز بتباين مذهل وملمس مضلع خفيف يمنح لمسة عصرية جريئة وشديدة الفخامة.',
-    characteristicsEn: 'Exotic, ultra-heavy hardwood with a dramatic dark tone and textured tactile feel.',
-    applicationsAr: 'قواعد الطاولات المعمارية، إطارات المرايا الفاخرة، والتفاصيل المتباينة.',
-    applicationsEn: 'Architectural table bases, luxury mirror frames, and bold contrasting accents.',
-    colorHex: '#1F1713',
-    grainTone: 'bg-gradient-to-br from-[#291F1A] via-[#140F0D] to-[#0A0706]',
+    hardness: '1,155 Janka',
+    colorDescAr: 'ذهبي عنبري متلألئ يتحول إلى عسلي مخملي',
+    colorDescEn: 'Radiant golden amber deepening to a warm honey bronze',
+    characteristicsAr: 'ملك الأخشاب لمقاومة العوامل الجوية والرطوبة بفضل زيوته الطبيعية الصمغية، عمر افتراضي يتجاوز 100 عام.',
+    characteristicsEn: 'King of weather-resistant hardwoods, rich in natural preserving resins and silica.',
+    applicationsAr: 'أثاث اليخوت الملكية، طاولات الشاليهات والجلسات المفتوحة الفاخرة.',
+    applicationsEn: 'Superyacht decks, luxury chalet outdoor pavilions, and humid-zone furnishings.',
+    colorHex: '#8F5A28',
+    grainTone: 'bg-gradient-to-br from-[#9E6B38] via-[#6B4018] to-[#402008]',
   },
 ]
 
@@ -115,16 +99,16 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
   const isAr = locale === 'ar'
 
   return (
-    <div className={`rounded-3xl border border-[#E8DDD0] bg-white p-6 sm:p-10 shadow-sm ${className}`}>
+    <div className={`rounded-3xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] p-6 sm:p-10 shadow-sm transition-colors duration-400 ${className}`}>
       {/* Header */}
       <div className="mb-8 text-center max-w-2xl mx-auto">
         <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
           {isAr ? 'أسرار الحرفة' : 'Craftsmanship & Materials'}
         </span>
-        <h2 className="mt-2 text-2xl font-bold text-[#1A1209] md:text-3xl">
+        <h2 className="mt-2 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-3xl font-display">
           {isAr ? 'دليل أنواع الأخشاب الفاخرة' : 'Interactive Wood Species Guide'}
         </h2>
-        <p className="mt-2 text-sm text-[#6B5C4E] leading-relaxed">
+        <p className="mt-2 text-sm text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
           {isAr
             ? 'ننتقي في فهد غصن أندر جذوع الأشجار الطبيعية المعمرة ونهيئها بمعايير تجفيف وتشكيل دقيقة لنخلد جمال عروقها في كل قطعة.'
             : 'At Fahad Gsn, we select the rarest sustainable hardwoods, aged and seasoned to preserve their organic soul forever.'}
@@ -139,10 +123,10 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
             <button
               key={species.id}
               onClick={() => setSelectedId(species.id)}
-              className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#2C1810] text-[#FAF7F2] shadow-md scale-105 ring-2 ring-[#C4854A]'
-                  : 'bg-[#FAF7F2] text-[#3D2B1A] border border-[#E8DDD0] hover:bg-[#F0E8D8] hover:text-[#1A1209]'
+                  ? 'bg-[#2C1810] dark:bg-[#C4854A] text-[#FAF7F2] shadow-md scale-105 ring-2 ring-[#C4854A]'
+                  : 'bg-[#FAF7F2] dark:bg-[#1C120B] text-[#3D2B1A] dark:text-[#E8DDD0] border border-[#E8DDD0] dark:border-[#2C1B10] hover:bg-[#F0E8D8] dark:hover:bg-[#2A1B10] hover:text-[#1A1209] dark:hover:text-[#FAF7F2]'
               }`}
             >
               <span
@@ -156,7 +140,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
       </div>
 
       {/* Selected Wood Showcase Card */}
-      <Card.Root className="border border-[#E8DDD0] bg-[#FAF7F2] overflow-hidden shadow-xs">
+      <Card.Root className="border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#150D08] overflow-hidden shadow-xs">
         <Card.Content className="p-0">
           <div className="grid gap-0 md:grid-cols-12 items-stretch">
             {/* Left Texture Swatch preview */}
@@ -169,7 +153,7 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
                 <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-mono text-white backdrop-blur-sm border border-white/20 font-bold">
                   {selected.hardness}
                 </span>
-                <h3 className="mt-4 text-2xl font-bold leading-tight drop-shadow-md text-white">
+                <h3 className="mt-4 text-2xl font-bold leading-tight drop-shadow-md text-white font-display">
                   {isAr ? selected.nameAr : selected.nameEn}
                 </h3>
               </div>
@@ -184,39 +168,39 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
             </div>
 
             {/* Right Details */}
-            <div className="md:col-span-8 p-6 sm:p-8 flex flex-col justify-between bg-white">
+            <div className="md:col-span-8 p-6 sm:p-8 flex flex-col justify-between bg-white dark:bg-[#1A1009] transition-colors duration-400">
               <div className="space-y-4">
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[#C4854A]">
                     {isAr ? 'الخصائص والملمس الطبيعي' : 'Natural Characteristics'}
                   </h4>
-                  <p className="mt-1 text-sm text-[#1A1209] leading-relaxed font-medium">
+                  <p className="mt-1 text-sm text-[#1A1209] dark:text-[#E8DDD0] leading-relaxed font-medium">
                     {isAr ? selected.characteristicsAr : selected.characteristicsEn}
                   </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 pt-3 border-t border-[#E8DDD0]">
+                <div className="grid gap-4 sm:grid-cols-2 pt-3 border-t border-[#E8DDD0] dark:border-[#2C1B10]">
                   <div>
-                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F]">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F] dark:text-[#D4B896]">
                       {isAr ? 'اللون والعروق' : 'Grain & Hues'}
                     </h5>
-                    <p className="mt-1 text-xs text-[#2C1810] font-medium leading-normal">
+                    <p className="mt-1 text-xs text-[#2C1810] dark:text-[#FAF7F2] font-medium leading-normal">
                       {isAr ? selected.colorDescAr : selected.colorDescEn}
                     </p>
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F]">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-[#6B3F1F] dark:text-[#D4B896]">
                       {isAr ? 'أبرز الاستخدامات' : 'Ideal Applications'}
                     </h5>
-                    <p className="mt-1 text-xs text-[#2C1810] font-medium leading-normal">
+                    <p className="mt-1 text-xs text-[#2C1810] dark:text-[#FAF7F2] font-medium leading-normal">
                       {isAr ? selected.applicationsAr : selected.applicationsEn}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#E8DDD0] flex items-center justify-between">
-                <span className="text-xs font-bold text-[#4A3B2C]">
+              <div className="mt-6 pt-4 border-t border-[#E8DDD0] dark:border-[#2C1B10] flex items-center justify-between">
+                <span className="text-xs font-bold text-[#4A3B2C] dark:text-[#D4B896]">
                   {isAr ? '💎 قطعة مخصصة حسب اختيارك لنوع الخشب' : '💎 Custom commissions available in this wood'}
                 </span>
                 <Chip.Root color="accent" size="sm" variant="soft">
