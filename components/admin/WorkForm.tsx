@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
@@ -9,6 +9,7 @@ import MediaQualityInspector from './MediaQualityInspector'
 import FocalPointPicker from './FocalPointPicker'
 import HotspotEditorModal from './HotspotEditorModal'
 import SculptorVisionEditor from './SculptorVisionEditor'
+import Field, { adminInputCls as inputCls } from '@/components/admin/FormField'
 
 interface Props {
   work?: Work
@@ -28,20 +29,6 @@ interface FormState {
   isFeatured: boolean
   isUniquePiece: boolean
 }
-
-// Brand-styled field wrapper
-function Field({ id, label, required, children }: { id?: string; label: string; required?: boolean; children: React.ReactNode }) {
-  return (
-    <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-[#1A1209] dark:text-[#FAF7F2]">
-        {label}{required && <span className="text-red-500 ms-1" aria-hidden="true">*</span>}
-      </label>
-      {children}
-    </div>
-  )
-}
-
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] px-4 py-3 text-[15px] text-[#1A1209] dark:text-[#FAF7F2] outline-none transition focus:border-[#C4854A] focus:ring-2 focus:ring-[#C4854A]/20 placeholder:text-[#A09080]'
 
 export default function WorkForm({ work, categories }: Props) {
   const router = useRouter()

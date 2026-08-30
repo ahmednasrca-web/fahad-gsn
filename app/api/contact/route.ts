@@ -13,8 +13,19 @@ const schema = z.object({
 
 const ipSubmissions = new Map<string, { count: number; expiresAt: number }>()
 
+function pruneExpired(now: number) {
+  if (ipSubmissions.size > 200) {
+    for (const [key, value] of ipSubmissions.entries()) {
+      if (value.expiresAt < now) {
+        ipSubmissions.delete(key)
+      }
+    }
+  }
+}
+
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
+  pruneExpired(now)
   const record = ipSubmissions.get(ip)
   if (!record || record.expiresAt < now) {
     ipSubmissions.set(ip, { count: 1, expiresAt: now + 10 * 60 * 1000 }) // 10 minutes window

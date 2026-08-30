@@ -1,19 +1,30 @@
 import { NextResponse } from 'next/server'
+import { z } from 'zod'
 import { requireAdmin } from '@/lib/session'
 import { getDB } from '@/lib/db/client'
-import type { SiteContent } from '@/lib/types'
+
+const contentItemSchema = z.object({
+  key: z.string().optional(),
+  valueAr: z.string().max(10000).optional().nullable(),
+  valueEn: z.string().max(10000).optional().nullable(),
+})
+
+const schema = z.object({
+  content: z.record(z.string().min(1).max(100), contentItemSchema),
+})
 
 export async function POST(request: Request) {
   const session = await requireAdmin()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const raw = await request.json().catch(() => null) as Record<string, unknown> | null
-  if (!raw?.content || typeof raw.content !== 'object') {
-    return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
+  const raw = await request.json().catch(() => null)
+  const parsed = schema.safeParse(raw)
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid data format' }, { status: 400 })
   }
 
   const db = getDB()
-  const entries = Object.entries(raw.content as Record<string, SiteContent>)
+  const entries = Object.entries(parsed.data.content)
 
   // D1 batch upserts
   const statements = entries.map(([key, val]) =>

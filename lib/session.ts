@@ -10,8 +10,11 @@ const encoder = new TextEncoder()
 
 function getSecret(): string {
   const s = process.env.SESSION_SECRET
-  if (!s) throw new Error('SESSION_SECRET is not set')
-  return s
+  if (s) return s
+  if (process.env.NODE_ENV === 'development') {
+    return 'fahad-gsn-dev-hmac-secret-key-32-chars-min'
+  }
+  throw new Error('SESSION_SECRET environment variable is not configured')
 }
 
 async function getKey(secret: string): Promise<CryptoKey> {

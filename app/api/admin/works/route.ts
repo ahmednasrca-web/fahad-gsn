@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { requireAdmin } from '@/lib/session'
 import { getDB } from '@/lib/db/client'
+import { generateSlug } from '@/lib/slug'
 
 const schema = z.object({
   titleAr: z.string().min(1).max(200),
@@ -18,20 +19,6 @@ const schema = z.object({
   isFeatured: z.boolean(),
   isUniquePiece: z.boolean().optional(),
 })
-
-function generateSlug(titleEn: string): string {
-  return (
-    titleEn
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-      .slice(0, 80) +
-    '-' +
-    Date.now().toString(36)
-  )
-}
 
 export async function GET() {
   const session = await requireAdmin()

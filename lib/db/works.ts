@@ -122,7 +122,7 @@ const SELECT_COLS = `
 
 // ─── Public queries ────────────────────────────────────────────────────────────
 
-export async function getPublishedWorks(categorySlug?: string): Promise<Work[]> {
+export async function getPublishedWorks(categorySlug?: string, limit = 100): Promise<Work[]> {
   const db = getDB()
 
   if (categorySlug) {
@@ -137,9 +137,10 @@ export async function getPublishedWorks(categorySlug?: string): Promise<Work[]> 
         `SELECT ${SELECT_COLS} FROM works w
          LEFT JOIN categories c ON w.category_id = c.id
          WHERE w.is_published = 1 AND w.category_id = ?
-         ORDER BY w.sort_order ASC, w.created_at DESC`,
+         ORDER BY w.sort_order ASC, w.created_at DESC
+         LIMIT ?`,
       )
-      .bind(catRow.id)
+      .bind(catRow.id, limit)
       .all<D1WorkRow>()
     return results.map(mapWorkRow)
   }
@@ -149,8 +150,10 @@ export async function getPublishedWorks(categorySlug?: string): Promise<Work[]> 
       `SELECT ${SELECT_COLS} FROM works w
        LEFT JOIN categories c ON w.category_id = c.id
        WHERE w.is_published = 1
-       ORDER BY w.sort_order ASC, w.created_at DESC`,
+       ORDER BY w.sort_order ASC, w.created_at DESC
+       LIMIT ?`,
     )
+    .bind(limit)
     .all<D1WorkRow>()
   return results.map(mapWorkRow)
 }

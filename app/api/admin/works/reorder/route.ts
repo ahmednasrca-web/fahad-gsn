@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     await reorderWorksAdmin(parsed.data.ids)
     return NextResponse.json({ ok: true })
   } catch (err) {
-    console.error('Failed to reorder works:', err)
+    console.error('Failed to reorder works:', err instanceof Error ? err.message : 'Database error')
     return NextResponse.json({ error: 'Failed to reorder' }, { status: 500 })
   }
 }

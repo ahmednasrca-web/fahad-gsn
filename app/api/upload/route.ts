@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       httpMetadata: { contentType: file.type },
     })
   } catch (err) {
-    console.error('R2 upload error:', err)
+    console.error('R2 upload failed:', err instanceof Error ? err.message : 'Unknown storage error')
     return NextResponse.json({ error: 'فشل رفع الصورة. حاول مرة أخرى.' }, { status: 500 })
   }
 

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { requireAdmin } from '@/lib/session'
 import { getDB } from '@/lib/db/client'
+import { generateSlug } from '@/lib/slug'
 
 const schema = z.object({
   nameAr: z.string().min(1).max(100),
@@ -21,14 +22,7 @@ export async function POST(request: Request) {
   if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
 
   const { nameAr, nameEn, descriptionAr, descriptionEn, isActive } = parsed.data
-  const slug =
-    nameEn
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, '-')
-      .slice(0, 60) +
-    '-' +
-    Date.now().toString(36)
+  const slug = generateSlug(nameEn, 60)
 
   const db = getDB()
   const id = crypto.randomUUID()

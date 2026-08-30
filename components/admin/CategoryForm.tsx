@@ -1,14 +1,13 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Category } from '@/lib/types'
 import { Button, Switch, Alert, Spinner } from '@heroui/react'
 
-interface Props { category?: Category }
+import FormField, { adminInputCls } from '@/components/admin/FormField'
 
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080]'
-const labelCls = 'mb-1.5 block text-sm font-medium text-[#1A1209]'
+interface Props { category?: Category }
 
 export default function CategoryForm({ category }: Props) {
   const router = useRouter()
@@ -54,26 +53,22 @@ export default function CategoryForm({ category }: Props) {
   return (
     <form onSubmit={handleSubmit} className="max-w-xl" noValidate>
       <div className="flex flex-col gap-4">
-        <div>
-          <label htmlFor="nameAr" className={labelCls}>الاسم بالعربية <span className="text-red-500" aria-hidden="true">*</span></label>
+        <FormField id="nameAr" label="الاسم بالعربية" required>
           <input id="nameAr" type="text" required value={nameAr}
-            onChange={(e) => setNameAr(e.target.value)} className={inputCls} aria-required="true" />
-        </div>
-        <div>
-          <label htmlFor="nameEn" className={labelCls}>الاسم بالإنجليزية <span className="text-red-500" aria-hidden="true">*</span></label>
+            onChange={(e) => setNameAr(e.target.value)} className={adminInputCls} aria-required="true" />
+        </FormField>
+        <FormField id="nameEn" label="الاسم بالإنجليزية" required>
           <input id="nameEn" type="text" required dir="ltr" value={nameEn}
-            onChange={(e) => setNameEn(e.target.value)} className={inputCls} aria-required="true" />
-        </div>
-        <div>
-          <label htmlFor="descAr" className={labelCls}>الوصف بالعربية (اختياري)</label>
+            onChange={(e) => setNameEn(e.target.value)} className={adminInputCls} aria-required="true" />
+        </FormField>
+        <FormField id="descAr" label="الوصف بالعربية (اختياري)">
           <textarea id="descAr" rows={3} value={descAr}
-            onChange={(e) => setDescAr(e.target.value)} className={`${inputCls} resize-none`} />
-        </div>
-        <div>
-          <label htmlFor="descEn" className={labelCls}>الوصف بالإنجليزية (اختياري)</label>
+            onChange={(e) => setDescAr(e.target.value)} className={`${adminInputCls} resize-none`} />
+        </FormField>
+        <FormField id="descEn" label="الوصف بالإنجليزية (اختياري)">
           <textarea id="descEn" rows={3} dir="ltr" value={descEn}
-            onChange={(e) => setDescEn(e.target.value)} className={`${inputCls} resize-none`} />
-        </div>
+            onChange={(e) => setDescEn(e.target.value)} className={`${adminInputCls} resize-none`} />
+        </FormField>
 
         <Switch.Root isSelected={isActive} onChange={(v) => setIsActive(v)}
           className="flex items-center gap-3 cursor-pointer">
