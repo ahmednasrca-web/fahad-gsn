@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import type { Locale } from '@/lib/types'
@@ -138,13 +138,13 @@ export default function PrivateAtelierBookingModal({ locale, buttonClassName = '
                     className="w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#1A1009] px-3.5 py-2 text-xs text-[#1A1209] dark:text-[#FAF7F2] outline-none focus:border-[#C4854A]"
                   >
                     <option value="slab_selection">
-                      {isAr ? '🪵 معاينة واختيار لوح خام لطاولة مخصصة' : 'Custom Raw Slab Selection'}
+                      {isAr ? 'معاينة واختيار لوح خام لطاولة مخصصة' : 'Custom Raw Slab Selection'}
                     </option>
                     <option value="sculpture_view">
-                      {isAr ? '✨ معاينة تحف حصرية قيد التشكيل' : 'In-Progress Masterpieces Preview'}
+                      {isAr ? 'معاينة تحف حصرية قيد التشكيل' : 'In-Progress Masterpieces Preview'}
                     </option>
                     <option value="architect_consult">
-                      {isAr ? '📐 استشارة مشاريع ومهندسي ديكور' : 'Architectural & VIP Project Consultation'}
+                      {isAr ? 'استشارة مشاريع ومهندسي ديكور' : 'Architectural & VIP Project Consultation'}
                     </option>
                   </select>
                 </div>

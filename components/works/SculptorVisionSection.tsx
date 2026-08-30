@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -64,13 +64,13 @@ export default function SculptorVisionSection({ vision, finishedImage, title, lo
                 {/* Subtle blueprint grid overlay on raw */}
                 <div className="absolute inset-0 bg-[#001428]/30 pointer-events-none" />
                 <div className="absolute top-4 start-4 rounded-full bg-black/75 px-3 py-1 text-xs font-bold text-white backdrop-blur-md border border-white/20">
-                  {isAr ? '🪵 الجذع الخام قبل النحت' : '🪵 Raw Timber Trunk'}
+                  {isAr ? 'الجذع الخام قبل النحت' : 'Raw Timber Trunk'}
                 </div>
               </div>
 
               {/* Finished Badge */}
               <div className="absolute top-4 end-4 rounded-full bg-[#C4854A]/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md shadow-md">
-                {isAr ? '✨ التحفة المصقولة' : '✨ Liberated Masterpiece'}
+                {isAr ? 'التحفة المصقولة' : 'Liberated Masterpiece'}
               </div>
 
               {/* Divider Line */}

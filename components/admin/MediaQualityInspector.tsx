@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 
@@ -82,10 +82,10 @@ export default function MediaQualityInspector({ imageUrl, file, className = '' }
       <div className="flex flex-wrap items-center justify-between gap-2">
         {/* Tier Badge */}
         <div className="flex items-center gap-1.5 font-bold">
-          {stats.tier === '4k' && <span>💎 4K Ultra-HD (دقة فائقة ممتازة للعدسة المجهرية)</span>}
-          {stats.tier === 'fhd' && <span>✨ Full HD (دقة ممتازة للعرض العام)</span>}
-          {stats.tier === 'hd' && <span>👌 HD Standard (دقة مقبولة)</span>}
-          {stats.tier === 'low' && <span>⚠️ دقة منخفضة (قد تظهر غير واضحة عند التكبير)</span>}
+          {stats.tier === '4k' && <span>4K Ultra-HD (دقة فائقة ممتازة للعدسة المجهرية)</span>}
+          {stats.tier === 'fhd' && <span>Full HD (دقة ممتازة للعرض العام)</span>}
+          {stats.tier === 'hd' && <span>HD Standard (دقة مقبولة)</span>}
+          {stats.tier === 'low' && <span>دقة منخفضة (قد تظهر غير واضحة عند التكبير)</span>}
         </div>
 
         {/* Technical Specs */}

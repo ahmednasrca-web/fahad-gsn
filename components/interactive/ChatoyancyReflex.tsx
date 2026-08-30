@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
@@ -51,7 +51,7 @@ export default function ChatoyancyReflex({ imageUrl, title, locale }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <div>
           <h4 className="text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-2">
-            <span>✨</span>
+            <span className="inline-block h-2 w-2 rounded-full bg-[#C4854A] shadow-[0_0_8px_#C4854A]" />
             <span>{isAr ? 'محاكي بريق العروق ثلاثي الأبعاد (Chatoyancy Reflex)' : '360° Grain Chatoyancy Reflex'}</span>
           </h4>
           <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5">

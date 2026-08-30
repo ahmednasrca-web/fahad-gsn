@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -125,13 +125,15 @@ export default function SculpturalHotspotsViewer({ imageUrl, title, hotspots, lo
                 </p>
 
                 <div className="mt-6 pt-4 border-t border-[#E8DDD0] dark:border-[#2C1B10] flex items-center gap-2 text-xs text-[#8A7968]">
-                  <span>💎</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#C4854A]" />
                   <span>{isAr ? 'تفصيلة يدوية لا يمكن تكرارها في أي قطعة أخرى' : 'Unrepeatable artisan signature'}</span>
                 </div>
               </div>
             ) : (
               <div className="rounded-3xl border border-dashed border-[#E8DDD0] dark:border-[#2C1B10] p-8 text-center bg-white/50 dark:bg-[#150D08]/50">
-                <span className="text-4xl mb-3 block">🪵✨</span>
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C4854A]/10 text-[#C4854A] font-bold text-lg">
+                  ✦
+                </div>
                 <h4 className="text-base font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
                   {isAr ? 'استكشف عبقرية التشكيل' : 'Discover Sculptural Secrets'}
                 </h4>

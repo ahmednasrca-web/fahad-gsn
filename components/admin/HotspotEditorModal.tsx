@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef } from 'react'
 import Image from 'next/image'
@@ -55,7 +55,7 @@ export default function HotspotEditorModal({ imageUrl, hotspots, onChange }: Pro
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
           <h4 className="text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-2">
-            <span>✨</span>
+            <span className="text-[#C4854A] font-bold">✦</span>
             <span>نقاط الاستكشاف النحتي التفاعلية (Sculptural Hotspots)</span>
           </h4>
           <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5">
