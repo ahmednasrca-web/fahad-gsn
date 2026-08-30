@@ -69,7 +69,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
         {works.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-4xl" aria-hidden="true">🪵</p>
-            <p className="mt-4 text-lg font-medium text-[#3D2B1A]">
+            <p className="mt-4 text-lg font-medium text-[#3D2B1A] dark:text-[#E8DDD0]">
               {t(locale, 'noWorks')}
             </p>
           </div>
@@ -79,10 +79,10 @@ export default async function GalleryPage({ searchParams }: PageProps) {
               <Link
                 key={work.id}
                 href={`/gallery/${work.slug}`}
-                className="work-card group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#E8DDD0] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
+                className="work-card group block overflow-hidden rounded-2xl bg-white dark:bg-[#170E09] shadow-sm ring-1 ring-[#E8DDD0] dark:ring-[#2C1B10] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
               >
                 {/* Image */}
-                <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8]">
+                <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8] dark:bg-[#1F130B]">
                   {work.primaryImage ? (
                     <Image
                       src={work.primaryImage}
@@ -115,11 +115,11 @@ export default async function GalleryPage({ searchParams }: PageProps) {
 
                 {/* Info */}
                 <div className="p-3.5">
-                  <p className="truncate text-sm font-bold text-[#1A1209] group-hover:text-[#C4854A] transition-colors">
+                  <p className="truncate text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] group-hover:text-[#C4854A] transition-colors">
                     {getWorkTitle(work, locale)}
                   </p>
                   {work.price != null && (
-                    <p className="mt-1 text-sm font-semibold text-[#2C1810]">
+                    <p className="mt-1 text-sm font-semibold text-[#2C1810] dark:text-[#D4B896]">
                       {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
                     </p>
                   )}

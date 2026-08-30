@@ -2,6 +2,7 @@ import { getLocale } from '@/lib/locale'
 import { getDir } from '@/lib/i18n'
 import { SiteHeader, SiteFooter } from '@/components/layout'
 import AtelierAmbienceAudio from '@/components/interactive/AtelierAmbienceAudio'
+import AmbientIncenseMist from '@/components/ambient/AmbientIncenseMist'
 
 export default async function PublicLayout({
   children,
@@ -12,9 +13,11 @@ export default async function PublicLayout({
   const dir = getDir(locale)
 
   return (
-    <div dir={dir} lang={locale} className="flex min-h-svh flex-col">
+    <div dir={dir} lang={locale} className="relative flex min-h-svh flex-col overflow-x-hidden">
+      {/* Background Ambient Incense Mist */}
+      <AmbientIncenseMist />
       <SiteHeader />
-      <main className="flex-1">
+      <main className="relative z-10 flex-1">
         {children}
       </main>
       <SiteFooter />

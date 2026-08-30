@@ -103,7 +103,7 @@ export default async function HomePage() {
 
       {/* ── Featured Works Section ───────────────────────── */}
       {featuredWorks.length > 0 && (
-        <section className="section-padding bg-[#FAF7F2]">
+        <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
           <div className="container-site">
             {/* Section header */}
             <div className="mb-10 flex items-end justify-between">
@@ -111,13 +111,13 @@ export default async function HomePage() {
                 <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
                   {locale === 'ar' ? 'من أعمالنا' : 'Our Works'}
                 </p>
-                <h2 className="text-3xl font-bold text-[#1A1209] md:text-4xl">
+                <h2 className="text-3xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-4xl font-display">
                   {locale === 'ar' ? 'أعمال مميزة' : 'Featured Works'}
                 </h2>
               </div>
               <Link
                 href="/gallery"
-                className="hidden text-sm font-medium text-[#6B3F1F] underline-offset-4 hover:underline md:block"
+                className="hidden text-sm font-medium text-[#6B3F1F] dark:text-[#D4B896] underline-offset-4 hover:underline md:block"
               >
                 {locale === 'ar' ? 'عرض الكل ←' : '→ View All'}
               </Link>
@@ -129,10 +129,10 @@ export default async function HomePage() {
                 <Link
                   key={work.id}
                   href={`/gallery/${work.slug}`}
-                  className="work-card group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-[#E8DDD0] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
+                  className="work-card group block overflow-hidden rounded-2xl bg-white dark:bg-[#170E09] shadow-sm ring-1 ring-[#E8DDD0] dark:ring-[#2C1B10] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
                 >
                   {/* Image */}
-                  <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8]">
+                  <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8] dark:bg-[#1F130B]">
                     {work.primaryImage ? (
                       <Image
                         src={work.primaryImage}
@@ -156,11 +156,11 @@ export default async function HomePage() {
 
                   {/* Info */}
                   <div className="p-3.5">
-                    <p className="truncate text-sm font-bold text-[#1A1209] group-hover:text-[#C4854A] transition-colors">
+                    <p className="truncate text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] group-hover:text-[#C4854A] transition-colors">
                       {getWorkTitle(work, locale)}
                     </p>
                     {work.price != null && (
-                      <p className="mt-1 text-sm font-semibold text-[#2C1810]">
+                      <p className="mt-1 text-sm font-semibold text-[#2C1810] dark:text-[#D4B896]">
                         {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
                       </p>
                     )}
@@ -173,7 +173,7 @@ export default async function HomePage() {
             <div className="mt-8 text-center md:hidden">
               <Link
                 href="/gallery"
-                className="inline-flex min-h-[48px] items-center rounded-full border border-[#C4854A] px-8 text-sm font-semibold text-[#6B3F1F] transition-colors hover:bg-[#C4854A] hover:text-white"
+                className="inline-flex min-h-[48px] items-center rounded-full border border-[#C4854A] px-8 text-sm font-semibold text-[#6B3F1F] dark:text-[#D4B896] transition-colors hover:bg-[#C4854A] hover:text-white"
               >
                 {locale === 'ar' ? 'عرض جميع الأعمال' : 'View All Works'}
               </Link>
@@ -183,30 +183,30 @@ export default async function HomePage() {
       )}
 
       {/* ── Wood Transformation Showcase Section ─────────── */}
-      <section className="section-padding bg-[#FAF7F2] border-t border-[#E8DDD0]">
+      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] border-t border-[#E8DDD0] dark:border-[#2C1B10] transition-colors duration-400">
         <div className="container-site">
           <WoodTransformationSlider locale={locale} />
         </div>
       </section>
 
       {/* ── About Teaser Section ─────────────────────────── */}
-      <section className="section-padding bg-[#F0E8D8]">
+      <section className="section-padding bg-[#F0E8D8] dark:bg-[#140D08] border-t border-[#E8DDD0] dark:border-[#2C1B10] transition-colors duration-400">
         <div className="container-site">
           <div className="mx-auto max-w-2xl text-center">
-            <p className={`mb-4 text-[#A0522D] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
+            <p className={`mb-4 text-[#A0522D] dark:text-[#D4B896] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
               {locale === 'ar' ? 'من نحن' : 'About'}
             </p>
-            <h2 className="mb-6 text-3xl font-bold text-[#1A1209] md:text-4xl">
+            <h2 className="mb-6 text-3xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-4xl font-display">
               {locale === 'ar' ? 'حرفة يدوية بروح كويتية' : 'Handcraft with Kuwaiti Spirit'}
             </h2>
-            <p className="mb-8 text-lg leading-relaxed text-[#3D2B1A]">
+            <p className="mb-8 text-lg leading-relaxed text-[#3D2B1A] dark:text-[#E8DDD0]">
               {locale === 'ar'
                 ? 'كل قطعة تحكي قصة. نعمل بشغف على تحويل أجود أنواع الخشب إلى أعمال فنية تدوم للأجيال.'
                 : 'Every piece tells a story. We craft with passion, turning the finest wood into timeless artworks.'}
             </p>
             <Link
               href="/about"
-              className="inline-flex min-h-[48px] items-center rounded-full bg-[#2C1810] px-8 font-semibold text-[#FAF7F2] transition-opacity hover:opacity-90"
+              className="inline-flex min-h-[48px] items-center rounded-full bg-[#2C1810] dark:bg-[#C4854A] px-8 font-semibold text-[#FAF7F2] transition-all hover:opacity-90 hover:scale-105 active:scale-95"
             >
               {locale === 'ar' ? 'اعرف أكثر' : 'Learn More'}
             </Link>

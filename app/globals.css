@@ -189,6 +189,38 @@ h1, h2, h3, h4, h5, h6,
   --transition-slow: 350ms ease;
 }
 
+/* ── Midnight Lounge (Dark Theme Tokens) ────────────────── */
+html.dark {
+  /* Brand colors — deep smoked noir walnut and antique gold */
+  --walnut:        #1A1009;
+  --wood-mid:      #C4854A;
+  --wood-warm:     #D4B896;
+  --wood-light:    #D6965C;
+  --sand:          #D4B896;
+  --ivory:         #1E130B;
+  --cream:         #0E0805;   /* Deep Noir Walnut luxury background */
+  --white:         #180F0A;
+
+  /* Text */
+  --text-primary:  #FAF7F2;   /* Ivory White text */
+  --text-body:     #E8DDD0;   /* Warm soft white */
+  --text-muted:    #D4B896;   /* Gilded amber subtext */
+  --text-subtle:   #A09080;
+
+  /* UI */
+  --border:        #2C1B10;
+  --border-dark:   #422918;
+  --surface:       #150D08;
+  --surface-alt:   #1C120B;
+
+  /* Semantic */
+  --accent:        #C4854A;
+  --accent-hover:  #D6965C;
+  --accent-light:  #D4B896;
+
+  color-scheme: dark;
+}
+
 /* ── Base ──────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
@@ -199,6 +231,7 @@ body {
   color: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Typography ────────────────────────────────────────── */
@@ -352,6 +385,37 @@ h1, h2, h3, h4, h5, h6 {
 
 .lux-fade-in {
   animation: luxFadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Ambient Incense Mist Animations ────────────────────── */
+@keyframes incenseRise {
+  0% {
+    transform: translateY(60%) scaleX(0.9) scaleY(0.9);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(0%) scaleX(1.15) scaleY(1.2);
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-75%) scaleX(1.4) scaleY(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes incenseDrift {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(25px) rotate(1deg);
+  }
 }
 
 /* ── Fluid View Transitions ────────────────────────────── */

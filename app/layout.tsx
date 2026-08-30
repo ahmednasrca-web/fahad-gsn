@@ -87,6 +87,8 @@ const orgJsonLd = {
   },
 }
 
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
+
 export default function RootLayout({
   children,
 }: {
@@ -97,6 +99,7 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       className={`${thmanyahSans.variable} ${thmanyahDisplay.variable} ${thmanyahSerif.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <script
@@ -105,7 +108,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        {children}
+        <ThemeProvider defaultTheme="light">
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

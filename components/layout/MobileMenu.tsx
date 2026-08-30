@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { Locale } from '@/lib/types'
+import AtelierThemeSwitcher from '@/components/theme/AtelierThemeSwitcher'
 
 interface Props {
   navLinks: { href: string; label: string }[]
@@ -34,7 +35,7 @@ export default function MobileMenu({ navLinks, locale }: Props) {
       {/* Hamburger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-9 w-9 items-center justify-center rounded-lg text-[#3D2B1A] transition hover:bg-[#F0E8D8]"
+        className="flex h-9 w-9 items-center justify-center rounded-lg text-[#3D2B1A] dark:text-[#E8DDD0] transition hover:bg-[#F0E8D8] dark:hover:bg-[#1E130B]"
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={locale === 'ar' ? 'فتح القائمة' : 'Open menu'}
@@ -54,13 +55,13 @@ export default function MobileMenu({ navLinks, locale }: Props) {
       {open && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
           <nav
             id="mobile-menu"
-            className="fixed inset-x-0 top-16 z-50 border-b border-[#E8DDD0] bg-[#FAF7F2] px-4 py-4 shadow-xl"
+            className="fixed inset-x-0 top-16 z-50 border-b border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#0E0805] px-4 py-4 shadow-xl transition-colors duration-300"
             aria-label={locale === 'ar' ? 'قائمة الموبايل' : 'Mobile navigation'}
           >
             <ul className="flex flex-col gap-1">
@@ -69,13 +70,20 @@ export default function MobileMenu({ navLinks, locale }: Props) {
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-[48px] items-center rounded-xl px-4 text-base font-medium text-[#3D2B1A] transition hover:bg-[#F0E8D8] hover:text-[#2C1810]"
+                    className="flex min-h-[48px] items-center rounded-xl px-4 text-base font-medium text-[#3D2B1A] dark:text-[#E8DDD0] transition hover:bg-[#F0E8D8] dark:hover:bg-[#1E130B] hover:text-[#2C1810] dark:hover:text-[#FAF7F2]"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
+
+            <div className="mt-4 pt-3 border-t border-[#E8DDD0] dark:border-[#2C1B10] flex items-center justify-between px-2">
+              <span className="text-xs font-bold text-[#8A7968] dark:text-[#A09080]">
+                {locale === 'ar' ? 'أجواء العرض:' : 'Atmosphere:'}
+              </span>
+              <AtelierThemeSwitcher locale={locale} />
+            </div>
           </nav>
         </>
       )}
