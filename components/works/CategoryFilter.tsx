@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import type { Category, Locale } from '@/lib/types'
@@ -34,7 +34,7 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
           className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
             !activeSlug
               ? 'shadow-xs font-semibold'
-              : 'border border-[#E8DDD0] hover:border-[#C4854A] bg-white text-[#3D2B1A]'
+              : 'border border-[#E8DDD0] dark:border-[#2C1B10] hover:border-[#C4854A] bg-white dark:bg-[#1A1009] text-[#3D2B1A] dark:text-[#FAF7F2]'
           }`}
         >
           <Chip.Label>{t(locale, 'allWorks')}</Chip.Label>
@@ -58,7 +58,7 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
               className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                 active
                   ? 'shadow-xs font-semibold'
-                  : 'border border-[#E8DDD0] hover:border-[#C4854A] bg-white text-[#3D2B1A]'
+                  : 'border border-[#E8DDD0] dark:border-[#2C1B10] hover:border-[#C4854A] bg-white dark:bg-[#1A1009] text-[#3D2B1A] dark:text-[#FAF7F2]'
               }`}
             >
               <Chip.Label>{getCategoryName(cat, locale)}</Chip.Label>

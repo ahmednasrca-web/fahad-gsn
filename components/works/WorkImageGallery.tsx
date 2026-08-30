@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
@@ -250,24 +250,24 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
       </div>
 
       {/* ── Interactive Atelier Controls Bar: Macro Zoom Level & Day/Night Atmosphere ── */}
-      <div className="mb-4 rounded-2xl border border-[#E8DDD0] bg-[#FAF7F2] p-3.5 shadow-sm">
+      <div className="mb-4 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#150D08] p-3.5 shadow-sm transition-colors duration-400">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           {/* Zoom Level Switcher */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#1A1209] flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-1.5">
               <span>🔬</span>
               <span>{isAr ? 'قوة تكبير العدسة:' : 'Macro Loupe Power:'}</span>
             </span>
-            <div className="flex items-center gap-1 rounded-xl bg-white p-1 border border-[#E8DDD0]">
+            <div className="flex items-center gap-1 rounded-xl bg-white dark:bg-[#1E130B] p-1 border border-[#E8DDD0] dark:border-[#2C1B10]">
               {([2.5, 3.5, 5] as const).map((lvl) => (
                 <button
                   key={lvl}
                   type="button"
                   onClick={() => setZoomLevel(lvl)}
-                  className={`rounded-lg px-2.5 py-1 text-xs font-mono font-bold transition-all ${
+                  className={`rounded-lg px-2.5 py-1 text-xs font-mono font-bold transition-all cursor-pointer ${
                     zoomLevel === lvl
                       ? 'bg-[#C4854A] text-white shadow-sm'
-                      : 'text-[#6B5C4E] hover:bg-[#F5F0E8]'
+                      : 'text-[#6B5C4E] dark:text-[#D4B896] hover:bg-[#F5F0E8] dark:hover:bg-[#2A1B10]'
                   }`}
                 >
                   {lvl}X
@@ -278,11 +278,11 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
 
           {/* 3 Atmosphere Mode Buttons */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#1A1209] flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-1.5">
               <span>💡</span>
               <span>{isAr ? 'محاكي الإضاءة:' : 'Atmosphere:'}</span>
             </span>
-            <div className="flex items-center gap-1 rounded-xl bg-white p-1 border border-[#E8DDD0]">
+            <div className="flex items-center gap-1 rounded-xl bg-white dark:bg-[#1E130B] p-1 border border-[#E8DDD0] dark:border-[#2C1B10]">
               {(['day', 'warm', 'night'] as const).map((mode) => {
                 const cfg = lightingConfigs[mode]
                 const isSelected = lightingMode === mode
@@ -291,10 +291,10 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
                     key={mode}
                     type="button"
                     onClick={() => setLightingMode(mode)}
-                    className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                    className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#2C1810] text-[#FAF7F2] shadow-sm'
-                        : 'text-[#6B5C4E] hover:bg-[#F5F0E8] hover:text-[#1A1209]'
+                        ? 'bg-[#2C1810] dark:bg-[#C4854A] text-[#FAF7F2] shadow-sm'
+                        : 'text-[#6B5C4E] dark:text-[#D4B896] hover:bg-[#F5F0E8] dark:hover:bg-[#2A1B10] hover:text-[#1A1209] dark:hover:text-[#FAF7F2]'
                     }`}
                     aria-pressed={isSelected}
                   >
@@ -309,7 +309,7 @@ export default function WorkImageGallery({ images, title, locale = 'ar' }: Props
         </div>
 
         {/* Atmosphere explanation */}
-        <p className="mt-2 text-[11px] font-medium text-[#6B5C4E] leading-relaxed">
+        <p className="mt-2 text-[11px] font-medium text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
           {isAr ? activeConfig.descAr : activeConfig.descEn} · {isAr ? 'حرّك الماوس فوق الصورة لفحص تفاصيل الألياف والمسام بدقة 4K.' : 'Hover over image to inspect micro wood fibers in 4K.'}
         </p>
       </div>

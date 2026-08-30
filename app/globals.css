@@ -221,6 +221,52 @@ html.dark {
   color-scheme: dark;
 }
 
+/* ── Root Dark Mode Universal Enforcement ───────────────── */
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: #FAF7F2 !important;
+}
+
+html.dark [class*="text-[#1A1209]"],
+html.dark [class*="text-[#2C1810]"],
+html.dark [class*="text-[#3D2B1A]"],
+html.dark [class*="text-[#4A3B2C]"],
+html.dark [class*="text-[#5C2E0B]"],
+html.dark [class*="text-[#38281F]"] {
+  color: #FAF7F2 !important;
+}
+
+html.dark [class*="text-[#6B3F1F]"],
+html.dark [class*="text-[#6B5C4E]"],
+html.dark [class*="text-[#5C4B3E]"],
+html.dark [class*="text-[#8A7968]"],
+html.dark [class*="text-[#A09080]"] {
+  color: #D4B896 !important;
+}
+
+html.dark [class*="bg-[#FAF7F2]"],
+html.dark [class*="bg-[#F0E8D8]"],
+html.dark [class*="bg-[#F5F0E8]"],
+html.dark [class*="bg-[#F5EFEB]"],
+html.dark [class*="bg-[#EAE4DC]"] {
+  background-color: #0E0805 !important;
+}
+
+html.dark [class*="bg-white"] {
+  background-color: #170E09 !important;
+}
+
+html.dark [class*="border-[#E8DDD0]"],
+html.dark [class*="border-[#D4B896]"],
+html.dark [class*="border-[#C8B8A0]"],
+html.dark [class*="ring-[#E8DDD0]"] {
+  border-color: #2C1B10 !important;
+}
+
 /* ── Base ──────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
