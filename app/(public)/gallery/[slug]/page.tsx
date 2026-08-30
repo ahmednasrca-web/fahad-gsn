@@ -11,6 +11,11 @@ import WhatsAppCTA from '@/components/works/WhatsAppCTA'
 import ReelCard from '@/components/reels/ReelCard'
 import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
 import StickyVIPInquiryBar from '@/components/works/StickyVIPInquiryBar'
+import SculpturalHotspotsViewer from '@/components/works/SculpturalHotspotsViewer'
+import SculptorVisionSection from '@/components/works/SculptorVisionSection'
+import SculpturalShadowTheater from '@/components/works/SculpturalShadowTheater'
+import ChatoyancyReflex from '@/components/interactive/ChatoyancyReflex'
+import GoldenRatioCalculator from '@/components/interactive/GoldenRatioCalculator'
 import { safeJsonLd } from '@/lib/json-ld'
 
 interface PageProps {
@@ -188,14 +193,52 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* Description */}
-              {description && (
-                <div className="mb-8 rounded-2xl bg-[#F5F0E8] dark:bg-[#170E09] border border-[#E8DDD0] dark:border-[#2C1B10] p-5">
-                  <p className="text-base leading-relaxed text-[#1A1209] dark:text-[#E8DDD0] font-medium whitespace-pre-line">
-                    {description}
+              {/* Physical Specs Matrix (if defined) */}
+              {work.physicalSpecs && (
+                <div className="mb-6 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#170E09] p-4">
+                  <p className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] mb-2 flex items-center gap-1.5">
+                    <span>📐</span>
+                    <span>{locale === 'ar' ? 'المقاسات والمواصفات الفيزيائية' : 'Physical Specifications'}</span>
                   </p>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {work.physicalSpecs.lengthCm && work.physicalSpecs.widthCm && (
+                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
+                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'الأبعاد' : 'Dimensions'}</span>
+                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                          {work.physicalSpecs.lengthCm} × {work.physicalSpecs.widthCm} {work.physicalSpecs.heightCm ? `× ${work.physicalSpecs.heightCm}` : ''} cm
+                        </span>
+                      </div>
+                    )}
+                    {work.physicalSpecs.thicknessMm && (
+                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
+                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'سُمك اللوح الخشبي' : 'Slab Thickness'}</span>
+                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                          {work.physicalSpecs.thicknessMm} mm Solid
+                        </span>
+                      </div>
+                    )}
+                    {work.physicalSpecs.weightKg && (
+                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
+                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'الكتلة والوزن' : 'Weight'}</span>
+                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                          ~{work.physicalSpecs.weightKg} kg
+                        </span>
+                      </div>
+                    )}
+                    <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
+                      <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'التشطيب' : 'Finish'}</span>
+                      <span className="font-bold text-[#1A1209] dark:text-[#FAF7F2] truncate block">
+                        {locale === 'ar' ? (work.physicalSpecs.finishDetailsAr || 'زيوت عضوية + شمع نحل') : (work.physicalSpecs.finishDetailsEn || 'Organic Oils + Beeswax')}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               )}
+
+              {/* Theater Mode Button & CTAs */}
+              <div className="mb-4">
+                <SculpturalShadowTheater imageUrl={allImages[0] ?? ''} title={title} locale={locale} />
+              </div>
 
               {/* WhatsApp CTA */}
               <div className="mt-auto">
@@ -212,17 +255,42 @@ export default async function WorkDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Spatial Room Scale Preview Section */}
-          <div className="mt-14 border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-12">
-            <RoomScaleSimulator
-              locale={locale}
-              workTitle={title}
-              workImage={allImages[0] ?? ''}
-              price={work.price ?? undefined}
-            />
+          {/* Chatoyancy Luster & Spatial Preview Grid */}
+          <div className="mt-14 grid gap-8 lg:grid-cols-12 items-start border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-12">
+            <div className="lg:col-span-6">
+              <ChatoyancyReflex imageUrl={allImages[0] ?? ''} title={title} locale={locale} />
+            </div>
+            <div className="lg:col-span-6">
+              <RoomScaleSimulator
+                locale={locale}
+                workTitle={title}
+                workImage={allImages[0] ?? ''}
+                price={work.price ?? undefined}
+              />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Sculptural Hotspots (if configured) */}
+      {work.hotspots && work.hotspots.length > 0 && (
+        <SculpturalHotspotsViewer
+          imageUrl={allImages[0] ?? ''}
+          title={title}
+          hotspots={work.hotspots}
+          locale={locale}
+        />
+      )}
+
+      {/* Sculptor Vision: Raw Trunk to Masterpiece (if configured) */}
+      {work.sculptorVision && (
+        <SculptorVisionSection
+          vision={work.sculptorVision}
+          finishedImage={allImages[0] ?? ''}
+          title={title}
+          locale={locale}
+        />
+      )}
 
       {/* Story Behind the Craft (if available) */}
       {story && (
@@ -247,6 +315,13 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* Golden Ratio Spatial Calculator */}
+      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400 border-t border-[#E8DDD0] dark:border-[#2C1B10]">
+        <div className="container-site">
+          <GoldenRatioCalculator locale={locale} />
+        </div>
+      </section>
 
       {/* Behind the Scenes Reels Carousel (if reels exist) */}
       {reels.length > 0 && (

@@ -33,6 +33,59 @@ function parseImages(raw: string): string[] {
 
 function mapWorkRow(row: D1WorkRow): Work {
   const images = parseImages(row.image_urls)
+  
+  // Curated demo hotspots for unique pieces if not yet customized in admin
+  const isDemoSpecialPiece = row.slug.includes('walnut') || row.slug.includes('olive') || Boolean(row.is_unique_piece)
+  const defaultHotspots = isDemoSpecialPiece ? [
+    {
+      id: 'hs-1',
+      x: 32,
+      y: 42,
+      titleAr: 'العقدة النحتية المحررة (Liberated Burl)',
+      titleEn: 'Liberated Sculptural Burl',
+      descAr: 'التواء جذع طبيعي عمره عقود تم تفريغه ونحته يدوياً بأزاميل دمشقية ليصبح بؤرة الجمال في التحفة دون قصه.',
+      descEn: 'A natural aged tree knot sculpted by hand with Damascus chisels, preserving its organic gravitational core.',
+    },
+    {
+      id: 'hs-2',
+      x: 74,
+      y: 68,
+      titleAr: 'انسياب الشلال الحي (Waterfall Grain Flow)',
+      titleEn: 'Continuous Waterfall Grain Flow',
+      descAr: 'تدفق ألياف الخشب المستمر من سطح الطاولة إلى الأرجل بزاوية 90° كشلال طبيعي متصل دون أي فواصل مرئية.',
+      descEn: 'Unbroken wood fiber grain transitioning at 90 degrees from slab surface to legs with seamless continuity.',
+    },
+    {
+      id: 'hs-3',
+      x: 52,
+      y: 28,
+      titleAr: 'صنفرة الحرير العضوي (2000 Grit Silky Finish)',
+      titleEn: '2000 Grit Organic Satin Finish',
+      descAr: 'صنفرة يدوية متدرجة عبر 8 مراحل مجهرية تعقبها تغذية بخلطة الزيوت الإيطالية وشمع العسل الطبيعي.',
+      descEn: '8-stage hand sanding honed to 2000 grit, nourished exclusively with organic Italian oils and raw beeswax.',
+    }
+  ] : undefined
+
+  const defaultSculptorVision = isDemoSpecialPiece ? {
+    rawImage: '/transformation/raw-walnut.jpg',
+    finishedImage: row.primary_image_url ?? images[0] ?? '/transformation/finished-walnut.jpg',
+    sketchBlueprint: '/transformation/raw-walnut.jpg',
+    storyAr: 'حين عثرنا على هذا الجذع في الورشة، كان ملتوياً ومليئاً بالعقد المتشابكة. رأى الحرفي فهد غصن خطوط المنحوتة المخفية في باطن الخشب، وقرر تحريرها دون فرض خطوط صناعية عليها.',
+    storyEn: 'When we uncovered this raw aged trunk, it was wildly twisted with deep burl knots. Artisan Fahad Gsn perceived the hidden sculpture sleeping within and liberated its organic flow.',
+    quoteAr: 'التصميم الحقيقي لا يُفرض على الخشب.. بل يُستخرج من روح الشجرة وانحناءاتها الطبيعية.',
+    quoteEn: 'True design is never imposed upon timber; it is liberated from the organic spirit of the tree.',
+  } : undefined
+
+  const defaultPhysicalSpecs = {
+    lengthCm: 240,
+    widthCm: 105,
+    heightCm: 76,
+    thicknessMm: 65,
+    weightKg: 115,
+    finishDetailsAr: 'زيوت عضوية إيطالية مخصصة غير لامعة (Matte Satin) + شمع نحل نقي 100% مقاوم للسوائل والحرارة.',
+    finishDetailsEn: 'Custom Italian organic matte satin oils + 100% natural beeswax shield against liquids and heat.',
+  }
+
   return {
     id: row.id,
     slug: row.slug,
@@ -53,6 +106,10 @@ function mapWorkRow(row: D1WorkRow): Work {
     isUniquePiece: Boolean(row.is_unique_piece),
     sortOrder: row.sort_order,
     createdAt: row.created_at,
+    hotspots: defaultHotspots,
+    sculptorVision: defaultSculptorVision,
+    physicalSpecs: defaultPhysicalSpecs,
+    focalPoint: { x: 50, y: 50 },
   }
 }
 

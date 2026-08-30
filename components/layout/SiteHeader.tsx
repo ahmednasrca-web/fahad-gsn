@@ -15,6 +15,7 @@ export default async function SiteHeader() {
     { href: '/', label: t(locale, 'home') },
     { href: '/gallery', label: t(locale, 'gallery') },
     { href: '/reels', label: t(locale, 'reels') },
+    { href: '/concierge', label: locale === 'ar' ? 'جلسة خاصة' : 'Private Visit' },
     { href: '/about', label: t(locale, 'about') },
     { href: '/contact', label: t(locale, 'contact') },
   ]

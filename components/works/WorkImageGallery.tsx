@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
+import { useAtelierAudio } from '@/components/interactive/AtelierHapticAudio'
 
 type LightingMode = 'day' | 'warm' | 'night'
 
@@ -13,6 +14,7 @@ interface Props {
 
 export default function WorkImageGallery({ images, title, locale = 'ar' }: Props) {
   const isAr = locale === 'ar'
+  const { playSound } = useAtelierAudio()
   const [activeIndex, setActiveIndex] = useState(0)
   const [isLoupeEnabled, setIsLoupeEnabled] = useState(false)
   const [isHovering, setIsHovering] = useState(false)

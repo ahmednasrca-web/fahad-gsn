@@ -13,6 +13,42 @@ export interface Category {
   isActive: boolean
 }
 
+export interface SculpturalHotspot {
+  id: string
+  x: number // percentage 0-100
+  y: number // percentage 0-100
+  titleAr: string
+  titleEn: string
+  descAr: string
+  descEn: string
+  zoomImage?: string
+}
+
+export interface SculptorVision {
+  rawImage: string
+  finishedImage?: string
+  sketchBlueprint?: string
+  storyAr: string
+  storyEn: string
+  quoteAr?: string
+  quoteEn?: string
+}
+
+export interface PhysicalSpecs {
+  lengthCm?: number
+  widthCm?: number
+  heightCm?: number
+  thicknessMm?: number
+  weightKg?: number
+  finishDetailsAr?: string
+  finishDetailsEn?: string
+}
+
+export interface FocalPoint {
+  x: number // percentage 0-100
+  y: number // percentage 0-100
+}
+
 export interface Work {
   id: string
   slug: string
@@ -31,6 +67,10 @@ export interface Work {
   storyEn?: string
   sortOrder?: number
   createdAt: string
+  hotspots?: SculpturalHotspot[]
+  sculptorVision?: SculptorVision
+  physicalSpecs?: PhysicalSpecs
+  focalPoint?: FocalPoint
 }
 
 export interface SiteContent {

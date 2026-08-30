@@ -1,8 +1,9 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import type { Locale } from '@/lib/types'
 import { Card, Chip } from '@heroui/react'
+import { useAtelierAudio } from '@/components/interactive/AtelierHapticAudio'
 
 interface WoodSpecies {
   id: string
@@ -94,6 +95,7 @@ interface Props {
 }
 
 export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Props) {
+  const { playSound } = useAtelierAudio()
   const [selectedId, setSelectedId] = useState('walnut')
   const selected = WOOD_SPECIES.find((s) => s.id === selectedId) ?? WOOD_SPECIES[0]
   const isAr = locale === 'ar'
@@ -122,7 +124,10 @@ export default function WoodSpeciesGuide({ locale = 'ar', className = '' }: Prop
           return (
             <button
               key={species.id}
-              onClick={() => setSelectedId(species.id)}
+              onClick={() => {
+                playSound('tap')
+                setSelectedId(species.id)
+              }}
               className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer ${
                 isSelected
                   ? 'bg-[#2C1810] dark:bg-[#C4854A] text-[#FAF7F2] shadow-md scale-105 ring-2 ring-[#C4854A]'

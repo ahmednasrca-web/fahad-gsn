@@ -1,7 +1,8 @@
-﻿'use client'
+'use client'
 
 import { useTheme } from './ThemeProvider'
 import type { Locale } from '@/lib/types'
+import { useAtelierAudio } from '@/components/interactive/AtelierHapticAudio'
 
 interface Props {
   locale?: Locale
@@ -15,12 +16,18 @@ export default function AtelierThemeSwitcher({
   className = '',
 }: Props) {
   const { isDark, toggleTheme } = useTheme()
+  const { playSound } = useAtelierAudio()
   const isAr = locale === 'ar'
+
+  function handleToggle() {
+    playSound('tick')
+    toggleTheme()
+  }
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={handleToggle}
       className={`group relative inline-flex items-center gap-2 rounded-full border border-[#C4854A]/30 bg-[#FAF7F2]/80 dark:bg-[#1C120B]/90 px-3 py-1.5 text-xs font-bold shadow-xs backdrop-blur-md transition-all duration-300 hover:border-[#C4854A] hover:shadow-[0_0_20px_rgba(196,133,74,0.35)] active:scale-95 cursor-pointer ${className}`}
       aria-label={
         isDark
