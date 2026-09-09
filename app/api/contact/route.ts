@@ -39,9 +39,11 @@ function isRateLimited(ip: string): boolean {
 }
 
 export async function POST(request: Request) {
-  // Rate limiting by client IP
-  const forwardedFor = request.headers.get('x-forwarded-for') ?? request.headers.get('cf-connecting-ip') ?? 'unknown'
-  const clientIp = forwardedFor.split(',')[0].trim()
+  // Rate limiting by client IP (prioritize Cloudflare edge header over spoofable X-Forwarded-For)
+  const clientIp =
+    request.headers.get('cf-connecting-ip') ??
+    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    'unknown'
   if (isRateLimited(clientIp)) {
     return NextResponse.json(
       { error: 'تم تجاوز عدد المحاولات المسموح بها. يرجى المحاولة لاحقاً.' },

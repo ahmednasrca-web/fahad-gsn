@@ -8,13 +8,10 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let workSlugs: string[] = []
 
-  // Safe: don't fail build if Supabase not configured
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
-    try {
-      workSlugs = await getAllPublishedWorkSlugs()
-    } catch {
-      workSlugs = []
-    }
+  try {
+    workSlugs = await getAllPublishedWorkSlugs()
+  } catch {
+    workSlugs = []
   }
 
   const staticPages: MetadataRoute.Sitemap = [

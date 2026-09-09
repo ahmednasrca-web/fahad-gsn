@@ -58,6 +58,9 @@ export async function signSession(
   return `${encoded}.${toBase64url(sig)}`
 }
 
+export const SESSION_COOKIE = 'fahad_gsn_admin'
+export const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days in seconds
+
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   try {
     const dotIndex = token.lastIndexOf('.')
@@ -74,14 +77,18 @@ export async function verifySession(token: string): Promise<SessionPayload | nul
     if (!valid) return null
     const json = decodeURIComponent(escape(atob(encoded.replace(/-/g, '+').replace(/_/g, '/'))))
     const payload = JSON.parse(json) as SessionPayload
+
+    // Server-side expiration check against iat
+    if (!payload.iat || typeof payload.iat !== 'number') return null
+    if (Date.now() - payload.iat > SESSION_MAX_AGE * 1000) {
+      return null
+    }
+
     return payload
   } catch {
     return null
   }
 }
-
-export const SESSION_COOKIE = 'fahad_gsn_admin'
-export const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days in seconds
 
 /**
  * Server-side helper to verify admin session from incoming cookies.

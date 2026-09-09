@@ -25,10 +25,11 @@ function mapMessageRow(row: D1MessageRow): ContactMessage {
   }
 }
 
-export async function getAllMessages(): Promise<ContactMessage[]> {
+export async function getAllMessages(limit: number = 200): Promise<ContactMessage[]> {
   const db = getDB()
   const { results } = await db
-    .prepare('SELECT * FROM contact_messages ORDER BY is_read ASC, created_at DESC')
+    .prepare('SELECT * FROM contact_messages ORDER BY is_read ASC, created_at DESC LIMIT ?')
+    .bind(limit)
     .all<D1MessageRow>()
   return results.map(mapMessageRow)
 }

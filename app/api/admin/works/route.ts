@@ -26,7 +26,7 @@ export async function GET() {
 
   const db = getDB()
   const { results } = await db
-    .prepare('SELECT * FROM works ORDER BY created_at DESC')
+    .prepare('SELECT * FROM works ORDER BY created_at DESC LIMIT 200')
     .all()
   return NextResponse.json(results)
 }
