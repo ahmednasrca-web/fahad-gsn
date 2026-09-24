@@ -9,59 +9,94 @@
 | Layer | Technology |
 |-------|-----------|
 | Framework | Next.js 16 (App Router, Turbopack) |
-| Database | Supabase (PostgreSQL + Storage) |
+| Runtime & Hosting | Cloudflare Workers via OpenNext |
+| Database | Cloudflare D1 (Serverless SQLite) |
+| Object Storage | Cloudflare R2 (Media & Images) |
 | Styling | Tailwind CSS v4 |
-| Auth | Supabase Auth + HMAC session cookie |
+| Authentication | Web Crypto PBKDF2-SHA256 + HMAC-SHA256 Edge Sessions |
 | Language | TypeScript (strict) |
-| Deployment | Vercel + Supabase |
 
-## Setup
+## Setup & Local Development
 
 ### 1. Clone & Install
 
 ```bash
+git clone <YOUR_REPO_URL>
+cd fahad-gsn
 npm install
 ```
 
 ### 2. Environment Variables
 
-```bash
-cp .env.example .env.local
+Create `.dev.vars` in the root folder for local development secrets:
+
+```env
+SESSION_SECRET=your-random-32-character-secret-key-min
+R2_PUBLIC_URL=http://localhost:8787
+NEXT_PUBLIC_SITE_URL=http://localhost:8787
+NEXT_PUBLIC_WHATSAPP_NUMBER=96598908022
 ```
 
-Fill in `.env.local`:
+### 3. Initialize Local Database (D1)
 
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (secret) |
-| `SESSION_SECRET` | HMAC secret — run `openssl rand -base64 32` |
-| `NEXT_PUBLIC_SITE_URL` | Production URL (e.g. `https://fahadgsn.com`) |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp number without + (e.g. `96598908022`) |
-
-### 3. Database
-
-Run the migration in Supabase Dashboard → SQL Editor:
-
-```
-supabase/migrations/002_fahad_gsn.sql
-```
-
-### 4. Storage Bucket
-
-In Supabase Dashboard → Storage, create a **public** bucket named **`works`**.
-
-### 5. Admin User
-
-In Supabase Dashboard → Authentication → Users, click **Add user** and enter the admin email + password. The admin logs in at `/admin/login`.
-
-### 6. Run
+Execute the schema and initial seed data on your local D1 emulator:
 
 ```bash
-npm run dev    # development
-npm run build  # production build
+# 1. Create tables
+npx wrangler d1 execute fahad-gsn-db --local --file=d1/schema.sql
+
+# 2. Seed initial categories, works, content, and showcase
+npx wrangler d1 execute fahad-gsn-db --local --file=d1/seed-content.sql
+npx wrangler d1 execute fahad-gsn-db --local --file=d1/seed-full-showcase.sql
+npx wrangler d1 execute fahad-gsn-db --local --file=d1/seed-real-reels.sql
 ```
+
+### 4. Create Admin User
+
+Run the interactive admin seeder script to create your secure admin credentials:
+
+```bash
+node scripts/seed-admin.mjs
+# Enter your email and password when prompted.
+# Then execute the generated SQL file locally:
+npx wrangler d1 execute fahad-gsn-db --local --file=d1/seed-admin.sql
+```
+
+### 5. Run Locally
+
+```bash
+# Run automated tests
+npm test
+
+# Build and start Cloudflare Workers local dev server
+npm run build:cf
+npm run cf:dev
+```
+Open [http://localhost:8787](http://localhost:8787) in your browser. Admin portal is at `/admin/login`.
+
+## Production Deployment (Cloudflare)
+
+1. Create your D1 Database & R2 Bucket:
+   ```bash
+   npx wrangler d1 create fahad-gsn-db
+   npx wrangler r2 bucket create fahad-gsn-works
+   ```
+2. Update `database_id` in `wrangler.jsonc` with the database ID returned above.
+3. Apply schema and admin seed remotely:
+   ```bash
+   npx wrangler d1 execute fahad-gsn-db --remote --file=d1/schema.sql
+   npx wrangler d1 execute fahad-gsn-db --remote --file=d1/seed-content.sql
+   npx wrangler d1 execute fahad-gsn-db --remote --file=d1/seed-full-showcase.sql
+   npx wrangler d1 execute fahad-gsn-db --remote --file=d1/seed-admin.sql
+   ```
+4. Set your production session secret:
+   ```bash
+   npx wrangler secret put SESSION_SECRET
+   ```
+5. Deploy:
+   ```bash
+   npm run deploy
+   ```
 
 ## Pages
 
