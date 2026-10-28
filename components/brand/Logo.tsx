@@ -22,13 +22,12 @@ export default function Logo({
   theme = 'light',
   href = '/',
   className = '',
-  iconSize = 36,
-  showSubtitle = false,
+  iconSize = 32,
+  showSubtitle = true,
 }: LogoProps) {
   const isDarkBg = theme === 'dark'
-  const textColor = isDarkBg ? 'text-[#FAF7F2]' : 'text-[#1A1209]'
-  const subColor = isDarkBg ? 'text-[#D4B896]' : 'text-[#8A7968]'
-  const iconColor = isDarkBg ? 'copper' : 'walnut'
+  const textColor = isDarkBg ? 'text-[#FAF7F2]' : 'text-[#11100e] dark:text-[#FAF7F2]'
+  const subColor = 'text-[#d47f31]'
 
   const content = (
     <div
@@ -36,18 +35,18 @@ export default function Logo({
         variant === 'stacked' ? 'flex-col text-center gap-3' : 'gap-3'
       } ${className}`}
     >
-      {/* Brand Mark */}
+      {/* Brand Mark — Furnish Architectural Sharp Container */}
       <div
-        className={`flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105 ${
+        className={`flex items-center justify-center rounded-none transition-transform duration-300 group-hover:scale-105 shrink-0 ${
           variant === 'stacked'
-            ? 'h-16 w-16 bg-[#2C1810] shadow-md'
+            ? 'h-14 w-14 bg-black text-white dark:bg-white dark:text-black shadow-sm'
             : isDarkBg
-            ? 'h-10 w-10 bg-white/10'
-            : 'h-10 w-10 bg-[#2C1810]'
+            ? 'h-9 w-9 bg-white/10 text-white'
+            : 'h-9 w-9 bg-[#11100e] text-white dark:bg-white dark:text-black'
         }`}
       >
         <LogoIcon
-          size={variant === 'stacked' ? 44 : iconSize}
+          size={variant === 'stacked' ? 36 : iconSize}
           color={isDarkBg || variant === 'stacked' ? 'copper' : 'light'}
         />
       </div>
@@ -55,21 +54,18 @@ export default function Logo({
       {variant !== 'icon-only' && (
         <div className={`flex flex-col ${variant === 'stacked' ? 'items-center' : ''}`}>
           <span
-            className={`font-bold font-display leading-none ${
-              locale === 'ar' ? '' : variant === 'stacked' ? 'tracking-wider' : 'tracking-tight'
-            } ${
-              variant === 'stacked' ? 'text-2xl' : 'text-lg'
+            className={`font-bold font-display leading-none tracking-tight ${
+              variant === 'stacked' ? 'text-2xl' : 'text-base'
             } ${textColor}`}
+            style={locale !== 'ar' ? { letterSpacing: '0.12rem' } : undefined}
           >
             {locale === 'ar' ? 'فهد غصن' : 'FAHAD GSN'}
           </span>
           {(showSubtitle || variant === 'stacked') && (
             <span
-              className={`mt-1 font-medium ${
-                locale === 'ar' ? 'font-sans text-[11px]' : 'tracking-widest uppercase ' + (variant === 'stacked' ? 'text-xs' : 'text-[10px]')
-              } ${subColor}`}
+              className={`mt-1 font-semibold text-[10px] uppercase leading-none tracking-widest ${subColor}`}
             >
-              {locale === 'ar' ? 'أعمال خشبية يدوية' : 'HANDCRAFTED FURNITURE'}
+              {locale === 'ar' ? 'تحف خشبية فاخرة' : 'FURNITURE & ATELIER'}
             </span>
           )}
         </div>

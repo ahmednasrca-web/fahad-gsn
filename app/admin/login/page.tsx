@@ -43,19 +43,19 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-[#FAF7F2] px-5">
-      <div className="w-full max-w-sm">
+    <div className="flex min-h-svh flex-col items-center justify-center bg-[#f6f5f4] dark:bg-[#11100e] px-5 transition-colors duration-300">
+      <div className="w-full max-w-sm furnish-card p-8 sm:p-10 bg-white dark:bg-[#181614] shadow-md border border-[#ecebe9] dark:border-[#211f1c]">
         {/* Official Logo / Brand */}
-        <div className="mb-10 flex flex-col items-center justify-center text-center">
+        <div className="mb-8 flex flex-col items-center justify-center text-center">
           <Logo variant="stacked" locale="ar" showSubtitle={true} href="" />
-          <p className="mt-2 text-xs font-semibold text-[#8A7968]">لوحة التحكم الإدارية</p>
+          <p className="mt-3 text-xs uppercase tracking-widest text-[#d47f31] font-semibold">بوابة الإدارة المركزية</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
             <label
               htmlFor="email"
-              className="mb-1.5 block text-sm font-medium text-[#1A1209]"
+              className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#dad7d2]"
             >
               البريد الإلكتروني
             </label>
@@ -66,7 +66,7 @@ function LoginForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10"
+              className="admin-input"
               placeholder="admin@fahadgsn.com"
               aria-invalid={error ? 'true' : undefined}
               aria-describedby={error ? 'login-error' : undefined}
@@ -76,7 +76,7 @@ function LoginForm() {
           <div>
             <label
               htmlFor="password"
-              className="mb-1.5 block text-sm font-medium text-[#1A1209]"
+              className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#dad7d2]"
             >
               كلمة المرور
             </label>
@@ -87,7 +87,7 @@ function LoginForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10"
+              className="admin-input"
               placeholder="••••••••"
               aria-invalid={error ? 'true' : undefined}
             />
@@ -97,7 +97,7 @@ function LoginForm() {
             <p
               id="login-error"
               role="alert"
-              className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600"
+              className="border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-600 rounded-none"
             >
               {error}
             </p>
@@ -106,15 +106,15 @@ function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 flex min-h-[52px] items-center justify-center rounded-2xl bg-[#2C1810] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60 active:opacity-75"
+            className="admin-btn-primary w-full mt-2"
           >
             {loading ? (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                 جارٍ التحقق…
               </span>
             ) : (
-              'دخول'
+              'تسجيل الدخول'
             )}
           </button>
         </form>
@@ -126,8 +126,8 @@ function LoginForm() {
 export default function AdminLoginPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-svh items-center justify-center bg-[#FAF7F2]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C1810] border-t-transparent" />
+      <div className="flex min-h-svh items-center justify-center bg-[#f6f5f4] dark:bg-[#11100e]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-black dark:border-white border-t-transparent" />
       </div>
     }>
       <LoginForm />

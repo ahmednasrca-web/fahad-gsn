@@ -1,8 +1,9 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import type { SiteContent } from '@/lib/types'
 import { Button, Alert, Spinner } from '@heroui/react'
+import { adminInputCls } from '@/components/admin/FormField'
 
 interface Props {
   initialContent: Record<string, SiteContent>
@@ -19,8 +20,6 @@ const CONTENT_FIELDS = [
   { key: 'contact_email', label: 'البريد الإلكتروني' },
   { key: 'footer_tagline', label: 'شعار الفوتر' },
 ]
-
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-3 py-2.5 text-sm text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080] resize-none'
 
 export default function ContentEditor({ initialContent }: Props) {
   const [content, setContent] = useState(initialContent)
@@ -56,20 +55,20 @@ export default function ContentEditor({ initialContent }: Props) {
         {CONTENT_FIELDS.map((field) => {
           const c = content[field.key]
           return (
-            <div key={field.key} className="rounded-2xl border border-[#E8DDD0] bg-white p-4">
-              <p className="mb-3 font-semibold text-[#1A1209]">{field.label}</p>
+            <div key={field.key} className="furnish-card p-4">
+              <p className="mb-3 font-bold text-[#11100e] dark:text-[#f6f5f4]">{field.label}</p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-[#6B5C4E]">عربي</label>
+                  <label className="mb-1 block text-xs font-bold text-[#615b51] dark:text-[#a8a196]">عربي</label>
                   <textarea rows={2} value={c?.valueAr ?? ''}
                     onChange={(e) => handleChange(field.key, 'ar', e.target.value)}
-                    className={inputCls} placeholder="النص بالعربية" />
+                    className={`${adminInputCls} resize-none`} placeholder="النص بالعربية" />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-[#6B5C4E]">English</label>
+                  <label className="mb-1 block text-xs font-bold text-[#615b51] dark:text-[#a8a196]">English</label>
                   <textarea rows={2} dir="ltr" value={c?.valueEn ?? ''}
                     onChange={(e) => handleChange(field.key, 'en', e.target.value)}
-                    className={inputCls} placeholder="English text" />
+                    className={`${adminInputCls} resize-none`} placeholder="English text" />
                 </div>
               </div>
             </div>
@@ -89,8 +88,8 @@ export default function ContentEditor({ initialContent }: Props) {
           </Alert.Root>
         )}
 
-        <div className="border-t border-[#E8DDD0] pt-4">
-          <Button variant="primary" isDisabled={saving} onPress={handleSave} aria-busy={saving}>
+        <div className="border-t border-[#ecebe9] dark:border-[#2a2723] pt-4">
+          <Button variant="primary" isDisabled={saving} onPress={handleSave} aria-busy={saving} className="rounded-none font-bold min-h-[44px] px-8">
             {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : 'حفظ جميع التغييرات'}
           </Button>
         </div>
@@ -98,4 +97,3 @@ export default function ContentEditor({ initialContent }: Props) {
     </div>
   )
 }
-

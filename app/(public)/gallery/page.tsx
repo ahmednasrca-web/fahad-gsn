@@ -17,8 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: locale === 'ar' ? 'المعرض | فهد غصن' : 'Gallery | Fahad Gsn',
     description: locale === 'ar'
-      ? 'استعرض أعمالنا الخشبية الفاخرة المصنوعة يدوياً'
-      : 'Browse our luxury handcrafted wood works',
+      ? 'استعرض أعمالنا ومقتنياتنا الخشبية الفاخرة المصنوعة يدوياً'
+      : 'Browse our luxury handcrafted woodwork & bespoke furniture gallery',
   }
 }
 
@@ -27,6 +27,7 @@ export const dynamic = 'force-dynamic'
 export default async function GalleryPage({ searchParams }: PageProps) {
   const locale = await getLocale()
   const dir = getDir(locale)
+  const isAr = locale === 'ar'
   const { category: categorySlug } = await searchParams
 
   const [categories, works] = await Promise.all([
@@ -35,101 +36,134 @@ export default async function GalleryPage({ searchParams }: PageProps) {
   ])
 
   return (
-    <div dir={dir} className="section-padding">
-      <div className="container-site">
-        {/* Page header */}
-        <div className="mb-10 text-center max-w-2xl mx-auto">
-          <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.2em]'}`}>
-            {locale === 'ar' ? 'أعمالنا والمقتنيات' : 'Our Works & Haute Collection'}
-          </p>
-          <h1 className="text-4xl font-bold text-[#1A1209] md:text-5xl font-display">
+    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
+      {/* ── Page Hero Header (Furnish Products Header) ───────────── */}
+      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+        <div className="container-site max-w-2xl mx-auto">
+          <span className="furnish-subheading">
+            {isAr ? 'الأعمال والمقتنيات' : 'Our Haute Woodwork Collection'}
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
             {t(locale, 'gallery')}
           </h1>
+          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+            {isAr
+              ? 'كل قطعة تحفة متفردة تم نحتها وتشطيبها يدوياً من أندر أنواع الخشب الطبيعي الصلب.'
+              : 'Each piece is an original sculpture, hand-shaped from rare natural timbers and finished with organic oils.'}
+          </p>
 
           {/* Museum Mode Launch Trigger */}
           {works.length > 0 && (
-            <div className="mt-5 flex justify-center">
+            <div className="mt-6 flex justify-center">
               <MuseumShowcaseModal works={works} locale={locale} />
             </div>
           )}
         </div>
+      </section>
 
-        {/* Category filter */}
-        {categories.length > 0 && (
-          <div className="mb-8">
-            <CategoryFilter
-              categories={categories}
-              activeSlug={categorySlug}
-              locale={locale}
-            />
-          </div>
-        )}
+      {/* ── Main Gallery Content ─────────────────────────────────── */}
+      <section className="py-12 md:py-16">
+        <div className="container-site">
+          {/* Category Filter Navigation */}
+          {categories.length > 0 && (
+            <div className="mb-10 pb-4 border-b border-[#ecebe9] dark:border-[#211f1c]">
+              <CategoryFilter
+                categories={categories}
+                activeSlug={categorySlug}
+                locale={locale}
+              />
+            </div>
+          )}
 
-        {/* Works grid */}
-        {works.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl" aria-hidden="true">🪵</p>
-            <p className="mt-4 text-lg font-medium text-[#3D2B1A] dark:text-[#E8DDD0]">
-              {t(locale, 'noWorks')}
-            </p>
-          </div>
-        ) : (
-          <div className="gallery-grid">
-            {works.map((work, i) => (
-              <Link
-                key={work.id}
-                href={`/gallery/${work.slug}`}
-                className="work-card group block overflow-hidden rounded-2xl bg-white dark:bg-[#170E09] shadow-sm ring-1 ring-[#E8DDD0] dark:ring-[#2C1B10] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
-              >
-                {/* Image */}
-                <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8] dark:bg-[#1F130B]">
-                  {work.primaryImage ? (
-                    <Image
-                      src={work.primaryImage}
-                      alt={getWorkTitle(work, locale)}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="work-card-image object-cover transition-transform duration-500 group-hover:scale-105"
-                      priority={i < 4}
-                      loading={i < 4 ? undefined : 'lazy'}
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center">
-                      <span className="text-4xl text-[#D4B896]" aria-hidden="true">🪵</span>
+          {/* Works Grid */}
+          {works.length === 0 ? (
+            <div className="py-24 text-center">
+              <p className="text-5xl mb-4" aria-hidden="true">🪵</p>
+              <h3 className="text-xl font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                {t(locale, 'noWorks')}
+              </h3>
+              <p className="mt-2 text-sm text-[#837a6d]">
+                {isAr ? 'يرجى اختيار تصنيف آخر أو العودة لجميع الأعمال.' : 'Please select another category or view all works.'}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+              {works.map((work, i) => (
+                <div
+                  key={work.id}
+                  className="furnish-card group flex flex-col overflow-hidden"
+                >
+                  {/* Image Container with Furnish Aspect Ratio */}
+                  <Link
+                    href={`/gallery/${work.slug}`}
+                    className="relative aspect-[4/5] overflow-hidden bg-[#ecebe9] dark:bg-[#181614] block"
+                  >
+                    {work.primaryImage ? (
+                      <Image
+                        src={work.primaryImage}
+                        alt={getWorkTitle(work, locale)}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        priority={i < 4}
+                        loading={i < 4 ? undefined : 'lazy'}
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-4xl">
+                        🪵
+                      </div>
+                    )}
+
+                    {/* Furnish Sharp Unique Piece Badge */}
+                    {work.isUniquePiece && (
+                      <span className="furnish-badge absolute top-3 start-3 shadow-xs">
+                        {isAr ? 'قطعة فريدة' : 'Unique Piece'}
+                      </span>
+                    )}
+
+                    {/* Category Label Overlay */}
+                    {work.category && (
+                      <span className="absolute bottom-3 start-3 bg-black/75 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1">
+                        {getCategoryName(work.category, locale)}
+                      </span>
+                    )}
+                  </Link>
+
+                  {/* Furnish Details */}
+                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#181614]">
+                    <div>
+                      <h3 className="text-base font-bold text-[#11100e] dark:text-[#f6f5f4] group-hover:text-[#d47f31] transition-colors line-clamp-1">
+                        <Link href={`/gallery/${work.slug}`}>
+                          {getWorkTitle(work, locale)}
+                        </Link>
+                      </h3>
                     </div>
-                  )}
 
-                  {/* Unique Piece Badge */}
-                  {work.isUniquePiece && (
-                    <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2.5 py-0.5 text-[11px] font-bold text-[#C4854A] backdrop-blur-sm border border-[#C4854A]/30">
-                      {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Unique Piece'}
-                    </span>
-                  )}
+                    <div className="mt-3 pt-3 border-t border-[#ecebe9] dark:border-[#211f1c] flex items-center justify-between">
+                      {work.price != null ? (
+                        <span className="text-sm font-bold text-[#11100e] dark:text-[#dad7d2]">
+                          {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
+                        </span>
+                      ) : (
+                        <span className="text-xs font-semibold uppercase tracking-wider text-[#d47f31]">
+                          {isAr ? 'حسب الطلب' : 'Custom Quote'}
+                        </span>
+                      )}
 
-                  {/* Category badge */}
-                  {work.category && (
-                    <span className="absolute bottom-2 start-2 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                      {getCategoryName(work.category, locale)}
-                    </span>
-                  )}
+                      <Link
+                        href={`/gallery/${work.slug}`}
+                        className="text-xs font-bold uppercase tracking-wider text-[#615b51] dark:text-[#a0988d] group-hover:text-[#d47f31] transition-colors"
+                      >
+                        {isAr ? 'التفاصيل ←' : 'Details →'}
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-
-                {/* Info */}
-                <div className="p-3.5">
-                  <p className="truncate text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] group-hover:text-[#C4854A] transition-colors">
-                    {getWorkTitle(work, locale)}
-                  </p>
-                  {work.price != null && (
-                    <p className="mt-1 text-sm font-semibold text-[#2C1810] dark:text-[#D4B896]">
-                      {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   )
 }

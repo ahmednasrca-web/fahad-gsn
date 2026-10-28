@@ -60,8 +60,8 @@ export default function MediaQualityInspector({ imageUrl, file, className = '' }
 
   if (loading || !stats) {
     return (
-      <div className="flex items-center gap-2 text-xs text-[#8A7968] animate-pulse py-1">
-        <span className="h-2 w-2 rounded-full bg-[#C4854A] animate-ping" />
+      <div className="flex items-center gap-2 text-xs text-[#615b51] dark:text-[#a8a196] animate-pulse py-1">
+        <span className="h-2 w-2 rounded-full bg-[#d47f31] animate-ping" />
         <span>جارٍ فحص دقة وجودة الصورة…</span>
       </div>
     )
@@ -69,7 +69,7 @@ export default function MediaQualityInspector({ imageUrl, file, className = '' }
 
   return (
     <div
-      className={`rounded-xl border p-2.5 text-xs transition-all ${
+      className={`border p-2.5 text-xs transition-all ${
         stats.tier === '4k'
           ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300'
           : stats.tier === 'fhd'

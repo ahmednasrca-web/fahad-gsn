@@ -28,7 +28,7 @@ export default function AtelierThemeSwitcher({
     <button
       type="button"
       onClick={handleToggle}
-      className={`group relative inline-flex items-center gap-2 rounded-full border border-[#C4854A]/30 bg-[#FAF7F2]/80 dark:bg-[#1C120B]/90 px-3 py-1.5 text-xs font-bold shadow-xs backdrop-blur-md transition-all duration-300 hover:border-[#C4854A] hover:shadow-[0_0_20px_rgba(196,133,74,0.35)] active:scale-95 cursor-pointer ${className}`}
+      className={`group relative inline-flex h-10 items-center gap-2 rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#11100e] px-3.5 text-xs font-bold shadow-2xs backdrop-blur-md transition-all duration-300 hover:border-[#d47f31] hover:text-[#d47f31] active:scale-95 cursor-pointer text-[#11100e] dark:text-[#f6f5f4] ${className}`}
       aria-label={
         isDark
           ? isAr ? 'التبديل إلى نهار الورشة (الوضع النهاري)' : 'Switch to Daylight Atelier'

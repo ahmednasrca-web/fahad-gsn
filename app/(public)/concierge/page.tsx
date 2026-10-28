@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { getLocale } from '@/lib/locale'
 import { getDir } from '@/lib/i18n'
 import PrivateAtelierBookingModal from '@/components/concierge/PrivateAtelierBookingModal'
@@ -15,35 +15,39 @@ export default async function ConciergePage() {
   const isAr = locale === 'ar'
 
   return (
-    <div className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400" dir={dir}>
-      <div className="container-site space-y-12">
-        {/* Hero Section */}
-        <div className="text-center max-w-2xl mx-auto">
-          <span className={`text-xs font-bold text-[#C4854A] ${isAr ? 'font-display' : 'uppercase tracking-[0.2em]'}`}>
+    <div className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300" dir={dir}>
+      {/* ── Page Header ─────────────────────────────────────────── */}
+      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+        <div className="container-site max-w-2xl mx-auto">
+          <span className="furnish-subheading">
             {isAr ? 'تجربة حصرية لكبار الشخصيات' : 'VIP Concierge & Atelier Experience'}
           </span>
-          <h1 className="mt-2 text-3xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-5xl font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
             {isAr ? 'زيارة خاصة لورشة فهد غصن' : 'Private Atelier Visit'}
           </h1>
-          <p className="mt-4 text-sm sm:text-base text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
             {isAr
               ? 'نرحب بكم في زيارة خاصة للمشغل لمعاينة ألواح الأخشاب المعمرة النادرة، فحص نقاء العروق المجهرية، ومناقشة تصميم قطعتكم الفريدة مباشرة مع الحرفي فهد غصن.'
               : 'Experience a private walkthrough of our Kuwait atelier. Inspect rare aged timber slabs and discuss bespoke commissions directly with artisan Fahad Gsn.'}
           </p>
 
-          <div className="mt-6 flex justify-center">
+          <div className="mt-8 flex justify-center">
             <PrivateAtelierBookingModal
               locale={locale}
-              buttonClassName="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-[#C4854A] px-8 text-sm font-bold text-white shadow-xl shadow-[#C4854A]/30 hover:scale-105 transition-all"
+              buttonClassName="btn-furnish-primary"
             />
           </div>
         </div>
+      </section>
 
-        {/* Golden Ratio Proportions Tool */}
-        <div className="pt-6">
-          <GoldenRatioCalculator locale={locale} />
+      {/* ── Golden Ratio Proportions Tool ───────────────────────── */}
+      <section className="py-16 md:py-24">
+        <div className="container-site">
+          <div className="furnish-card p-6 bg-[#f6f5f4] dark:bg-[#181614]">
+            <GoldenRatioCalculator locale={locale} />
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

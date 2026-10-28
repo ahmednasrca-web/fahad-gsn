@@ -107,23 +107,39 @@
   --font-display: 'ThmanyahDisplay', var(--font-thmanyah-display), serif;
   --font-story: 'ThmanyahSerif', var(--font-thmanyah-serif), serif;
 
+  /* ── Furnish Master Design Tokens (Bootstrap / Editorial Aesthetic) ── */
+  --color-furnish-primary: #000000;
+  --color-furnish-secondary: #d47f31;
+  --color-furnish-accent: #d47f31;
+  --color-furnish-gray-50: #f6f5f4;
+  --color-furnish-gray-100: #ecebe9;
+  --color-furnish-gray-200: #dad7d2;
+  --color-furnish-gray-300: #c5c0b9;
+  --color-furnish-gray-400: #b3aca3;
+  --color-furnish-gray-500: #a0988d;
+  --color-furnish-gray-600: #837a6d;
+  --color-furnish-gray-700: #615b51;
+  --color-furnish-gray-800: #433e38;
+  --color-furnish-gray-900: #211f1c;
+  --color-furnish-gray-950: #11100e;
+
   /* ── Unified Fahad Gsn Master Atelier Color Palette ── */
-  --color-atelier-walnut: #2C1810;
-  --color-atelier-noir: #0E0805;
-  --color-atelier-card-dark: #170E09;
-  --color-atelier-card-nested: #1F140D;
-  --color-atelier-gold: #C4854A;
-  --color-atelier-gold-hover: #D6965C;
-  --color-atelier-gold-antique: #D4AF37;
-  --color-atelier-sand: #D4B896;
-  --color-atelier-cream: #FAF7F2;
-  --color-atelier-ivory: #F0E8D8;
-  --color-atelier-charcoal: #1A1209;
-  --color-atelier-body: #3D2B1A;
-  --color-atelier-muted: #6B5C4E;
-  --color-atelier-subtle: #A09080;
-  --color-atelier-border-light: #E8DDD0;
-  --color-atelier-border-dark: #2C1B10;
+  --color-atelier-walnut: #11100e;
+  --color-atelier-noir: #11100e;
+  --color-atelier-card-dark: #181614;
+  --color-atelier-card-nested: #211f1c;
+  --color-atelier-gold: #d47f31;
+  --color-atelier-gold-hover: #e08c3e;
+  --color-atelier-gold-antique: #d47f31;
+  --color-atelier-sand: #dad7d2;
+  --color-atelier-cream: #f6f5f4;
+  --color-atelier-ivory: #ecebe9;
+  --color-atelier-charcoal: #11100e;
+  --color-atelier-body: #615b51;
+  --color-atelier-muted: #837a6d;
+  --color-atelier-subtle: #a0988d;
+  --color-atelier-border-light: #ecebe9;
+  --color-atelier-border-dark: #211f1c;
 }
 
 /* ── Universal Font Enforcement ────────────────────────── */
@@ -169,72 +185,75 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: 0 !important;
 }
 
-/* ── Fahad Gsn Design Tokens ────────────────────────────── */
+/* ── Fahad Gsn Design Tokens (Furnish Luxury Furniture System) ── */
 :root {
-  /* Brand colors — inspired by natural wood tones */
-  --walnut:        #2C1810;   /* Deep walnut — primary brand */
-  --wood-mid:      #6B3F1F;   /* Medium mahogany */
-  --wood-warm:     #A0522D;   /* Sienna wood */
-  --wood-light:    #C4854A;   /* Warm amber wood */
-  --sand:          #D4B896;   /* Natural sand */
-  --ivory:         #F0E8D8;   /* Warm ivory */
-  --cream:         #FAF7F2;   /* Off-white cream background */
-  --white:         #FFFFFF;
+  /* Brand colors — Inspired by Furnish High-End Furniture Aesthetic */
+  --primary:        #000000;
+  --secondary:      #d47f31;   /* Furnish signature warm amber / wood */
+  --walnut:         #11100e;   /* Deep architectural noir */
+  --wood-mid:       #211f1c;   /* Charcoal wood */
+  --wood-warm:      #d47f31;   /* Furnish warm secondary */
+  --wood-light:     #d47f31;   /* Accent */
+  --sand:           #c5c0b9;   /* Neutral mid gray */
+  --ivory:          #ecebe9;   /* Light gray-100 */
+  --cream:          #f6f5f4;   /* Clean luxury off-white gray-50 */
+  --white:          #FFFFFF;
 
   /* Text */
-  --text-primary:  #1A1209;   /* Rich charcoal */
-  --text-body:     #3D2B1A;   /* Warm dark brown body text */
-  --text-muted:    #6B5C4E;   /* Muted warm grey */
-  --text-subtle:   #A09080;   /* Subtle captions */
+  --text-primary:   #11100e;   /* Sharp black gray-950 */
+  --text-body:      #615b51;   /* Refined gray-700 */
+  --text-muted:     #837a6d;   /* Muted gray-600 */
+  --text-subtle:    #a0988d;   /* Subtle gray-500 */
 
-  /* UI */
-  --border:        #E8DDD0;   /* Warm light border */
-  --border-dark:   #C8B8A0;   /* Darker border */
-  --surface:       #FFFFFF;   /* Card surfaces */
-  --surface-alt:   #F5F0E8;   /* Alt surface */
+  /* UI & Architecture */
+  --border:         #ecebe9;   /* Furnish sharp border gray-100 */
+  --border-dark:    #dad7d2;   /* Furnish border gray-200 */
+  --surface:        #FFFFFF;   /* Card surfaces */
+  --surface-alt:    #f6f5f4;   /* Alt surface */
 
   /* Semantic */
-  --accent:        #2C1810;   /* Primary action color */
-  --accent-hover:  #3D2316;
-  --accent-light:  #C4854A;   /* Light accent for highlights */
+  --accent:         #000000;   /* Primary black */
+  --accent-hover:   #d47f31;   /* Secondary amber */
+  --accent-light:   #d47f31;   /* Amber highlights */
 
   /* Spacing */
-  --section-y:     clamp(3rem, 8vw, 6rem);
-  --container-max: 1280px;
+  --section-y:      clamp(3rem, 7vw, 5.5rem);
+  --container-max:  1280px;
 
   /* Transitions */
   --transition-base: 200ms ease;
   --transition-slow: 350ms ease;
 }
 
-/* ── Midnight Lounge (Dark Theme Tokens) ────────────────── */
+/* ── Midnight Lounge (Dark Theme Tokens — Furnish Dark Edition) ── */
 html.dark {
-  /* Brand colors — deep smoked noir walnut and antique gold */
-  --walnut:        #1A1009;
-  --wood-mid:      #C4854A;
-  --wood-warm:     #D4B896;
-  --wood-light:    #D6965C;
-  --sand:          #D4B896;
-  --ivory:         #1E130B;
-  --cream:         #0E0805;   /* Deep Noir Walnut luxury background */
-  --white:         #180F0A;
+  --primary:        #FFFFFF;
+  --secondary:      #d47f31;
+  --walnut:         #11100e;
+  --wood-mid:       #d47f31;
+  --wood-warm:      #d47f31;
+  --wood-light:     #d47f31;
+  --sand:           #a0988d;
+  --ivory:          #1a1816;
+  --cream:          #11100e;   /* Deep architectural black */
+  --white:          #1a1816;
 
   /* Text */
-  --text-primary:  #FAF7F2;   /* Ivory White text */
-  --text-body:     #E8DDD0;   /* Warm soft white */
-  --text-muted:    #D4B896;   /* Gilded amber subtext */
-  --text-subtle:   #A09080;
+  --text-primary:   #f6f5f4;   /* Off-white gray-50 */
+  --text-body:      #dad7d2;   /* Light gray-200 */
+  --text-muted:     #a0988d;   /* Gray-500 */
+  --text-subtle:    #837a6d;   /* Gray-600 */
 
   /* UI */
-  --border:        #2C1B10;
-  --border-dark:   #422918;
-  --surface:       #150D08;
-  --surface-alt:   #1C120B;
+  --border:         #211f1c;   /* Dark border */
+  --border-dark:    #433e38;
+  --surface:        #181614;
+  --surface-alt:    #211f1c;
 
   /* Semantic */
-  --accent:        #C4854A;
-  --accent-hover:  #D6965C;
-  --accent-light:  #D4B896;
+  --accent:         #d47f31;
+  --accent-hover:   #e08c3e;
+  --accent-light:   #d47f31;
 
   color-scheme: dark;
 }
@@ -369,10 +388,156 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* ── Admin Styles ───────────────────────────────────────── */
+/* ── Furnish Component Classes ────────────────────────── */
+.btn-furnish-primary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #000000;
+  color: #ffffff;
+  padding-inline: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid #000000;
+  border-radius: 0px !important;
+  transition: all 250ms ease;
+  cursor: pointer;
+}
+
+.btn-furnish-primary:hover {
+  background-color: #d47f31;
+  border-color: #d47f31;
+  color: #ffffff;
+}
+
+.dark .btn-furnish-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.dark .btn-furnish-primary:hover {
+  background-color: #d47f31;
+  border-color: #d47f31;
+  color: #ffffff;
+}
+
+.btn-furnish-outline {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #11100e;
+  padding-inline: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid #11100e;
+  border-radius: 0px !important;
+  transition: all 250ms ease;
+  cursor: pointer;
+}
+
+.btn-furnish-outline:hover {
+  background-color: #11100e;
+  color: #ffffff;
+}
+
+.dark .btn-furnish-outline {
+  color: #f6f5f4;
+  border-color: #f6f5f4;
+}
+
+.dark .btn-furnish-outline:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-furnish-icon {
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ecebe9;
+  color: #615b51;
+  border-radius: 0px !important;
+  transition: all 200ms ease;
+}
+
+.btn-furnish-icon:hover {
+  border-color: #d47f31;
+  color: #d47f31;
+}
+
+.dark .btn-furnish-icon {
+  border-color: #211f1c;
+  color: #a0988d;
+}
+
+.dark .btn-furnish-icon:hover {
+  border-color: #d47f31;
+  color: #d47f31;
+}
+
+.furnish-card {
+  background-color: #ffffff;
+  border: 1px solid #ecebe9;
+  border-radius: 0px !important;
+  transition: box-shadow 250ms ease, border-color 250ms ease;
+}
+
+.furnish-card:hover {
+  border-color: #dad7d2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dark .furnish-card {
+  background-color: #181614;
+  border-color: #211f1c;
+}
+
+.dark .furnish-card:hover {
+  border-color: #433e38;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.furnish-subheading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: #d47f31;
+}
+
+.furnish-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: #f6f5f4;
+  color: #d47f31;
+  border-radius: 0px !important;
+}
+
+.dark .furnish-badge {
+  background-color: #211f1c;
+  color: #d47f31;
+}
+
+/* ── Admin Styles (Furnish Editorial System) ─────────────── */
 .admin-input {
   width: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0px;
   border: 1px solid var(--border);
   background: var(--white);
   padding: 0.75rem 1rem;
@@ -383,8 +548,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .admin-input:focus {
-  border-color: var(--walnut);
-  box-shadow: 0 0 0 3px rgb(44 24 16 / 0.08);
+  border-color: #000000;
+  box-shadow: 0 0 0 2px rgb(212 127 49 / 0.15);
+}
+
+.dark .admin-input:focus {
+  border-color: #d47f31;
 }
 
 .admin-input::placeholder {
@@ -397,18 +566,32 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.75rem;
-  background: var(--walnut);
-  padding-inline: 1.25rem;
+  border-radius: 0px;
+  background: #000000;
+  padding-inline: 1.5rem;
   font-weight: 600;
-  color: var(--white);
-  transition: opacity var(--transition-base);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  transition: all var(--transition-base);
   cursor: pointer;
+  border: 1px solid #000000;
 }
 
-.admin-btn-primary:hover { opacity: 0.88; }
-.admin-btn-primary:active { opacity: 0.75; }
-.admin-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.admin-btn-primary:hover {
+  background: #d47f31;
+  border-color: #d47f31;
+}
+
+.admin-btn-primary:active {
+  opacity: 0.85;
+}
+
+.admin-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 /* ── Scrollbar (subtle) ─────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }

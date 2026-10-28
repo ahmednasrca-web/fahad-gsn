@@ -76,7 +76,7 @@ export default function CategoryForm({ category }: Props) {
             <Switch.Control />
             <Switch.Thumb />
           </Switch.Content>
-          <span className="text-sm font-medium text-[#1A1209]">نشط (يظهر في الموقع)</span>
+          <span className="text-sm font-medium text-[#11100e] dark:text-[#f6f5f4]">نشط (يظهر في الموقع)</span>
         </Switch.Root>
 
         {error && (
@@ -86,14 +86,14 @@ export default function CategoryForm({ category }: Props) {
           </Alert.Root>
         )}
 
-        <div className="flex flex-wrap items-center gap-3 border-t border-[#E8DDD0] pt-4">
-          <Button type="submit" variant="primary" isDisabled={saving} aria-busy={saving}>
+        <div className="flex flex-wrap items-center gap-3 border-t border-[#ecebe9] dark:border-[#2a2723] pt-4">
+          <Button type="submit" variant="primary" isDisabled={saving} aria-busy={saving} className="rounded-none font-bold min-h-[44px] px-8">
             {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : isEditing ? 'حفظ' : 'إضافة'}
           </Button>
-          <Button type="button" variant="outline" onPress={() => router.back()}>إلغاء</Button>
+          <Button type="button" variant="outline" onPress={() => router.back()} className="rounded-none font-bold min-h-[44px]">إلغاء</Button>
           {isEditing && (
             <Button type="button" variant="danger" isDisabled={deleting}
-              onPress={handleDelete} className="me-auto" aria-busy={deleting}>
+              onPress={handleDelete} className="me-auto rounded-none font-bold min-h-[44px]" aria-busy={deleting}>
               {deleting ? 'جارٍ الحذف…' : 'حذف'}
             </Button>
           )}

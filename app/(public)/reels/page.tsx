@@ -22,24 +22,28 @@ export default async function ReelsPage() {
   const reels = await getPublishedReels()
 
   return (
-    <div dir={dir} className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400 min-h-[70vh]">
-      <div className="container-site">
-        {/* Page Header */}
-        <div className="mb-12 text-center max-w-2xl mx-auto">
-          <p className={`mb-2 text-[#C4854A] font-bold ${locale === 'ar' ? 'text-xs font-display' : 'text-xs uppercase tracking-[0.25em]'}`}>
+    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300 min-h-[70vh]">
+      {/* ── Page Header ─────────────────────────────────────────── */}
+      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+        <div className="container-site max-w-2xl mx-auto">
+          <span className="furnish-subheading">
             {t(locale, 'reelsHeroTagline')}
-          </p>
-          <h1 className="text-4xl font-bold text-[#1A1209] dark:text-[#FAF7F2] md:text-5xl font-display">
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
             {t(locale, 'reelsHeroTitle')}
           </h1>
-          <p className="mt-4 text-base text-[#6B5C4E] dark:text-[#D4B896] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
             {t(locale, 'reelsHeroSubtitle')}
           </p>
         </div>
+      </section>
 
-        {/* Reels Grid */}
-        <ReelsGrid reels={reels} locale={locale} />
-      </div>
+      {/* ── Reels Grid ───────────────────────────────────────────── */}
+      <section className="py-12 md:py-16">
+        <div className="container-site">
+          <ReelsGrid reels={reels} locale={locale} />
+        </div>
+      </section>
     </div>
   )
 }

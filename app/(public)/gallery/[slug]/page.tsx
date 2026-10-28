@@ -109,36 +109,36 @@ export default async function WorkDetailPage({ params }: PageProps) {
       />
 
       {/* Breadcrumb */}
-      <div className="border-b border-[#E8DDD0] bg-[#FAF7F2] py-3.5">
+      <div className="border-b border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#11100e] py-4">
         <div className="container-site">
           <nav aria-label={locale === 'ar' ? 'مسار التنقل' : 'Breadcrumb'}>
-            <ol className="flex items-center gap-2 text-sm text-[#6B5C4E]">
+            <ol className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#a0988d]">
               <li>
-                <Link href="/" className="hover:text-[#2C1810] transition-colors">
+                <Link href="/" className="hover:text-[#d47f31] transition-colors">
                   {t(locale, 'home')}
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-[#D4B896]">/</li>
+              <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
               <li>
-                <Link href="/gallery" className="hover:text-[#2C1810] transition-colors">
+                <Link href="/gallery" className="hover:text-[#d47f31] transition-colors">
                   {t(locale, 'gallery')}
                 </Link>
               </li>
               {work.category && (
                 <>
-                  <li aria-hidden="true" className="text-[#D4B896]">/</li>
+                  <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
                   <li>
                     <Link
                       href={`/gallery?category=${work.category.slug}`}
-                      className="hover:text-[#2C1810] transition-colors"
+                      className="hover:text-[#d47f31] transition-colors"
                     >
                       {getCategoryName(work.category, locale)}
                     </Link>
                   </li>
                 </>
               )}
-              <li aria-hidden="true" className="text-[#D4B896]">/</li>
-              <li className="text-[#1A1209] dark:text-[#FAF7F2] font-medium truncate" aria-current="page">
+              <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
+              <li className="text-[#11100e] dark:text-[#f6f5f4] font-bold truncate" aria-current="page">
                 {title}
               </li>
             </ol>
@@ -147,7 +147,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
       </div>
 
       {/* Main Work Overview */}
-      <div className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400">
+      <div className="py-12 md:py-16 bg-white dark:bg-[#11100e] transition-colors duration-300">
         <div className="container-site">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
             {/* Image gallery */}
@@ -162,30 +162,30 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 {work.category && (
                   <Link
                     href={`/gallery?category=${work.category.slug}`}
-                    className="inline-flex items-center rounded-full bg-[#F0E8D8] dark:bg-[#2C1B10] px-3.5 py-1 text-xs font-semibold text-[#6B3F1F] dark:text-[#D4B896] transition-colors hover:bg-[#E8DDD0] dark:hover:bg-[#3D2619]"
+                    className="furnish-badge border border-[#ecebe9] dark:border-[#211f1c] hover:border-[#d47f31] transition-colors"
                   >
                     {getCategoryName(work.category, locale)}
                   </Link>
                 )}
                 {work.isUniquePiece && (
-                  <span className="inline-flex items-center rounded-full border border-[#C4854A] bg-[#C4854A]/15 dark:bg-[#C4854A]/25 px-3.5 py-1 text-xs font-bold text-[#5C2E0B] dark:text-[#E8DDD0]">
+                  <span className="furnish-badge border border-[#d47f31]/40 bg-[#d47f31]/10 text-[#d47f31]">
                     {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Exclusive Unique Piece'}
                   </span>
                 )}
               </div>
 
               {/* Title */}
-              <h1 className="mb-4 text-3xl font-bold leading-tight text-[#1A1209] dark:text-[#FAF7F2] md:text-4xl font-display">
+              <h1 className="mb-4 text-3xl font-bold leading-tight text-[#11100e] dark:text-[#f6f5f4] md:text-4xl font-display">
                 {title}
               </h1>
 
               {/* Price */}
               {work.price != null && (
                 <div className="mb-6 flex items-baseline gap-2">
-                  <p className="text-3xl font-bold text-[#2C1810] dark:text-[#D4B896] font-mono">
+                  <p className="text-3xl font-bold text-[#11100e] dark:text-[#dad7d2] font-mono">
                     {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')}
                   </p>
-                  <span className="text-base font-bold text-[#5C4B3E] dark:text-[#A09080]">
+                  <span className="text-base font-bold text-[#d47f31]">
                     {locale === 'ar' ? 'د.ك' : 'KWD'}
                   </span>
                 </div>
@@ -193,38 +193,38 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
               {/* Physical Specs Matrix (if defined) */}
               {work.physicalSpecs && (
-                <div className="mb-6 rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#170E09] p-4">
-                  <p className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] mb-2 flex items-center gap-1.5">
+                <div className="mb-6 rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] p-5">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] mb-3 flex items-center gap-1.5">
                     <span>{locale === 'ar' ? 'المقاسات والمواصفات الفيزيائية' : 'Physical Specifications'}</span>
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {work.physicalSpecs.lengthCm && work.physicalSpecs.widthCm && (
-                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
-                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'الأبعاد' : 'Dimensions'}</span>
-                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'الأبعاد' : 'Dimensions'}</span>
+                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           {work.physicalSpecs.lengthCm} × {work.physicalSpecs.widthCm} {work.physicalSpecs.heightCm ? `× ${work.physicalSpecs.heightCm}` : ''} cm
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.thicknessMm && (
-                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
-                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'سُمك اللوح الخشبي' : 'Slab Thickness'}</span>
-                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'سُمك اللوح الخشبي' : 'Slab Thickness'}</span>
+                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           {work.physicalSpecs.thicknessMm} mm Solid
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.weightKg && (
-                      <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
-                        <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'الكتلة والوزن' : 'Weight'}</span>
-                        <span className="font-mono font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'الكتلة والوزن' : 'Weight'}</span>
+                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           ~{work.physicalSpecs.weightKg} kg
                         </span>
                       </div>
                     )}
-                    <div className="rounded-lg bg-white dark:bg-[#1F130B] p-2 border border-[#E8DDD0] dark:border-[#2C1B10]">
-                      <span className="text-[#8A7968] block text-[10px]">{locale === 'ar' ? 'التشطيب' : 'Finish'}</span>
-                      <span className="font-bold text-[#1A1209] dark:text-[#FAF7F2] truncate block">
+                    <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
+                      <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'التشطيب' : 'Finish'}</span>
+                      <span className="font-bold text-[#11100e] dark:text-[#f6f5f4] truncate block">
                         {locale === 'ar' ? (work.physicalSpecs.finishDetailsAr || 'زيوت عضوية + شمع نحل') : (work.physicalSpecs.finishDetailsEn || 'Organic Oils + Beeswax')}
                       </span>
                     </div>
@@ -240,9 +240,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
               {/* Secondary Message link */}
               <Link
                 href="/contact"
-                className="mt-3 flex min-h-[48px] items-center justify-center rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] text-sm font-bold text-[#3D2B1A] dark:text-[#E8DDD0] transition-all hover:border-[#C4854A] hover:text-[#2C1810] dark:hover:text-[#FAF7F2]"
+                className="mt-3 btn-furnish-outline w-full"
               >
-                {locale === 'ar' ? 'أو أرسل استفساراً عبر نموذج التواصل' : 'Or send an inquiry via form'}
+                {locale === 'ar' ? 'طلب استشارة مخصصة للقطعة' : 'Inquire via Direct Form'}
               </Link>
             </div>
           </div>

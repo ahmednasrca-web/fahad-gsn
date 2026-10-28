@@ -1,17 +1,17 @@
-﻿'use client'
+'use client'
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Reel } from '@/lib/types'
 import { detectAndValidateReelUrl, PROVIDER_META, type ReelValidationResult } from '@/lib/reels/providers'
 import { Button, Switch, Alert, Spinner } from '@heroui/react'
+import { adminInputCls } from '@/components/admin/FormField'
 
 interface Props {
   reel?: Reel
 }
 
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] bg-white px-4 py-3 text-[15px] text-[#1A1209] outline-none transition focus:border-[#2C1810] focus:ring-2 focus:ring-[#2C1810]/10 placeholder:text-[#A09080]'
-const labelCls = 'mb-1.5 block text-sm font-medium text-[#1A1209]'
+const labelCls = 'mb-1.5 block text-sm font-bold text-[#11100e] dark:text-[#f6f5f4]'
 
 export default function ReelForm({ reel }: Props) {
   const router = useRouter()
@@ -97,16 +97,16 @@ export default function ReelForm({ reel }: Props) {
       <div className="flex flex-col gap-5">
 
         {/* URL Input */}
-        <div className="rounded-2xl border border-[#E8DDD0] bg-[#FAF7F2] p-4">
+        <div className="furnish-card p-4">
           <label htmlFor="reelUrl" className={labelCls}>
-            رابط الفيديو / الريل من منصات التواصل <span className="text-red-500" aria-hidden="true">*</span>
+            رابط الفيديو / الريل من منصات التواصل <span className="text-[#d47f31]" aria-hidden="true">*</span>
           </label>
           <input id="reelUrl" type="url" required dir="ltr"
             placeholder="https://www.instagram.com/reel/... أو https://youtube.com/shorts/..."
             value={url} onChange={(e) => handleUrlChange(e.target.value)}
-            className={`${inputCls} font-mono text-sm`} aria-required="true" />
+            className={`${adminInputCls} font-mono text-sm`} aria-required="true" />
           {detected && (
-            <div className="mt-3 flex items-center justify-between rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-2.5 text-sm text-emerald-800">
+            <div className="mt-3 flex items-center justify-between border border-emerald-500/20 bg-emerald-500/10 px-4 py-2.5 text-sm text-emerald-800 dark:text-emerald-300">
               <div className="flex items-center gap-2">
                 <span className="text-base" aria-hidden="true">{PROVIDER_META[detected.provider].icon}</span>
                 <span>تم التعرف على المنصة: <strong>{PROVIDER_META[detected.provider].nameAr}</strong> ({PROVIDER_META[detected.provider].name})</span>
@@ -115,9 +115,9 @@ export default function ReelForm({ reel }: Props) {
             </div>
           )}
           {urlError && url.trim().length > 0 && (
-            <p className="mt-2 text-xs font-medium text-amber-700">⚠️ {urlError}</p>
+            <p className="mt-2 text-xs font-semibold text-rose-600 dark:text-rose-400">⚠️ {urlError}</p>
           )}
-          <p className="mt-2 text-xs text-[#8A7968]">
+          <p className="mt-2 text-xs text-[#615b51] dark:text-[#a8a196]">
             المنصات المدعومة: <strong>Instagram</strong>, <strong>YouTube Shorts & Videos</strong>, <strong>TikTok</strong>, <strong>Facebook Reels</strong>.
           </p>
         </div>
@@ -127,12 +127,12 @@ export default function ReelForm({ reel }: Props) {
           <div>
             <label htmlFor="titleAr" className={labelCls}>العنوان بالعربية (اختياري)</label>
             <input id="titleAr" type="text" placeholder="مثال: نحت مبخرة خشب الجوز"
-              value={titleAr} onChange={(e) => setTitleAr(e.target.value)} className={inputCls} />
+              value={titleAr} onChange={(e) => setTitleAr(e.target.value)} className={adminInputCls} />
           </div>
           <div>
             <label htmlFor="titleEn" className={labelCls}>العنوان بالإنجليزية (اختياري)</label>
             <input id="titleEn" type="text" dir="ltr" placeholder="e.g. Carving Walnut Incense Burner"
-              value={titleEn} onChange={(e) => setTitleEn(e.target.value)} className={inputCls} />
+              value={titleEn} onChange={(e) => setTitleEn(e.target.value)} className={adminInputCls} />
           </div>
         </div>
 
@@ -141,22 +141,22 @@ export default function ReelForm({ reel }: Props) {
           <div>
             <label htmlFor="descAr" className={labelCls}>الوصف بالعربية (اختياري)</label>
             <textarea id="descAr" rows={3} placeholder="تفاصيل عن كواليس العمل..."
-              value={descAr} onChange={(e) => setDescAr(e.target.value)} className={`${inputCls} resize-none`} />
+              value={descAr} onChange={(e) => setDescAr(e.target.value)} className={`${adminInputCls} resize-none`} />
           </div>
           <div>
             <label htmlFor="descEn" className={labelCls}>الوصف بالإنجليزية (اختياري)</label>
             <textarea id="descEn" rows={3} dir="ltr" placeholder="Craft details or wood species used..."
-              value={descEn} onChange={(e) => setDescEn(e.target.value)} className={`${inputCls} resize-none`} />
+              value={descEn} onChange={(e) => setDescEn(e.target.value)} className={`${adminInputCls} resize-none`} />
           </div>
         </div>
 
         {/* Sort order & switches */}
-        <div className="grid gap-4 rounded-2xl border border-[#E8DDD0] bg-white p-4 sm:grid-cols-3">
+        <div className="grid gap-4 furnish-card p-4 sm:grid-cols-3">
           <div>
             <label htmlFor="sortOrder" className={labelCls}>ترتيب العرض</label>
             <input id="sortOrder" type="number" min={0} value={sortOrder}
-              onChange={(e) => setSortOrder(parseInt(e.target.value) || 0)} className={inputCls} />
-            <span className="text-[11px] text-[#A09080]">الرقم الأقل يظهر أولاً</span>
+              onChange={(e) => setSortOrder(parseInt(e.target.value) || 0)} className={adminInputCls} />
+            <span className="text-[11px] text-[#615b51] dark:text-[#a8a196]">الرقم الأقل يظهر أولاً</span>
           </div>
 
           <div className="flex items-center sm:pt-6">
@@ -167,7 +167,7 @@ export default function ReelForm({ reel }: Props) {
                 <Switch.Control />
                 <Switch.Thumb />
               </Switch.Content>
-              <span className="text-sm font-medium text-[#1A1209]">منشور في الموقع</span>
+              <span className="text-sm font-medium text-[#11100e] dark:text-[#f6f5f4]">منشور في الموقع</span>
             </Switch.Root>
           </div>
 
@@ -179,7 +179,7 @@ export default function ReelForm({ reel }: Props) {
                 <Switch.Control />
                 <Switch.Thumb />
               </Switch.Content>
-              <span className="text-sm font-medium text-[#1A1209]">مقطع مميز ⭐</span>
+              <span className="text-sm font-medium text-[#11100e] dark:text-[#f6f5f4]">مقطع مميز ⭐</span>
             </Switch.Root>
           </div>
         </div>
@@ -194,14 +194,14 @@ export default function ReelForm({ reel }: Props) {
         )}
 
         {/* Form Actions */}
-        <div className="flex flex-wrap items-center gap-3 border-t border-[#E8DDD0] pt-4">
-          <Button type="submit" variant="primary" isDisabled={saving} aria-busy={saving}>
+        <div className="flex flex-wrap items-center gap-3 border-t border-[#ecebe9] dark:border-[#2a2723] pt-4">
+          <Button type="submit" variant="primary" isDisabled={saving} aria-busy={saving} className="min-h-[44px] px-8 rounded-none font-bold">
             {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : isEditing ? 'حفظ التعديلات' : 'إضافة المقطع'}
           </Button>
-          <Button type="button" variant="outline" onPress={() => router.back()}>إلغاء</Button>
+          <Button type="button" variant="outline" onPress={() => router.back()} className="min-h-[44px] rounded-none font-bold">إلغاء</Button>
           {isEditing && (
             <Button type="button" variant="danger" isDisabled={deleting}
-              onPress={handleDelete} className="me-auto" aria-busy={deleting}>
+              onPress={handleDelete} className="me-auto min-h-[44px] rounded-none font-bold" aria-busy={deleting}>
               {deleting ? 'جارٍ الحذف…' : 'حذف المقطع'}
             </Button>
           )}
@@ -211,4 +211,3 @@ export default function ReelForm({ reel }: Props) {
     </form>
   )
 }
-

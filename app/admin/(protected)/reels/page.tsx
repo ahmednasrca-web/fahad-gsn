@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { getAllReelsAdmin } from '@/lib/db/reels'
-import { Card, Button } from '@heroui/react'
 import ReelsListClient from '@/components/admin/ReelsListClient'
 
 export const dynamic = 'force-dynamic'
@@ -11,38 +10,36 @@ export default async function AdminReelsPage() {
   return (
     <div className="mt-14 pt-6 md:mt-0" dir="rtl">
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#ecebe9] dark:border-[#2a2723] pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-[#1A1209]">مقاطع الريلز (Social Videos)</h1>
-          <p className="mt-1 text-sm text-[#6B5C4E]">
+          <span className="furnish-subheading">إدارة الوسائط الاجتماعية</span>
+          <h1 className="text-2xl font-bold tracking-tight text-[#11100e] dark:text-[#f6f5f4]">مقاطع الريلز (Social Videos)</h1>
+          <p className="mt-1 text-sm text-[#615b51] dark:text-[#a8a196]">
             إدارة وترتيب فيديوهات الريلز المعروضة في المعرض من Instagram, YouTube, TikTok, Facebook
           </p>
         </div>
-        <Link href="/admin/reels/new">
-          <Button variant="primary">
-            <span aria-hidden="true">+</span>
-            إضافة ريلز جديد
-          </Button>
+        <Link 
+          href="/admin/reels/new"
+          className="admin-btn-primary self-start sm:self-auto"
+        >
+          <span aria-hidden="true">+</span>
+          إضافة ريلز جديد
         </Link>
       </div>
 
       {reels.length === 0 ? (
-        <Card.Root className="border border-[#E8DDD0] bg-white p-12 text-center shadow-xs">
-          <Card.Content>
-            <p className="text-5xl" aria-hidden="true">🎬</p>
-            <p className="mt-4 text-xl font-bold text-[#2C1810]">لا توجد مقاطع ريلز بعد</p>
-            <p className="mt-1 text-sm text-[#8A7968]">
-              أضف أول فيديو لعرض كواليس الحرفة والتشكيل اليدوي للأعمال للزوار
-            </p>
-            <div className="mt-6">
-              <Link href="/admin/reels/new">
-                <Button variant="primary">
-                  + أضف أول ريلز
-                </Button>
-              </Link>
-            </div>
-          </Card.Content>
-        </Card.Root>
+        <div className="furnish-card p-12 text-center">
+          <p className="text-5xl" aria-hidden="true">🎬</p>
+          <p className="mt-4 text-xl font-bold text-[#11100e] dark:text-[#f6f5f4]">لا توجد مقاطع ريلز بعد</p>
+          <p className="mt-1 text-sm text-[#615b51] dark:text-[#a8a196]">
+            أضف أول فيديو لعرض كواليس الحرفة والتشكيل اليدوي للأعمال للزوار
+          </p>
+          <div className="mt-6">
+            <Link href="/admin/reels/new" className="admin-btn-primary inline-flex">
+              + أضف أول ريلز
+            </Link>
+          </div>
+        </div>
       ) : (
         <ReelsListClient initialReels={reels} />
       )}

@@ -27,14 +27,16 @@ export default function AdminNav() {
   return (
     <>
       {/* Mobile top bar */}
-      <div className="fixed inset-x-0 top-0 z-30 flex h-14 items-center justify-between border-b border-white/10 bg-[#2C1810] px-4 md:hidden">
-        <div className="flex items-center gap-2">
-          <LogoIcon size={24} color="copper" />
-          <span className="font-bold text-white text-sm">فهد غصن — الإدارة</span>
+      <div className="fixed inset-x-0 top-0 z-30 flex h-16 items-center justify-between border-b border-[#211f1c] bg-[#11100e] px-4 md:hidden">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center bg-white/10 rounded-none">
+            <LogoIcon size={20} color="copper" />
+          </div>
+          <span className="font-bold text-white text-sm tracking-wide">فهد غصن — الإدارة</span>
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition hover:bg-white/10"
+          className="flex h-10 w-10 items-center justify-center border border-[#211f1c] text-white transition hover:border-[#d47f31] hover:text-[#d47f31] rounded-none"
           aria-label="فتح القائمة"
           aria-expanded={mobileOpen}
         >
@@ -47,24 +49,24 @@ export default function AdminNav() {
       {/* Mobile nav overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} aria-hidden="true" />
-          <nav className="absolute inset-y-0 end-0 w-64 bg-[#2C1810] p-4 pt-16 shadow-2xl" aria-label="قائمة الإدارة">
-            <ul className="flex flex-col gap-1">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setMobileOpen(false)} aria-hidden="true" />
+          <nav className="absolute inset-y-0 end-0 w-72 bg-[#11100e] border-s border-[#211f1c] p-5 pt-20 shadow-2xl" aria-label="قائمة الإدارة">
+            <ul className="flex flex-col gap-1.5">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex min-h-[48px] items-center gap-3 rounded-xl px-4 text-sm font-medium transition-colors ${isActive(item) ? 'bg-[#C4854A] text-white' : 'text-[#D4B896] hover:bg-white/10 hover:text-white'}`}
+                    className={`flex min-h-[48px] items-center gap-3 px-4 text-xs font-semibold uppercase tracking-wider transition-colors rounded-none ${isActive(item) ? 'bg-[#d47f31] text-white' : 'text-[#dad7d2] hover:bg-white/5 hover:text-white'}`}
                   >
                     <span aria-hidden="true">{item.icon}</span>
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li className="mt-4 border-t border-white/20 pt-4">
+              <li className="mt-6 border-t border-[#211f1c] pt-4">
                 <form action="/api/admin/logout" method="POST">
-                  <button type="submit" className="flex min-h-[48px] w-full items-center gap-3 rounded-xl px-4 text-sm font-medium text-[#D4B896] hover:bg-white/10 hover:text-white transition-colors">
+                  <button type="submit" className="flex min-h-[48px] w-full items-center gap-3 px-4 text-xs font-semibold uppercase tracking-wider text-[#a0988d] hover:bg-white/5 hover:text-white transition-colors rounded-none">
                     <span aria-hidden="true">↩</span>
                     تسجيل الخروج
                   </button>
@@ -76,24 +78,24 @@ export default function AdminNav() {
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden w-56 shrink-0 flex-col bg-[#2C1810] md:flex" aria-label="الشريط الجانبي">
-        <div className="border-b border-white/10 px-4 py-5 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
-            <LogoIcon size={26} color="copper" />
+      <aside className="hidden w-64 shrink-0 flex-col bg-[#11100e] border-e border-[#211f1c] md:flex" aria-label="الشريط الجانبي">
+        <div className="border-b border-[#211f1c] px-5 py-6 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-none bg-white/10 text-white">
+            <LogoIcon size={24} color="copper" />
           </div>
           <div>
-            <p className="font-bold text-white leading-tight">فهد غصن</p>
-            <p className="text-[11px] text-[#A09080]">لوحة التحكم</p>
+            <p className="font-bold text-white leading-tight font-display tracking-wide">فهد غصن</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#d47f31] font-semibold mt-0.5">لوحة التحكم</p>
           </div>
         </div>
 
-        <nav className="flex-1 p-3" aria-label="قائمة الإدارة">
-          <ul className="flex flex-col gap-1">
+        <nav className="flex-1 p-4" aria-label="قائمة الإدارة">
+          <ul className="flex flex-col gap-1.5">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`flex min-h-[44px] items-center gap-3 rounded-xl px-3 text-sm font-medium transition-colors ${isActive(item) ? 'bg-[#C4854A] text-white' : 'text-[#D4B896] hover:bg-white/10 hover:text-white'}`}
+                  className={`flex min-h-[44px] items-center gap-3 px-4 text-xs font-semibold uppercase tracking-wider transition-colors rounded-none ${isActive(item) ? 'bg-[#d47f31] text-white shadow-xs' : 'text-[#dad7d2] hover:bg-white/5 hover:text-white'}`}
                 >
                   <span aria-hidden="true">{item.icon}</span>
                   {item.label}
@@ -102,9 +104,9 @@ export default function AdminNav() {
             ))}
           </ul>
         </nav>
-        <div className="border-t border-white/10 p-3">
+        <div className="border-t border-[#211f1c] p-4">
           <form action="/api/admin/logout" method="POST">
-            <button type="submit" className="flex min-h-[44px] w-full items-center gap-3 rounded-xl px-3 text-sm font-medium text-[#A09080] hover:bg-white/10 hover:text-[#D4B896] transition-colors">
+            <button type="submit" className="flex min-h-[44px] w-full items-center gap-3 px-4 text-xs font-semibold uppercase tracking-wider text-[#a0988d] hover:bg-white/5 hover:text-[#d47f31] transition-colors rounded-none cursor-pointer">
               <span aria-hidden="true">↩</span>
               تسجيل الخروج
             </button>

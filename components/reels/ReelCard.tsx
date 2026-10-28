@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Image from 'next/image'
@@ -32,7 +32,7 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
   return (
     <>
       <Card.Root
-        className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#E8DDD0] bg-white shadow-xs transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C4854A] cursor-pointer select-none"
+        className="group relative flex flex-col overflow-hidden rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#d47f31] cursor-pointer select-none"
         onClick={handleCardClick}
       >
         <Card.Content className="p-0">

@@ -10,8 +10,8 @@ interface Props {
   workSlug?: string
 }
 
-const inputCls = 'w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#170E09] px-4 py-3 text-[15px] text-[#1A1209] dark:text-[#FAF7F2] outline-none transition focus:border-[#C4854A] focus:ring-2 focus:ring-[#C4854A]/20 placeholder:text-[#6B5C4E] dark:placeholder:text-[#8A7968]'
-const labelCls = 'mb-1.5 block text-sm font-bold text-[#1A1209] dark:text-[#E8DDD0]'
+const inputCls = 'w-full rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] px-4 py-3.5 text-sm text-[#11100e] dark:text-[#f6f5f4] outline-none transition-colors focus:border-black dark:focus:border-[#d47f31] placeholder:text-[#a0988d]'
+const labelCls = 'mb-2 block text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#dad7d2]'
 
 export default function ContactForm({ locale, workSlug }: Props) {
   const formId = useId()
@@ -108,16 +108,19 @@ export default function ContactForm({ locale, workSlug }: Props) {
         </Alert.Root>
       )}
 
-      <Button type="submit" variant="primary" isDisabled={loading}
-        aria-busy={loading} fullWidth
-        className="min-h-[52px] rounded-2xl font-semibold">
+      <button
+        type="submit"
+        disabled={loading}
+        aria-busy={loading}
+        className="btn-furnish-primary w-full"
+      >
         {loading ? (
           <span className="flex items-center justify-center gap-2">
             <Spinner size="sm" />
             {locale === 'ar' ? 'جارٍ الإرسال…' : 'Sending…'}
           </span>
         ) : t(locale, 'sendMessage')}
-      </Button>
+      </button>
     </form>
   )
 }

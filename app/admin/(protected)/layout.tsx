@@ -16,7 +16,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
   if (!session) redirect('/admin/login')
 
   return (
-    <div className="flex min-h-svh bg-[#FAF7F2]">
+    <div className="flex min-h-svh bg-[#f6f5f4] dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4]">
       <AdminNav />
       <div className="flex-1 overflow-auto">
         <div className="p-4 md:p-8">

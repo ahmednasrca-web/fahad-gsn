@@ -170,36 +170,36 @@ export default function WorkForm({ work, categories }: Props) {
       <div className="flex flex-col gap-6">
 
         {/* ── Pre-Publish Health & Verification Bar ── */}
-        <div className="rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#150D08] p-4 shadow-sm">
+        <div className="furnish-card p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-2">
+              <h3 className="text-sm font-bold text-[#11100e] dark:text-[#f6f5f4] flex items-center gap-2">
                 <span>📋</span>
                 <span>تدقيق ما قبل النشر (Pre-Publish Health Check)</span>
               </h3>
-              <p className="text-xs text-[#6B5C4E] dark:text-[#D4B896] mt-0.5">
+              <p className="text-xs text-[#615b51] dark:text-[#a8a196] mt-0.5">
                 تأكد من اكتمال كافة المتطلبات لضمان أعلى جودة ظهور أمام العملاء.
               </p>
             </div>
-            <span className={`rounded-full px-3 py-1 text-xs font-bold ${isReadyForPublish ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300' : 'bg-amber-500/15 text-amber-700 dark:text-amber-300'}`}>
+            <span className={`px-2.5 py-1 text-xs font-bold ${isReadyForPublish ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-[#d47f31]/10 text-[#d47f31] border border-[#d47f31]/30'}`}>
               {isReadyForPublish ? '✓ جاهز للنشر' : '⏳ يرجى إكمال الحقول الأساسية'}
             </span>
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 text-xs font-medium">
-            <div className={`flex items-center gap-1.5 ${hasImages ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8A7968]'}`}>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 text-xs font-semibold">
+            <div className={`flex items-center gap-1.5 ${hasImages ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8a8377]'}`}>
               <span>{hasImages ? '✓' : '○'}</span>
               <span>الصور ({images.length})</span>
             </div>
-            <div className={`flex items-center gap-1.5 ${hasTitles ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8A7968]'}`}>
+            <div className={`flex items-center gap-1.5 ${hasTitles ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8a8377]'}`}>
               <span>{hasTitles ? '✓' : '○'}</span>
               <span>العناوين (AR/EN)</span>
             </div>
-            <div className={`flex items-center gap-1.5 ${hasSpecs ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8A7968]'}`}>
+            <div className={`flex items-center gap-1.5 ${hasSpecs ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8a8377]'}`}>
               <span>{hasSpecs ? '✓' : '○'}</span>
               <span>المقاسات الهندسية</span>
             </div>
-            <div className={`flex items-center gap-1.5 ${hasCategory ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8A7968]'}`}>
+            <div className={`flex items-center gap-1.5 ${hasCategory ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#8a8377]'}`}>
               <span>{hasCategory ? '✓' : '○'}</span>
               <span>التصنيف المعتمد</span>
             </div>
@@ -235,8 +235,8 @@ export default function WorkForm({ work, categories }: Props) {
         </div>
 
         {/* Woodcraft Story */}
-        <div className="rounded-2xl border border-[#C4854A]/30 bg-[#FAF7F2] dark:bg-[#150D08] p-4">
-          <p className="mb-3 text-sm font-bold text-[#2C1810] dark:text-[#FAF7F2] flex items-center gap-2">
+        <div className="furnish-card p-4 border-l-4 border-l-[#d47f31]">
+          <p className="mb-3 text-sm font-bold text-[#11100e] dark:text-[#f6f5f4] flex items-center gap-2">
             <span>🪵</span> حكاية القطعة وتفاصيل الخشب (Story Behind the Craft)
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -256,38 +256,38 @@ export default function WorkForm({ work, categories }: Props) {
         </div>
 
         {/* ── Physical Dimensions & Specs Matrix ── */}
-        <div className="rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] p-5 shadow-sm">
-          <h4 className="mb-3 text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-2">
+        <div className="furnish-card p-5">
+          <h4 className="mb-3 text-sm font-bold text-[#11100e] dark:text-[#f6f5f4] flex items-center gap-2">
             <span>📐</span>
             <span>مصفوفة المقاسات والأبعاد الفيزيائية الحقيقية (Physical Specs)</span>
           </h4>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">الطول (سم)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">الطول (سم)</label>
               <input type="number" value={physicalSpecs.lengthCm ?? ''}
                 onChange={(e) => handleSpecChange('lengthCm', parseFloat(e.target.value) || 0)}
                 placeholder="240" className={inputCls} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">العرض (سم)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">العرض (سم)</label>
               <input type="number" value={physicalSpecs.widthCm ?? ''}
                 onChange={(e) => handleSpecChange('widthCm', parseFloat(e.target.value) || 0)}
                 placeholder="100" className={inputCls} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">الارتفاع (سم)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">الارتفاع (سم)</label>
               <input type="number" value={physicalSpecs.heightCm ?? ''}
                 onChange={(e) => handleSpecChange('heightCm', parseFloat(e.target.value) || 0)}
                 placeholder="76" className={inputCls} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">سُمك اللوح (مم)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">سُمك اللوح (مم)</label>
               <input type="number" value={physicalSpecs.thicknessMm ?? ''}
                 onChange={(e) => handleSpecChange('thicknessMm', parseFloat(e.target.value) || 0)}
                 placeholder="65" className={inputCls} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">الوزن (كجم)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">الوزن (كجم)</label>
               <input type="number" value={physicalSpecs.weightKg ?? ''}
                 onChange={(e) => handleSpecChange('weightKg', parseFloat(e.target.value) || 0)}
                 placeholder="110" className={inputCls} />
@@ -296,13 +296,13 @@ export default function WorkForm({ work, categories }: Props) {
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">نوع الزيوت والتشطيب (بالعربي)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">نوع الزيوت والتشطيب (بالعربي)</label>
               <input type="text" value={physicalSpecs.finishDetailsAr ?? ''}
                 onChange={(e) => handleSpecChange('finishDetailsAr', e.target.value)}
                 placeholder="زيوت عضوية إيطالية مطفية + شمع نحل طبيعي" className={inputCls} />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2]">نوع التشطيب (بالإنجليزية)</label>
+              <label className="mb-1 block text-xs font-bold text-[#11100e] dark:text-[#f6f5f4]">نوع التشطيب (بالإنجليزية)</label>
               <input type="text" value={physicalSpecs.finishDetailsEn ?? ''}
                 onChange={(e) => handleSpecChange('finishDetailsEn', e.target.value)}
                 placeholder="Italian organic matte satin oils + raw beeswax" className={inputCls} />
@@ -330,7 +330,7 @@ export default function WorkForm({ work, categories }: Props) {
         </div>
 
         {/* Toggles */}
-        <div className="flex flex-wrap gap-6 rounded-2xl bg-[#F5F0E8] dark:bg-[#150D08] p-4 border border-[#E8DDD0] dark:border-[#2C1B10]">
+        <div className="flex flex-wrap gap-6 furnish-card p-4">
           <Switch.Root
             isSelected={form.isPublished}
             onChange={(v) => handleChange('isPublished', v)}
@@ -340,7 +340,7 @@ export default function WorkForm({ work, categories }: Props) {
               <Switch.Control className="switch-control" />
               <Switch.Thumb />
             </Switch.Content>
-            <span className="text-sm font-medium text-[#1A1209] dark:text-[#FAF7F2]">منشور بالموقع</span>
+            <span className="text-sm font-medium text-[#11100e] dark:text-[#f6f5f4]">منشور بالموقع</span>
           </Switch.Root>
 
           <Switch.Root
@@ -352,7 +352,7 @@ export default function WorkForm({ work, categories }: Props) {
               <Switch.Control />
               <Switch.Thumb />
             </Switch.Content>
-            <span className="text-sm font-medium text-[#1A1209] dark:text-[#FAF7F2]">⭐ مميز في الرئيسية</span>
+            <span className="text-sm font-medium text-[#11100e] dark:text-[#f6f5f4]">⭐ مميز في الرئيسية</span>
           </Switch.Root>
 
           <Switch.Root
@@ -364,21 +364,21 @@ export default function WorkForm({ work, categories }: Props) {
               <Switch.Control />
               <Switch.Thumb />
             </Switch.Content>
-            <span className="text-sm font-bold text-[#C4854A]">قطعة فريدة حصرية (Exclusive Piece)</span>
+            <span className="text-sm font-bold text-[#d47f31]">قطعة فريدة حصرية (Exclusive Piece)</span>
           </Switch.Root>
         </div>
 
         {/* Images & Live Quality Inspector */}
-        <div className="rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#150D08] p-5 shadow-sm">
-          <p className="mb-2 text-sm font-bold text-[#1A1209] dark:text-[#FAF7F2]">
+        <div className="furnish-card p-5">
+          <p className="mb-2 text-sm font-bold text-[#11100e] dark:text-[#f6f5f4]">
             معرض الصور وفاحص الدقة والمقاسات (Media Studio)
           </p>
 
           {images.length > 0 && (
             <div className="mb-4 space-y-3">
               {/* Primary Image Quality Inspector */}
-              <div className="rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] p-3 bg-[#FAF7F2] dark:bg-[#1A1009]">
-                <p className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] mb-1.5">
+              <div className="border border-[#ecebe9] dark:border-[#2a2723] p-3 bg-[#f6f5f4] dark:bg-[#161513]">
+                <p className="text-xs font-bold text-[#11100e] dark:text-[#f6f5f4] mb-1.5">
                   فحص الصورة الأساسية (Primary 4K Image)
                 </p>
                 <MediaQualityInspector imageUrl={images[0]} />
@@ -387,7 +387,7 @@ export default function WorkForm({ work, categories }: Props) {
               {/* Thumbnails list */}
               <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
                 {images.map((img, i) => (
-                  <div key={i} className="group relative aspect-square overflow-hidden rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#F0E8D8] dark:bg-[#1F130B]">
+                  <div key={i} className="group relative aspect-square overflow-hidden border border-[#ecebe9] dark:border-[#2a2723] bg-[#f6f5f4] dark:bg-[#211f1c]">
                     <Image src={img} alt={`صورة ${i + 1}`} fill sizes="120px" className="object-cover" />
                     <button type="button" onClick={() => removeImage(i)}
                       className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 cursor-pointer"
@@ -395,7 +395,7 @@ export default function WorkForm({ work, categories }: Props) {
                       <span className="text-2xl text-white font-bold" aria-hidden="true">✕</span>
                     </button>
                     {i === 0 && (
-                      <span className="absolute bottom-1 start-1 rounded bg-[#C4854A] px-1.5 py-0.5 text-[10px] font-bold text-white shadow-xs">
+                      <span className="absolute bottom-1 start-1 bg-[#d47f31] px-1.5 py-0.5 text-[10px] font-bold text-white">
                         الرئيسية
                       </span>
                     )}
@@ -408,7 +408,7 @@ export default function WorkForm({ work, categories }: Props) {
           <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple
             onChange={handleImageUpload} className="sr-only" id="image-upload" />
           <label htmlFor="image-upload"
-            className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#1A1009] px-4 text-sm font-bold text-[#6B5C4E] dark:text-[#D4B896] transition-colors hover:border-[#C4854A] hover:text-[#C4854A] ${uploading ? 'pointer-events-none opacity-60' : ''}`}>
+            className={`flex min-h-[52px] cursor-pointer items-center justify-center gap-2 border-2 border-dashed border-[#ecebe9] dark:border-[#2a2723] bg-[#f6f5f4] dark:bg-[#161513] px-4 text-sm font-bold text-[#615b51] dark:text-[#a8a196] transition-colors hover:border-[#d47f31] hover:text-[#d47f31] ${uploading ? 'pointer-events-none opacity-60' : ''}`}>
             {uploading ? <><Spinner size="sm" /><span>جارٍ الرفع والفحص…</span></> : '📸 + إضافة وفحص صور جديدة'}
           </label>
         </div>
@@ -448,17 +448,17 @@ export default function WorkForm({ work, categories }: Props) {
         )}
 
         {/* Actions */}
-        <div className="flex flex-wrap items-center gap-3 border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-4">
+        <div className="flex flex-wrap items-center gap-3 border-t border-[#ecebe9] dark:border-[#2a2723] pt-4">
           <Button type="submit" variant="primary" isDisabled={saving || uploading}
-            aria-busy={saving} className="min-h-[48px] px-8 rounded-xl font-bold">
+            aria-busy={saving} className="min-h-[44px] px-8 font-bold rounded-none">
             {saving ? <><Spinner size="sm" className="me-2" /><span>جارٍ الحفظ…</span></> : isEditing ? 'حفظ كافة التعديلات' : 'نشر العمل بالمشغل'}
           </Button>
-          <Button type="button" variant="outline" onPress={() => router.back()} className="min-h-[48px] rounded-xl font-bold">
+          <Button type="button" variant="outline" onPress={() => router.back()} className="min-h-[44px] font-bold rounded-none">
             إلغاء
           </Button>
           {isEditing && (
             <Button type="button" variant="danger" isDisabled={deleting}
-              onPress={handleDelete} className="me-auto min-h-[48px] rounded-xl font-bold" aria-busy={deleting}>
+              onPress={handleDelete} className="me-auto min-h-[44px] font-bold rounded-none" aria-busy={deleting}>
               {deleting ? 'جارٍ الحذف…' : 'حذف العمل'}
             </Button>
           )}

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Work } from '@/lib/types'
-import { Card, Chip, Button, Spinner } from '@heroui/react'
+import { Spinner } from '@heroui/react'
 
 interface Props {
   initialWorks: Work[]
@@ -53,136 +53,135 @@ export default function WorksListClient({ initialWorks }: Props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="بحث في الأعمال..."
-          className="w-full max-w-xs rounded-xl border border-[#E8DDD0] bg-white px-3.5 py-2 text-sm text-[#1A1209] outline-none focus:border-[#C4854A]"
+          className="admin-input max-w-xs"
         />
         {savingOrder && (
-          <span className="flex items-center gap-2 text-xs font-semibold text-[#C4854A]">
+          <span className="flex items-center gap-2 text-xs font-semibold text-[#d47f31]">
             <Spinner size="sm" />
             جارٍ حفظ الترتيب الجديد…
           </span>
         )}
       </div>
 
-      <Card.Root className="border border-[#E8DDD0] bg-white overflow-hidden shadow-xs">
-        <Card.Content className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#E8DDD0] bg-[#FAF7F2] text-xs font-semibold text-[#8A7968]">
-                  <th className="px-4 py-3.5 text-center w-16">الترتيب</th>
-                  <th className="px-4 py-3.5 text-start">القطعة</th>
-                  <th className="px-4 py-3.5 text-start">العنوان</th>
-                  <th className="px-4 py-3.5 text-start">الميزات والحالة</th>
-                  <th className="hidden px-4 py-3.5 text-start sm:table-cell">السعر</th>
-                  <th className="px-4 py-3.5 text-end">الإجراءات</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#E8DDD0]">
-                {filtered.map((work, index) => (
-                  <tr key={work.id} className="transition-colors hover:bg-[#FAF7F2]/60">
-                    {/* Sort controls */}
-                    <td className="px-4 py-3 text-center">
-                      <div className="flex items-center justify-center gap-1">
-                        <button
-                          type="button"
-                          onClick={() => handleMove(index, 'up')}
-                          disabled={index === 0 || savingOrder}
-                          aria-label="تحريك للأعلى"
-                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#E8DDD0] text-xs text-[#8A7968] hover:bg-[#FAF7F2] disabled:opacity-30 disabled:pointer-events-none transition"
-                        >
-                          ▲
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleMove(index, 'down')}
-                          disabled={index === works.length - 1 || savingOrder}
-                          aria-label="تحريك للأسفل"
-                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#E8DDD0] text-xs text-[#8A7968] hover:bg-[#FAF7F2] disabled:opacity-30 disabled:pointer-events-none transition"
-                        >
-                          ▼
-                        </button>
-                      </div>
-                    </td>
-
-                    {/* Thumbnail */}
-                    <td className="px-4 py-3">
-                      <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-[#F0E8D8] border border-[#E8DDD0] shadow-2xs">
-                        {work.primaryImage ? (
-                          <Image
-                            src={work.primaryImage}
-                            alt={work.titleAr}
-                            fill
-                            sizes="56px"
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full items-center justify-center text-2xl" aria-hidden="true">
-                            🪵
-                          </div>
-                        )}
-                      </div>
-                    </td>
-
-                    {/* Titles */}
-                    <td className="px-4 py-3">
-                      <Link
-                        href={`/admin/works/${work.id}`}
-                        className="font-bold text-[#1A1209] hover:text-[#C4854A] transition-colors"
+      <div className="furnish-card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-[#ecebe9] dark:border-[#2a2723] bg-[#f6f5f4] dark:bg-[#161513] text-xs font-bold uppercase tracking-wider text-[#615b51] dark:text-[#a8a196]">
+                <th className="px-4 py-3.5 text-center w-16">الترتيب</th>
+                <th className="px-4 py-3.5 text-start">القطعة</th>
+                <th className="px-4 py-3.5 text-start">العنوان</th>
+                <th className="px-4 py-3.5 text-start">الميزات والحالة</th>
+                <th className="hidden px-4 py-3.5 text-start sm:table-cell">السعر</th>
+                <th className="px-4 py-3.5 text-end">الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#ecebe9] dark:divide-[#2a2723]">
+              {filtered.map((work, index) => (
+                <tr key={work.id} className="transition-colors hover:bg-[#f6f5f4]/50 dark:hover:bg-[#211f1c]/50">
+                  {/* Sort controls */}
+                  <td className="px-4 py-3 text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleMove(index, 'up')}
+                        disabled={index === 0 || savingOrder}
+                        aria-label="تحريك للأعلى"
+                        className="flex h-7 w-7 items-center justify-center border border-[#ecebe9] dark:border-[#2a2723] text-xs text-[#615b51] dark:text-[#a8a196] hover:border-[#11100e] dark:hover:border-[#f6f5f4] disabled:opacity-30 disabled:pointer-events-none transition"
                       >
-                        {work.titleAr}
-                      </Link>
-                      <p className="text-xs text-[#8A7968] font-mono">{work.titleEn}</p>
-                    </td>
+                        ▲
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMove(index, 'down')}
+                        disabled={index === works.length - 1 || savingOrder}
+                        aria-label="تحريك للأسفل"
+                        className="flex h-7 w-7 items-center justify-center border border-[#ecebe9] dark:border-[#2a2723] text-xs text-[#615b51] dark:text-[#a8a196] hover:border-[#11100e] dark:hover:border-[#f6f5f4] disabled:opacity-30 disabled:pointer-events-none transition"
+                      >
+                        ▼
+                      </button>
+                    </div>
+                  </td>
 
-                    {/* Status & Luxury Badges */}
-                    <td className="px-4 py-3">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <Chip.Root
-                          color={work.isPublished ? 'success' : 'default'}
-                          size="sm"
-                          variant="soft"
-                        >
-                          <Chip.Label>{work.isPublished ? 'منشور' : 'مسودة'}</Chip.Label>
-                        </Chip.Root>
-                        {work.isFeatured && (
-                          <Chip.Root color="warning" size="sm" variant="soft">
-                            <Chip.Label>مميز</Chip.Label>
-                          </Chip.Root>
-                        )}
-                        {work.isUniquePiece && (
-                          <Chip.Root color="accent" size="sm" variant="soft">
-                            <Chip.Label>قطعة فريدة حصرية</Chip.Label>
-                          </Chip.Root>
-                        )}
-                      </div>
-                    </td>
-
-                    {/* Price */}
-                    <td className="hidden px-4 py-3 sm:table-cell">
-                      {work.price != null ? (
-                        <span className="font-semibold text-[#2C1810]">
-                          {work.price.toLocaleString('ar-KW')} <span className="text-xs text-[#8A7968]">د.ك</span>
-                        </span>
+                  {/* Thumbnail */}
+                  <td className="px-4 py-3">
+                    <div className="relative h-14 w-14 overflow-hidden border border-[#ecebe9] dark:border-[#2a2723] bg-[#f6f5f4] dark:bg-[#211f1c]">
+                      {work.primaryImage ? (
+                        <Image
+                          src={work.primaryImage}
+                          alt={work.titleAr}
+                          fill
+                          sizes="56px"
+                          className="object-cover"
+                        />
                       ) : (
-                        <span className="text-xs text-[#A09080]">حسب الطلب</span>
+                        <div className="flex h-full items-center justify-center text-2xl" aria-hidden="true">
+                          🪵
+                        </div>
                       )}
-                    </td>
+                    </div>
+                  </td>
 
-                    {/* Actions */}
-                    <td className="px-4 py-3 text-end">
-                      <Link href={`/admin/works/${work.id}`}>
-                        <Button size="sm" variant="outline">
-                          تعديل
-                        </Button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card.Content>
-      </Card.Root>
+                  {/* Titles */}
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/admin/works/${work.id}`}
+                      className="font-bold text-[#11100e] dark:text-[#f6f5f4] hover:text-[#d47f31] transition-colors"
+                    >
+                      {work.titleAr}
+                    </Link>
+                    <p className="text-xs text-[#615b51] dark:text-[#a8a196] font-mono">{work.titleEn}</p>
+                  </td>
+
+                  {/* Status & Badges */}
+                  <td className="px-4 py-3">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className={`px-2 py-0.5 text-xs font-semibold ${
+                        work.isPublished 
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
+                          : 'bg-neutral-500/10 text-neutral-600 dark:text-neutral-400 border border-neutral-500/20'
+                      }`}>
+                        {work.isPublished ? 'منشور' : 'مسودة'}
+                      </span>
+                      {work.isFeatured && (
+                        <span className="px-2 py-0.5 text-xs font-semibold bg-[#d47f31]/10 text-[#d47f31] border border-[#d47f31]/30">
+                          مميز
+                        </span>
+                      )}
+                      {work.isUniquePiece && (
+                        <span className="px-2 py-0.5 text-xs font-semibold bg-neutral-900 text-white dark:bg-white dark:text-black">
+                          قطعة فريدة
+                        </span>
+                      )}
+                    </div>
+                  </td>
+
+                  {/* Price */}
+                  <td className="hidden px-4 py-3 sm:table-cell">
+                    {work.price != null ? (
+                      <span className="font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                        {work.price.toLocaleString('ar-KW')} <span className="text-xs text-[#615b51] dark:text-[#a8a196]">د.ك</span>
+                      </span>
+                    ) : (
+                      <span className="text-xs text-[#615b51] dark:text-[#a8a196]">حسب الطلب</span>
+                    )}
+                  </td>
+
+                  {/* Actions */}
+                  <td className="px-4 py-3 text-end">
+                    <Link 
+                      href={`/admin/works/${work.id}`}
+                      className="inline-flex items-center border border-[#ecebe9] dark:border-[#2a2723] bg-white dark:bg-[#1a1815] px-3 py-1.5 text-xs font-bold text-[#11100e] dark:text-[#f6f5f4] hover:border-[#11100e] dark:hover:border-[#f6f5f4] transition"
+                    >
+                      تعديل
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   )
 }

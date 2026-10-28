@@ -1,6 +1,5 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { getAllCategoriesAdmin } from '@/lib/db/categories'
-import { Card, Chip, Button } from '@heroui/react'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,82 +9,81 @@ export default async function AdminCategoriesPage() {
   return (
     <div className="mt-14 pt-6 md:mt-0" dir="rtl">
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#ecebe9] dark:border-[#2a2723] pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-[#1A1209]">التصنيفات</h1>
-          <p className="mt-1 text-sm text-[#6B5C4E]">إدارة أقسام وتصنيفات الأعمال الخشبية</p>
+          <span className="furnish-subheading">هيكلية المنتجات</span>
+          <h1 className="text-2xl font-bold tracking-tight text-[#11100e] dark:text-[#f6f5f4]">التصنيفات</h1>
+          <p className="mt-1 text-sm text-[#615b51] dark:text-[#a8a196]">إدارة أقسام وتصنيفات الأعمال الخشبية</p>
         </div>
-        <Link href="/admin/categories/new">
-          <Button variant="primary">
-            <span aria-hidden="true">+</span>
-            إضافة تصنيف
-          </Button>
+        <Link 
+          href="/admin/categories/new"
+          className="admin-btn-primary self-start sm:self-auto"
+        >
+          <span aria-hidden="true">+</span>
+          إضافة تصنيف
         </Link>
       </div>
 
       {categories.length === 0 ? (
-        <Card.Root className="border border-[#E8DDD0] bg-white p-12 text-center shadow-xs">
-          <Card.Content>
-            <p className="text-5xl" aria-hidden="true">📂</p>
-            <p className="mt-4 text-xl font-bold text-[#2C1810]">لا توجد تصنيفات بعد</p>
-            <div className="mt-6">
-              <Link href="/admin/categories/new">
-                <Button variant="primary">+ إضافة أول تصنيف</Button>
-              </Link>
-            </div>
-          </Card.Content>
-        </Card.Root>
+        <div className="furnish-card p-12 text-center">
+          <p className="text-5xl" aria-hidden="true">📂</p>
+          <p className="mt-4 text-xl font-bold text-[#11100e] dark:text-[#f6f5f4]">لا توجد تصنيفات بعد</p>
+          <div className="mt-6">
+            <Link href="/admin/categories/new" className="admin-btn-primary inline-flex">
+              + إضافة أول تصنيف
+            </Link>
+          </div>
+        </div>
       ) : (
-        <Card.Root className="border border-[#E8DDD0] bg-white overflow-hidden shadow-xs">
-          <Card.Content className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[#E8DDD0] bg-[#FAF7F2] text-xs font-semibold text-[#8A7968]">
-                    <th className="px-6 py-4 text-start">الاسم بالعربية / الإنجليزية</th>
-                    <th className="px-6 py-4 text-start">المعرف (Slug)</th>
-                    <th className="px-6 py-4 text-start">الحالة</th>
-                    <th className="px-6 py-4 text-end">الإجراءات</th>
+        <div className="furnish-card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#ecebe9] dark:border-[#2a2723] bg-[#f6f5f4] dark:bg-[#161513] text-xs font-bold uppercase tracking-wider text-[#615b51] dark:text-[#a8a196]">
+                  <th className="px-6 py-4 text-start">الاسم بالعربية / الإنجليزية</th>
+                  <th className="px-6 py-4 text-start">المعرف (Slug)</th>
+                  <th className="px-6 py-4 text-start">الحالة</th>
+                  <th className="px-6 py-4 text-end">الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#ecebe9] dark:divide-[#2a2723]">
+                {categories.map((cat) => (
+                  <tr key={cat.id} className="transition-colors hover:bg-[#f6f5f4]/50 dark:hover:bg-[#211f1c]/50">
+                    <td className="px-6 py-4">
+                      <Link
+                        href={`/admin/categories/${cat.id}`}
+                        className="font-bold text-[#11100e] dark:text-[#f6f5f4] hover:text-[#d47f31] transition-colors"
+                      >
+                        {cat.nameAr}
+                      </Link>
+                      <p className="text-xs text-[#615b51] dark:text-[#a8a196] font-mono">{cat.nameEn}</p>
+                    </td>
+                    <td className="px-6 py-4 font-mono text-xs text-[#615b51] dark:text-[#a8a196]">
+                      {cat.slug}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-0.5 text-xs font-semibold ${
+                        cat.isActive
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                          : 'bg-neutral-500/10 text-neutral-600 dark:text-neutral-400 border border-neutral-500/20'
+                      }`}>
+                        {cat.isActive ? 'نشط في المعرض' : 'مخفي'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-end">
+                      <Link 
+                        href={`/admin/categories/${cat.id}`}
+                        className="inline-flex items-center border border-[#ecebe9] dark:border-[#2a2723] bg-white dark:bg-[#1a1815] px-3 py-1.5 text-xs font-bold text-[#11100e] dark:text-[#f6f5f4] hover:border-[#11100e] dark:hover:border-[#f6f5f4] transition"
+                      >
+                        تعديل
+                      </Link>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-[#E8DDD0]">
-                  {categories.map((cat) => (
-                    <tr key={cat.id} className="transition-colors hover:bg-[#FAF7F2]/60">
-                      <td className="px-6 py-4">
-                        <Link
-                          href={`/admin/categories/${cat.id}`}
-                          className="font-bold text-[#1A1209] hover:text-[#C4854A] transition-colors"
-                        >
-                          {cat.nameAr}
-                        </Link>
-                        <p className="text-xs text-[#8A7968] font-mono">{cat.nameEn}</p>
-                      </td>
-                      <td className="px-6 py-4 font-mono text-xs text-[#6B5C4E]">
-                        {cat.slug}
-                      </td>
-                      <td className="px-6 py-4">
-                        <Chip.Root
-                          color={cat.isActive ? 'success' : 'default'}
-                          size="sm"
-                          variant="soft"
-                        >
-                          <Chip.Label>{cat.isActive ? 'نشط في المعرض' : 'مخفي'}</Chip.Label>
-                        </Chip.Root>
-                      </td>
-                      <td className="px-6 py-4 text-end">
-                        <Link href={`/admin/categories/${cat.id}`}>
-                          <Button size="sm" variant="outline">
-                            تعديل
-                          </Button>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card.Content>
-        </Card.Root>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </div>
   )

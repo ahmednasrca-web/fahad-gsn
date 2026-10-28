@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useRef, useState } from 'react'
 import Image from 'next/image'
@@ -25,18 +25,18 @@ export default function FocalPointPicker({ imageUrl, focalPoint = { x: 50, y: 50
   }
 
   return (
-    <div className="rounded-2xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#150D08] p-4">
+    <div className="furnish-card p-4">
       <div className="mb-2 flex items-center justify-between">
         <div>
-          <p className="text-xs font-bold text-[#1A1209] dark:text-[#FAF7F2] flex items-center gap-1.5">
+          <p className="text-xs font-bold text-[#11100e] dark:text-[#f6f5f4] flex items-center gap-1.5">
             <span>🎯</span>
             <span>نقطة التركيز البصري (Focal Point)</span>
           </p>
-          <p className="text-[11px] text-[#6B5C4E] dark:text-[#D4B896]">
+          <p className="text-[11px] text-[#615b51] dark:text-[#a8a196]">
             انقر على أهم جزء في الصورة لضمان بقائه في المنتصف دائماً على شاشات الموبايل والكروت.
           </p>
         </div>
-        <span className="rounded-lg bg-black/75 px-2.5 py-1 font-mono text-xs text-white">
+        <span className="bg-black text-white px-2.5 py-1 font-mono text-xs">
           X: {pos.x}% · Y: {pos.y}%
         </span>
       </div>
@@ -44,7 +44,7 @@ export default function FocalPointPicker({ imageUrl, focalPoint = { x: 50, y: 50
       <div
         ref={containerRef}
         onClick={handleClick}
-        className="relative aspect-16/10 w-full overflow-hidden rounded-xl border border-black/10 cursor-crosshair shadow-inner select-none"
+        className="relative aspect-16/10 w-full overflow-hidden border border-[#ecebe9] dark:border-[#2a2723] cursor-crosshair shadow-inner select-none"
       >
         <Image
           src={imageUrl}
@@ -56,10 +56,10 @@ export default function FocalPointPicker({ imageUrl, focalPoint = { x: 50, y: 50
 
         {/* Target Reticle */}
         <div
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white shadow-[0_0_12px_rgba(196,133,74,1)] transition-all"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white shadow-[0_0_12px_rgba(212,127,49,1)] transition-all"
           style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
         >
-          <div className="h-2 w-2 rounded-full bg-[#C4854A] ring-2 ring-white" />
+          <div className="h-2 w-2 rounded-full bg-[#d47f31] ring-2 ring-white" />
         </div>
       </div>
     </div>

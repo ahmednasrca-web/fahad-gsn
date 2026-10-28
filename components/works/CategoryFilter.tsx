@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import type { Category, Locale } from '@/lib/types'
 import { getCategoryName, t } from '@/lib/i18n'
-import { Chip } from '@heroui/react'
 
 interface Props {
   categories: Category[]
@@ -16,29 +15,22 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
 
   return (
     <div
-      className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none"
+      className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none flex-wrap sm:flex-nowrap"
       role="tablist"
       aria-label={locale === 'ar' ? 'تصفية حسب التصنيف' : 'Filter by category'}
     >
-      {/* All works Tab/Chip */}
+      {/* All works Tab */}
       <Link
         href="/gallery"
         role="tab"
         aria-selected={!activeSlug}
-        className="focus:outline-none"
+        className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 rounded-none border whitespace-nowrap cursor-pointer ${
+          !activeSlug
+            ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white shadow-xs'
+            : 'bg-white dark:bg-[#181614] border-[#ecebe9] dark:border-[#211f1c] text-[#615b51] dark:text-[#dad7d2] hover:border-[#d47f31] hover:text-[#d47f31]'
+        }`}
       >
-        <Chip.Root
-          color={!activeSlug ? 'accent' : 'default'}
-          size="md"
-          variant={!activeSlug ? 'primary' : 'soft'}
-          className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
-            !activeSlug
-              ? 'shadow-xs font-semibold'
-              : 'border border-[#E8DDD0] dark:border-[#2C1B10] hover:border-[#C4854A] bg-white dark:bg-[#1A1009] text-[#3D2B1A] dark:text-[#FAF7F2]'
-          }`}
-        >
-          <Chip.Label>{t(locale, 'allWorks')}</Chip.Label>
-        </Chip.Root>
+        {t(locale, 'allWorks')}
       </Link>
 
       {categories.map((cat) => {
@@ -49,24 +41,18 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
             href={`/gallery?category=${cat.slug}`}
             role="tab"
             aria-selected={active}
-            className="focus:outline-none"
+            className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 rounded-none border whitespace-nowrap cursor-pointer ${
+              active
+                ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white shadow-xs'
+                : 'bg-white dark:bg-[#181614] border-[#ecebe9] dark:border-[#211f1c] text-[#615b51] dark:text-[#dad7d2] hover:border-[#d47f31] hover:text-[#d47f31]'
+            }`}
           >
-            <Chip.Root
-              color={active ? 'accent' : 'default'}
-              size="md"
-              variant={active ? 'primary' : 'soft'}
-              className={`cursor-pointer px-4 py-2 font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
-                active
-                  ? 'shadow-xs font-semibold'
-                  : 'border border-[#E8DDD0] dark:border-[#2C1B10] hover:border-[#C4854A] bg-white dark:bg-[#1A1009] text-[#3D2B1A] dark:text-[#FAF7F2]'
-              }`}
-            >
-              <Chip.Label>{getCategoryName(cat, locale)}</Chip.Label>
-            </Chip.Root>
+            {getCategoryName(cat, locale)}
           </Link>
         )
       })}
     </div>
   )
 }
+
 
