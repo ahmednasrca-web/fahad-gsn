@@ -23,45 +23,45 @@ export default async function SiteFooter() {
 
   return (
     <footer
-      className="bg-[#11100e] text-[#a0988d] border-t border-[#211f1c] pt-16 pb-8 transition-colors duration-300"
+      className="bg-[#f5f3ef] dark:bg-[#161412] text-[#5c544a] dark:text-[#d0c9bf] border-t border-[#e8e5df] dark:border-[#2d2822] pt-16 pb-8 transition-colors duration-300"
       dir={dir}
     >
       <div className="container-site">
         {/* ── Top Row: Brand & Horizontal Nav Links ────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-[#211f1c]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-[#e8e5df] dark:border-[#2d2822]">
           <div>
-            <Logo locale={locale} theme="dark" showSubtitle={true} />
+            <Logo locale={locale} showSubtitle={true} />
           </div>
 
           <nav aria-label={isAr ? 'روابط التذييل' : 'Footer navigation'}>
             <ul className="flex flex-wrap items-center gap-6 sm:gap-8 text-xs font-semibold uppercase tracking-wider">
               <li>
-                <Link href="/" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {t(locale, 'home')}
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/gallery" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {t(locale, 'gallery')}
                 </Link>
               </li>
               <li>
-                <Link href="/reels" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/reels" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {t(locale, 'reels')}
                 </Link>
               </li>
               <li>
-                <Link href="/concierge" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/concierge" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {isAr ? 'جلسة خاصة' : 'Private Visit'}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/about" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {t(locale, 'about')}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-[#dad7d2] hover:text-[#d47f31] transition-colors">
+                <Link href="/contact" className="text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] dark:hover:text-[#d47f31] transition-colors">
                   {t(locale, 'contact')}
                 </Link>
               </li>
@@ -70,10 +70,10 @@ export default async function SiteFooter() {
         </div>
 
         {/* ── Middle Row 1: Furnish Statement & Social Icon Buttons ── */}
-        <div className="py-12 md:py-16 border-b border-[#211f1c]">
+        <div className="py-12 md:py-16 border-b border-[#e8e5df] dark:border-[#2d2822]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center justify-between">
             <div className="lg:col-span-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white tracking-tight font-display leading-[1.1]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-[#181614] dark:text-[#fbf9f6] tracking-tight font-display leading-[1.1]">
                 {isAr ? 'نبتكر تحفاً خشبية تدوم للأجيال' : 'We Craft Timeless Wood for the World'}
               </h2>
             </div>
@@ -84,7 +84,7 @@ export default async function SiteFooter() {
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center border border-[#211f1c] text-white hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none"
+                className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#2d2822] bg-white dark:bg-[#23201c] text-[#181614] dark:text-[#fbf9f6] hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none shadow-2xs"
                 aria-label="Instagram"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -99,7 +99,7 @@ export default async function SiteFooter() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 flex items-center justify-center border border-[#211f1c] text-white hover:border-[#25D366] hover:text-[#25D366] transition-colors rounded-none"
+                className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#2d2822] bg-white dark:bg-[#23201c] text-[#25D366] hover:border-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors rounded-none shadow-2xs"
                 aria-label="WhatsApp"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -110,7 +110,7 @@ export default async function SiteFooter() {
               {/* Telephone Square Button */}
               <a
                 href={`tel:${phone.replace(/\s/g, '')}`}
-                className="w-12 h-12 flex items-center justify-center border border-[#211f1c] text-white hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none"
+                className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#2d2822] bg-white dark:bg-[#23201c] text-[#181614] dark:text-[#fbf9f6] hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none shadow-2xs"
                 aria-label="Phone"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -121,7 +121,7 @@ export default async function SiteFooter() {
               {/* Email Square Button */}
               <a
                 href={`mailto:${email}`}
-                className="w-12 h-12 flex items-center justify-center border border-[#211f1c] text-white hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none"
+                className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#2d2822] bg-white dark:bg-[#23201c] text-[#181614] dark:text-[#fbf9f6] hover:border-[#d47f31] hover:text-[#d47f31] transition-colors rounded-none shadow-2xs"
                 aria-label="Email"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -134,14 +134,14 @@ export default async function SiteFooter() {
         </div>
 
         {/* ── Middle Row 2: Direct Contact Inquiry Block ───────────── */}
-        <div className="py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[#211f1c]">
+        <div className="py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[#e8e5df] dark:border-[#2d2822]">
           <div className="flex flex-col">
-            <span className="text-xs uppercase tracking-widest text-[#837a6d]">
+            <span className="text-xs uppercase tracking-widest text-[#7d7468] dark:text-[#9e9486]">
               {isAr ? 'البريد الإلكتروني المباشر' : 'Direct Email Address'}
             </span>
             <a
               href={`mailto:${email}`}
-              className="text-xl sm:text-2xl font-normal text-white hover:text-[#d47f31] transition-colors mt-1 font-mono"
+              className="text-xl sm:text-2xl font-normal text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] transition-colors mt-1 font-mono"
             >
               {email}
             </a>
@@ -150,7 +150,7 @@ export default async function SiteFooter() {
           <div>
             <Link
               href="/contact"
-              className="btn-furnish-outline border-white text-white hover:bg-white hover:text-black inline-flex"
+              className="btn-furnish-primary inline-flex"
             >
               {isAr ? 'طلب تفصيل قطعة خاصة ←' : 'Start a Commission →'}
             </Link>
@@ -158,21 +158,21 @@ export default async function SiteFooter() {
         </div>
 
         {/* ── Bottom Row: Copyright & Admin Portal Link ─────────────── */}
-        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-[#837a6d]">
+        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-[#7d7468] dark:text-[#9e9486]">
           <p className="mb-0">
             &copy; {new Date().getFullYear()} {isAr ? 'فهد غصن. جميع الحقوق محفوظة.' : 'Fahad Gsn Atelier. All rights reserved.'}
           </p>
 
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">
+            <Link href="/about" className="hover:text-[#181614] dark:hover:text-white transition-colors">
               {isAr ? 'عن المشغل' : 'Our Ethos'}
             </Link>
-            <Link href="/contact" className="hover:text-white transition-colors">
+            <Link href="/contact" className="hover:text-[#181614] dark:hover:text-white transition-colors">
               {isAr ? 'سياسة الخصوصية' : 'Privacy & Terms'}
             </Link>
             <Link
               href="/admin"
-              className="text-[#615b51] hover:text-[#d47f31] transition-colors"
+              className="text-[#8a8277] dark:text-[#615b51] hover:text-[#d47f31] transition-colors"
               title={isAr ? 'بوابة الإدارة' : 'Admin Portal'}
             >
               {isAr ? 'لوحة التحكم' : 'Admin'}

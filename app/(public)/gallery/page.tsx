@@ -35,17 +35,17 @@ export default async function GalleryPage({ searchParams }: PageProps) {
   ])
 
   return (
-    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
+    <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
       {/* ── Page Hero Header (Furnish Products Header) ───────────── */}
-      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+      <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">
           <span className="furnish-subheading">
             {isAr ? 'الأعمال والمقتنيات' : 'Our Haute Woodwork Collection'}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-4 font-display">
             {t(locale, 'gallery')}
           </h1>
-          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
             {isAr
               ? 'كل قطعة تحفة متفردة تم نحتها وتشطيبها يدوياً من أندر أنواع الخشب الطبيعي الصلب.'
               : 'Each piece is an original sculpture, hand-shaped from rare natural timbers and finished with organic oils.'}
@@ -58,7 +58,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
         <div className="container-site">
           {/* Category Filter Navigation */}
           {categories.length > 0 && (
-            <div className="mb-10 pb-4 border-b border-[#ecebe9] dark:border-[#211f1c]">
+            <div className="mb-10 pb-4 border-b border-[#e8e5df] dark:border-[#2d2822]">
               <CategoryFilter
                 categories={categories}
                 activeSlug={categorySlug}
@@ -71,10 +71,10 @@ export default async function GalleryPage({ searchParams }: PageProps) {
           {works.length === 0 ? (
             <div className="py-24 text-center">
               <p className="text-5xl mb-4" aria-hidden="true">🪵</p>
-              <h3 className="text-xl font-bold text-[#11100e] dark:text-[#f6f5f4]">
+              <h3 className="text-xl font-bold text-[#181614] dark:text-[#fbf9f6]">
                 {t(locale, 'noWorks')}
               </h3>
-              <p className="mt-2 text-sm text-[#837a6d]">
+              <p className="mt-2 text-sm text-[#8a7f72] dark:text-[#a89e90]">
                 {isAr ? 'يرجى اختيار تصنيف آخر أو العودة لجميع الأعمال.' : 'Please select another category or view all works.'}
               </p>
             </div>
@@ -83,12 +83,12 @@ export default async function GalleryPage({ searchParams }: PageProps) {
               {works.map((work, i) => (
                 <div
                   key={work.id}
-                  className="furnish-card group flex flex-col overflow-hidden"
+                  className="furnish-card group flex flex-col overflow-hidden shadow-xs"
                 >
                   {/* Image Container with Furnish Aspect Ratio */}
                   <Link
                     href={`/gallery/${work.slug}`}
-                    className="relative aspect-[4/5] overflow-hidden bg-[#ecebe9] dark:bg-[#181614] block"
+                    className="relative aspect-[4/5] overflow-hidden bg-[#e8e5df] dark:bg-[#23201c] block"
                   >
                     {work.primaryImage ? (
                       <Image
@@ -122,18 +122,18 @@ export default async function GalleryPage({ searchParams }: PageProps) {
                   </Link>
 
                   {/* Furnish Details */}
-                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#181614]">
+                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#23201c]">
                     <div>
-                      <h3 className="text-base font-bold text-[#11100e] dark:text-[#f6f5f4] group-hover:text-[#d47f31] transition-colors line-clamp-1">
+                      <h3 className="text-base font-bold text-[#181614] dark:text-[#fbf9f6] group-hover:text-[#d47f31] transition-colors line-clamp-1">
                         <Link href={`/gallery/${work.slug}`}>
                           {getWorkTitle(work, locale)}
                         </Link>
                       </h3>
                     </div>
 
-                    <div className="mt-3 pt-3 border-t border-[#ecebe9] dark:border-[#211f1c] flex items-center justify-between">
+                    <div className="mt-3 pt-3 border-t border-[#e8e5df] dark:border-[#353029] flex items-center justify-between">
                       {work.price != null ? (
-                        <span className="text-sm font-bold text-[#11100e] dark:text-[#dad7d2]">
+                        <span className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6]">
                           {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
                         </span>
                       ) : (
@@ -144,7 +144,7 @@ export default async function GalleryPage({ searchParams }: PageProps) {
 
                       <Link
                         href={`/gallery/${work.slug}`}
-                        className="text-xs font-bold uppercase tracking-wider text-[#615b51] dark:text-[#a0988d] group-hover:text-[#d47f31] transition-colors"
+                        className="text-xs font-bold uppercase tracking-wider text-[#5c544a] dark:text-[#d0c9bf] group-hover:text-[#d47f31] transition-colors"
                       >
                         {isAr ? 'التفاصيل ←' : 'Details →'}
                       </Link>

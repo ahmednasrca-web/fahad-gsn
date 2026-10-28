@@ -15,17 +15,17 @@ export default async function ConciergePage() {
   const isAr = locale === 'ar'
 
   return (
-    <div className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300" dir={dir}>
+    <div className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300" dir={dir}>
       {/* ── Page Header ─────────────────────────────────────────── */}
-      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+      <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">
           <span className="furnish-subheading">
             {isAr ? 'تجربة حصرية لكبار الشخصيات' : 'VIP Concierge & Atelier Experience'}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-4 font-display">
             {isAr ? 'زيارة خاصة لورشة فهد غصن' : 'Private Atelier Visit'}
           </h1>
-          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
             {isAr
               ? 'نرحب بكم في زيارة خاصة للمشغل لمعاينة ألواح الأخشاب المعمرة النادرة، فحص نقاء العروق المجهرية، ومناقشة تصميم قطعتكم الفريدة مباشرة مع الحرفي فهد غصن.'
               : 'Experience a private walkthrough of our Kuwait atelier. Inspect rare aged timber slabs and discuss bespoke commissions directly with artisan Fahad Gsn.'}
@@ -43,7 +43,7 @@ export default async function ConciergePage() {
       {/* ── Golden Ratio Proportions Tool ───────────────────────── */}
       <section className="py-16 md:py-24">
         <div className="container-site">
-          <div className="furnish-card p-6 bg-[#f6f5f4] dark:bg-[#181614]">
+          <div className="furnish-card p-6 sm:p-8 bg-white dark:bg-[#23201c] border border-[#e8e5df] dark:border-[#353029]">
             <GoldenRatioCalculator locale={locale} />
           </div>
         </div>

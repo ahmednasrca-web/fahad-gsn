@@ -22,17 +22,17 @@ export default async function ReelsPage() {
   const reels = await getPublishedReels()
 
   return (
-    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300 min-h-[70vh]">
+    <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300 min-h-[70vh]">
       {/* ── Page Header ─────────────────────────────────────────── */}
-      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+      <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">
           <span className="furnish-subheading">
             {t(locale, 'reelsHeroTagline')}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-4 font-display">
             {t(locale, 'reelsHeroTitle')}
           </h1>
-          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
             {t(locale, 'reelsHeroSubtitle')}
           </p>
         </div>

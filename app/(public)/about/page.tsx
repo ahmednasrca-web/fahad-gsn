@@ -41,17 +41,17 @@ export default async function AboutPage() {
     : 'We carefully curate sustainable premier hardwoods including American Walnut, Ancient Oak, Burmese Teak, and Olive Wood. Hand-finished exclusively with natural botanical oils and beeswax.'
 
   return (
-    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
+    <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
       {/* ── 1. Page Hero Header (Furnish About Header) ───────────── */}
-      <section className="py-12 md:py-16 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c] text-center">
+      <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">
           <span className="furnish-subheading">
             {isAr ? 'قصة المشغل والحرفة' : 'About Our Atelier'}
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-4 font-display">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-4 font-display">
             {t(locale, 'aboutTitle')}
           </h1>
-          <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
             {isAr
               ? 'رحلة تجمع بين أصالة التراث الكويتي والمعايير المعمارية العالمية في صياغة الخشب الطبيعي.'
               : 'Discover the craft, discipline, and timeless material dedication behind Fahad Gsn.'}
@@ -60,11 +60,11 @@ export default async function AboutPage() {
       </section>
 
       {/* ── 2. Split Story & Mission (Furnish Split Layout) ──────── */}
-      <section className="py-16 md:py-24 border-b border-[#ecebe9] dark:border-[#211f1c]">
+      <section className="py-16 md:py-24 border-b border-[#e8e5df] dark:border-[#2d2822]">
         <div className="container-site">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Visual Frame */}
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-square overflow-hidden furnish-card">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-square overflow-hidden furnish-card shadow-sm">
               <Image
                 src="/furnish/about.jpg"
                 alt={isAr ? 'مشغل فهد غصن' : 'Fahad Gsn Studio'}
@@ -80,13 +80,13 @@ export default async function AboutPage() {
               <span className="furnish-subheading">
                 {isAr ? 'من نحن' : 'Who We Are'}
               </span>
-              <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-6">
+              <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-6">
                 {isAr ? 'حرفة يدوية صلبة بروح وإتقان عالمي' : 'Where Master Craftsmanship Meets Living Design'}
               </h2>
-              <p className="text-base leading-relaxed text-[#615b51] dark:text-[#dad7d2] mb-6">
+              <p className="text-base leading-relaxed text-[#5c544a] dark:text-[#d0c9bf] mb-6">
                 {intro ?? defaultIntro}
               </p>
-              <p className="text-base leading-relaxed text-[#615b51] dark:text-[#dad7d2] mb-8">
+              <p className="text-base leading-relaxed text-[#5c544a] dark:text-[#d0c9bf] mb-8">
                 {philosophy ?? defaultPhilosophy}
               </p>
 
@@ -101,16 +101,16 @@ export default async function AboutPage() {
       </section>
 
       {/* ── 3. Our Core Values (Furnish Core Values Section) ─────── */}
-      <section className="py-16 md:py-24 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c]">
+      <section className="py-16 md:py-24 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822]">
         <div className="container-site">
           <div className="mb-12 text-center max-w-2xl mx-auto">
             <span className="furnish-subheading">
               {isAr ? 'قيم الورشة' : 'Our Core Values'}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-3">
               {isAr ? 'مبادئ نصيغ بها كل قطعة' : 'The Pillars of Our Craft'}
             </h2>
-            <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d]">
+            <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf]">
               {isAr
                 ? 'لا مساومة على الجودة، نلتزم بأعلى معايير الاستدامة والدقة اليدوية في كل مرحلة.'
                 : 'Every sculpture adheres to strict principles of material honesty, balance, and lifelong sustainability.'}
@@ -119,17 +119,17 @@ export default async function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Value 1 */}
-            <div className="furnish-card p-8 bg-white dark:bg-[#181614] flex flex-col justify-between">
+            <div className="furnish-card p-8 bg-white dark:bg-[#23201c] flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 flex items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] mb-6 text-[#d47f31]">
+                <div className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#353029] mb-6 text-[#d47f31]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-[#11100e] dark:text-[#f6f5f4] mb-3">
+                <h3 className="text-lg font-bold text-[#181614] dark:text-[#fbf9f6] mb-3">
                   {isAr ? 'أصالة المادة الطبيعية' : 'Material Authenticity'}
                 </h3>
-                <p className="text-sm text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+                <p className="text-sm text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
                   {isAr
                     ? 'نحافظ على شكل الحواف الحية والتموجات الطبيعية للجذع دون طمس هوية الخشب.'
                     : 'We celebrate live edges, organic grain movement, and natural timber imperfections.'}
@@ -138,18 +138,18 @@ export default async function AboutPage() {
             </div>
 
             {/* Value 2 */}
-            <div className="furnish-card p-8 bg-white dark:bg-[#181614] flex flex-col justify-between">
+            <div className="furnish-card p-8 bg-white dark:bg-[#23201c] flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 flex items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] mb-6 text-[#d47f31]">
+                <div className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#353029] mb-6 text-[#d47f31]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="m9 12 2 2 4-4"/>
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-[#11100e] dark:text-[#f6f5f4] mb-3">
+                <h3 className="text-lg font-bold text-[#181614] dark:text-[#fbf9f6] mb-3">
                   {isAr ? 'الدقة الهندسية والتعشيق' : 'Architectural Precision'}
                 </h3>
-                <p className="text-sm text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+                <p className="text-sm text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
                   {isAr
                     ? 'تعشيق خشبي يدوي دقيق يضمن تماسك القطعة لعقود طويلة دون تشققات أو التواء.'
                     : 'Meticulous traditional wood joinery built to handle temperature and moisture shifts flawlessly.'}
@@ -158,17 +158,17 @@ export default async function AboutPage() {
             </div>
 
             {/* Value 3 */}
-            <div className="furnish-card p-8 bg-white dark:bg-[#181614] flex flex-col justify-between">
+            <div className="furnish-card p-8 bg-white dark:bg-[#23201c] flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 flex items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] mb-6 text-[#d47f31]">
+                <div className="w-12 h-12 flex items-center justify-center border border-[#e8e5df] dark:border-[#353029] mb-6 text-[#d47f31]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-[#11100e] dark:text-[#f6f5f4] mb-3">
+                <h3 className="text-lg font-bold text-[#181614] dark:text-[#fbf9f6] mb-3">
                   {isAr ? 'تشطيب طبيعي آمن' : 'Organic Botanical Finishes'}
                 </h3>
-                <p className="text-sm text-[#615b51] dark:text-[#a0988d] leading-relaxed">
+                <p className="text-sm text-[#5c544a] dark:text-[#d0c9bf] leading-relaxed">
                   {isAr
                     ? 'طلاء بزيوت نباتية نقية وشمع النحل العضوي، آمن على الصحة ويغذي ألياف الخشب.'
                     : '100% non-toxic botanical oils and organic beeswax that nourish and deepen grain luster.'}
@@ -180,21 +180,21 @@ export default async function AboutPage() {
       </section>
 
       {/* ── 4. Materials & Species Guide ─────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white dark:bg-[#181614]">
+      <section className="py-16 md:py-24 bg-[#fcfbf9] dark:bg-[#161412]">
         <div className="container-site">
           <div className="mb-10 text-center max-w-2xl mx-auto">
             <span className="furnish-subheading">
               {isAr ? 'دليل الأخشاب' : 'Wood Species Guide'}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-2 mb-3">
               {isAr ? 'أندر الأخشاب العالمية في متناولك' : 'Our Sustainable Material Palette'}
             </h2>
-            <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d]">
+            <p className="text-sm sm:text-base text-[#5c544a] dark:text-[#d0c9bf]">
               {materials ?? defaultMaterials}
             </p>
           </div>
 
-          <div className="furnish-card p-6 bg-[#f6f5f4] dark:bg-[#11100e]">
+          <div className="furnish-card p-6 bg-[#f5f3ef] dark:bg-[#1c1916]">
             <WoodSpeciesGuide locale={locale} />
           </div>
         </div>

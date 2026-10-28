@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+/* ── Tailwind v4 Class-Based Dark Mode Variant ─────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ── Thmanyah Native @font-face Definitions ────────────── */
 @font-face {
   font-family: 'ThmanyahDisplay';
@@ -445,24 +448,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .furnish-card {
   background-color: #ffffff;
-  border: 1px solid #ecebe9;
+  border: 1px solid #e8e5df;
+  color: #181614;
   border-radius: 0px !important;
   transition: box-shadow 250ms ease, border-color 250ms ease;
 }
 
 .furnish-card:hover {
-  border-color: #dad7d2;
+  border-color: #d47f31;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .dark .furnish-card {
-  background-color: #181614;
-  border-color: #211f1c;
+  background-color: #23201c;
+  border-color: #353029;
+  color: #fbf9f6;
 }
 
 .dark .furnish-card:hover {
-  border-color: #433e38;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border-color: #d47f31;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .furnish-subheading {

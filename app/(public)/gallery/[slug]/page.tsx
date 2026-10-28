@@ -97,7 +97,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
+    <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
       {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
@@ -105,16 +105,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
       />
 
       {/* Breadcrumb */}
-      <div className="border-b border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#11100e] py-4">
+      <div className="border-b border-[#e8e5df] dark:border-[#2d2822] bg-[#f5f3ef] dark:bg-[#1c1916] py-4">
         <div className="container-site">
           <nav aria-label={isAr ? 'مسار التنقل' : 'Breadcrumb'}>
-            <ol className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#a0988d]">
+            <ol className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#5c544a] dark:text-[#d0c9bf]">
               <li>
                 <Link href="/" className="hover:text-[#d47f31] transition-colors">
                   {t(locale, 'home')}
                 </Link>
               </li>
-              <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
+              <li aria-hidden="true" className="text-[#8a7f72] dark:text-[#5c544a]">/</li>
               <li>
                 <Link href="/gallery" className="hover:text-[#d47f31] transition-colors">
                   {t(locale, 'gallery')}
@@ -122,7 +122,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </li>
               {work.category && (
                 <>
-                  <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
+                  <li aria-hidden="true" className="text-[#8a7f72] dark:text-[#5c544a]">/</li>
                   <li>
                     <Link
                       href={`/gallery?category=${work.category.slug}`}
@@ -133,8 +133,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   </li>
                 </>
               )}
-              <li aria-hidden="true" className="text-[#dad7d2] dark:text-[#433e38]">/</li>
-              <li className="text-[#11100e] dark:text-[#f6f5f4] font-bold truncate" aria-current="page">
+              <li aria-hidden="true" className="text-[#8a7f72] dark:text-[#5c544a]">/</li>
+              <li className="text-[#181614] dark:text-[#fbf9f6] font-bold truncate" aria-current="page">
                 {title}
               </li>
             </ol>
@@ -158,7 +158,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 {work.category && (
                   <Link
                     href={`/gallery?category=${work.category.slug}`}
-                    className="furnish-badge border border-[#ecebe9] dark:border-[#211f1c] hover:border-[#d47f31] transition-colors"
+                    className="furnish-badge border border-[#e8e5df] dark:border-[#353029] hover:border-[#d47f31] transition-colors"
                   >
                     {getCategoryName(work.category, locale)}
                   </Link>
@@ -171,14 +171,14 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </div>
 
               {/* Title */}
-              <h1 className="mb-4 text-3xl font-normal leading-tight text-[#11100e] dark:text-[#f6f5f4] md:text-4xl lg:text-5xl font-display">
+              <h1 className="mb-4 text-3xl font-normal leading-tight text-[#181614] dark:text-[#fbf9f6] md:text-4xl lg:text-5xl font-display">
                 {title}
               </h1>
 
               {/* Price */}
               {work.price != null ? (
                 <div className="mb-6 flex items-baseline gap-2">
-                  <p className="text-3xl sm:text-4xl font-bold text-[#11100e] dark:text-[#dad7d2] font-mono">
+                  <p className="text-3xl sm:text-4xl font-bold text-[#181614] dark:text-[#fbf9f6] font-mono">
                     {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')}
                   </p>
                   <span className="text-base font-bold text-[#d47f31]">
@@ -195,53 +195,53 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
               {/* Description */}
               {description && (
-                <p className="mb-8 text-base leading-relaxed text-[#615b51] dark:text-[#dad7d2]">
+                <p className="mb-8 text-base leading-relaxed text-[#5c544a] dark:text-[#d0c9bf]">
                   {description}
                 </p>
               )}
 
               {/* Physical Specs Matrix (Furnish Architectural Grid) */}
               {work.physicalSpecs && (
-                <div className="mb-8 border border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] p-5 sm:p-6">
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#11100e] dark:text-[#f6f5f4] mb-4">
+                <div className="mb-8 border border-[#e8e5df] dark:border-[#2d2822] bg-[#f5f3ef] dark:bg-[#1c1916] p-5 sm:p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#181614] dark:text-[#fbf9f6] mb-4">
                     {isAr ? 'المواصفات الهندسية والفيزيائية' : 'Architectural Specifications'}
                   </p>
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     {work.physicalSpecs.lengthCm && work.physicalSpecs.widthCm && (
-                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                      <div className="bg-white dark:bg-[#23201c] p-3 border border-[#e8e5df] dark:border-[#353029]">
+                        <span className="text-[#8a7f72] dark:text-[#a89e90] block text-[10px] uppercase tracking-wider mb-1">
                           {isAr ? 'الأبعاد' : 'Dimensions'}
                         </span>
-                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                        <span className="font-mono font-bold text-[#181614] dark:text-[#fbf9f6]">
                           {work.physicalSpecs.lengthCm} × {work.physicalSpecs.widthCm} {work.physicalSpecs.heightCm ? `× ${work.physicalSpecs.heightCm}` : ''} cm
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.thicknessMm && (
-                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                      <div className="bg-white dark:bg-[#23201c] p-3 border border-[#e8e5df] dark:border-[#353029]">
+                        <span className="text-[#8a7f72] dark:text-[#a89e90] block text-[10px] uppercase tracking-wider mb-1">
                           {isAr ? 'سُمك اللوح' : 'Slab Thickness'}
                         </span>
-                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                        <span className="font-mono font-bold text-[#181614] dark:text-[#fbf9f6]">
                           {work.physicalSpecs.thicknessMm} mm Solid
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.weightKg && (
-                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                      <div className="bg-white dark:bg-[#23201c] p-3 border border-[#e8e5df] dark:border-[#353029]">
+                        <span className="text-[#8a7f72] dark:text-[#a89e90] block text-[10px] uppercase tracking-wider mb-1">
                           {isAr ? 'الوزن التقريبي' : 'Weight'}
                         </span>
-                        <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                        <span className="font-mono font-bold text-[#181614] dark:text-[#fbf9f6]">
                           ~{work.physicalSpecs.weightKg} kg
                         </span>
                       </div>
                     )}
-                    <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
-                      <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                    <div className="bg-white dark:bg-[#23201c] p-3 border border-[#e8e5df] dark:border-[#353029]">
+                      <span className="text-[#8a7f72] dark:text-[#a89e90] block text-[10px] uppercase tracking-wider mb-1">
                         {isAr ? 'التشطيب والزيوت' : 'Finishing Oils'}
                       </span>
-                      <span className="font-bold text-[#11100e] dark:text-[#f6f5f4] truncate block">
+                      <span className="font-bold text-[#181614] dark:text-[#fbf9f6] truncate block">
                         {isAr ? (work.physicalSpecs.finishDetailsAr || 'زيوت نباتية عضوية + شمع نحل') : (work.physicalSpecs.finishDetailsEn || 'Organic Oils + Beeswax')}
                       </span>
                     </div>
@@ -266,16 +266,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       {/* Story Behind the Craft (Furnish Editorial) */}
       {story && (
-        <section className="border-y border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] py-16">
+        <section className="border-y border-[#e8e5df] dark:border-[#2d2822] bg-[#f5f3ef] dark:bg-[#1c1916] py-16">
           <div className="container-site max-w-3xl">
             <span className="furnish-subheading">
               {isAr ? 'حكاية العمل' : 'The Atelier Story'}
             </span>
-            <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-1 mb-6 font-display">
+            <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-1 mb-6 font-display">
               {isAr ? 'أصل الخشب، تفاصيل التشكيل، ولمسة الحرفي' : 'Wood Origin & Artisan Process'}
             </h2>
-            <div className="bg-white dark:bg-[#11100e] border border-[#ecebe9] dark:border-[#211f1c] p-6 sm:p-8">
-              <p className="whitespace-pre-line leading-relaxed text-[#615b51] dark:text-[#dad7d2] text-base">
+            <div className="bg-white dark:bg-[#23201c] border border-[#e8e5df] dark:border-[#353029] p-6 sm:p-8">
+              <p className="whitespace-pre-line leading-relaxed text-[#5c544a] dark:text-[#d0c9bf] text-base">
                 {story}
               </p>
             </div>
@@ -285,14 +285,14 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       {/* Behind the Scenes Reels (if reels exist) */}
       {reels.length > 0 && (
-        <section className="py-16 md:py-20 bg-[#11100e] text-[#f6f5f4] border-b border-[#211f1c]">
+        <section className="py-16 md:py-20 bg-[#1c1916] text-[#fbf9f6] border-b border-[#2d2822]">
           <div className="container-site">
             <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div>
                 <span className="furnish-subheading text-[#d47f31]">
                   {isAr ? 'من داخل الورشة' : 'Behind The Scenes'}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#f6f5f4] mt-1 font-display">
+                <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#fbf9f6] mt-1 font-display">
                   {isAr ? 'كواليس التشكيل والحرفة' : 'Craft in Motion'}
                 </h2>
               </div>
@@ -315,13 +315,13 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       {/* Related Works (Furnish Product Grid) */}
       {relatedWorks.length > 0 && (
-        <section className="py-16 md:py-20 bg-white dark:bg-[#11100e]">
+        <section className="py-16 md:py-20 bg-[#fcfbf9] dark:bg-[#161412]">
           <div className="container-site">
             <div className="mb-8">
               <span className="furnish-subheading">
                 {isAr ? 'مقتنيات مشابهة' : 'Curated Recommendations'}
               </span>
-              <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-1 font-display">
+              <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#181614] dark:text-[#fbf9f6] mt-1 font-display">
                 {t(locale, 'relatedWorks')}
               </h2>
             </div>
@@ -334,7 +334,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 >
                   <Link
                     href={`/gallery/${related.slug}`}
-                    className="relative aspect-[4/5] overflow-hidden bg-[#ecebe9] dark:bg-[#181614] block"
+                    className="relative aspect-[4/5] overflow-hidden bg-[#e8e5df] dark:bg-[#23201c] block"
                   >
                     {related.primaryImage ? (
                       <Image
@@ -357,16 +357,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
                     )}
                   </Link>
 
-                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#181614]">
-                    <h3 className="text-sm font-bold text-[#11100e] dark:text-[#f6f5f4] group-hover:text-[#d47f31] transition-colors line-clamp-1">
+                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#23201c]">
+                    <h3 className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6] group-hover:text-[#d47f31] transition-colors line-clamp-1">
                       <Link href={`/gallery/${related.slug}`}>
                         {getWorkTitle(related, locale)}
                       </Link>
                     </h3>
 
-                    <div className="mt-3 pt-2.5 border-t border-[#ecebe9] dark:border-[#211f1c] flex items-center justify-between">
+                    <div className="mt-3 pt-2.5 border-t border-[#e8e5df] dark:border-[#353029] flex items-center justify-between">
                       {related.price != null ? (
-                        <span className="text-xs font-bold text-[#11100e] dark:text-[#dad7d2]">
+                        <span className="text-xs font-bold text-[#181614] dark:text-[#fbf9f6]">
                           {related.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
                         </span>
                       ) : (
@@ -377,7 +377,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
                       <Link
                         href={`/gallery/${related.slug}`}
-                        className="text-[11px] font-bold uppercase text-[#615b51] dark:text-[#a0988d] group-hover:text-[#d47f31]"
+                        className="text-[11px] font-bold uppercase text-[#5c544a] dark:text-[#d0c9bf] group-hover:text-[#d47f31]"
                       >
                         {isAr ? 'التفاصيل ←' : 'Details →'}
                       </Link>

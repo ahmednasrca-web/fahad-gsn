@@ -3,15 +3,17 @@
 import { useState, useId } from 'react'
 import type { Locale } from '@/lib/types'
 import { t } from '@/lib/i18n'
-import { Button, Alert, Spinner } from '@heroui/react'
+import { Alert, Spinner } from '@heroui/react'
 
 interface Props {
   locale: Locale
   workSlug?: string
 }
 
-const inputCls = 'w-full rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] px-4 py-3.5 text-sm text-[#11100e] dark:text-[#f6f5f4] outline-none transition-colors focus:border-black dark:focus:border-[#d47f31] placeholder:text-[#a0988d]'
-const labelCls = 'mb-2 block text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#dad7d2]'
+const inputCls =
+  'w-full rounded-none border border-[#e8e5df] dark:border-[#353029] bg-white dark:bg-[#23201c] px-4 py-3.5 text-sm text-[#181614] dark:text-[#fbf9f6] outline-none transition-colors focus:border-[#d47f31] dark:focus:border-[#d47f31] placeholder:text-[#8a7f72] dark:placeholder:text-[#a89e90]'
+const labelCls =
+  'mb-2 block text-xs font-semibold uppercase tracking-wider text-[#5c544a] dark:text-[#d0c9bf]'
 
 export default function ContactForm({ locale, workSlug }: Props) {
   const formId = useId()
@@ -73,7 +75,7 @@ export default function ContactForm({ locale, workSlug }: Props) {
 
       <div>
         <label htmlFor={`${formId}-name`} className={labelCls}>
-          {t(locale, 'yourName')} <span className="text-red-500" aria-hidden="true">*</span>
+          {t(locale, 'yourName')} <span className="text-[#d47f31]" aria-hidden="true">*</span>
         </label>
         <input id={`${formId}-name`} type="text" required autoComplete="name"
           value={name} onChange={(e) => setName(e.target.value)}
@@ -94,7 +96,7 @@ export default function ContactForm({ locale, workSlug }: Props) {
 
       <div>
         <label htmlFor={`${formId}-message`} className={labelCls}>
-          {t(locale, 'yourMessage')} <span className="text-red-500" aria-hidden="true">*</span>
+          {t(locale, 'yourMessage')} <span className="text-[#d47f31]" aria-hidden="true">*</span>
         </label>
         <textarea id={`${formId}-message`} required rows={5}
           value={message} onChange={(e) => setMessage(e.target.value)}
@@ -112,7 +114,7 @@ export default function ContactForm({ locale, workSlug }: Props) {
         type="submit"
         disabled={loading}
         aria-busy={loading}
-        className="btn-furnish-primary w-full"
+        className="btn-furnish-primary w-full py-3.5"
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">
@@ -124,4 +126,3 @@ export default function ContactForm({ locale, workSlug }: Props) {
     </form>
   )
 }
-

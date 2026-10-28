@@ -62,7 +62,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
 
   return (
     <div
-      className="fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-[#11100e]/95 backdrop-blur-md border-t border-[#ecebe9] dark:border-[#211f1c] shadow-lg transition-all duration-300 text-[#11100e] dark:text-[#f6f5f4]"
+      className="fixed bottom-0 inset-x-0 z-40 bg-[#fcfbf9]/95 dark:bg-[#161412]/95 backdrop-blur-md border-t border-[#e8e5df] dark:border-[#2d2822] shadow-lg transition-all duration-300 text-[#181614] dark:text-[#fbf9f6]"
       dir={isAr ? 'rtl' : 'ltr'}
     >
       <div className="container-site py-3 px-4 sm:px-6">
@@ -70,7 +70,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
           {/* Left: Thumbnail & Info */}
           <div className="flex items-center gap-3 min-w-0">
             {work.primaryImage && (
-              <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 overflow-hidden border border-[#ecebe9] dark:border-[#211f1c] bg-[#ecebe9] dark:bg-[#181614]">
+              <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 overflow-hidden border border-[#e8e5df] dark:border-[#353029] bg-[#f5f3ef] dark:bg-[#23201c]">
                 <Image
                   src={work.primaryImage}
                   alt={title}
@@ -88,7 +88,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
                     {isAr ? 'قطعة فريدة' : 'Unique Piece'}
                   </span>
                 )}
-                <h4 className="truncate text-xs sm:text-sm font-bold text-[#11100e] dark:text-[#f6f5f4]">
+                <h4 className="truncate text-xs sm:text-sm font-bold text-[#181614] dark:text-[#fbf9f6]">
                   {title}
                 </h4>
               </div>
@@ -99,7 +99,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
                     {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
                   </span>
                 ) : (
-                  <span className="text-[11px] text-[#615b51] dark:text-[#a0988d]">
+                  <span className="text-[11px] text-[#5c544a] dark:text-[#d0c9bf]">
                     {isAr ? 'حسب المواصفات' : 'Custom Pricing'}
                   </span>
                 )}
@@ -113,7 +113,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
             <button
               type="button"
               onClick={handleShare}
-              className="flex h-10 w-10 items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] text-[#11100e] dark:text-[#f6f5f4] hover:border-[#d47f31] transition-colors"
+              className="flex h-10 w-10 items-center justify-center border border-[#e8e5df] dark:border-[#353029] bg-white dark:bg-[#23201c] text-[#181614] dark:text-[#fbf9f6] hover:border-[#d47f31] transition-colors"
               title={isAr ? 'مشاركة رابط القطعة' : 'Share piece'}
               aria-label={isAr ? 'مشاركة' : 'Share'}
             >

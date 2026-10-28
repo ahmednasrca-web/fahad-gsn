@@ -32,7 +32,7 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
   return (
     <>
       <Card.Root
-        className="group relative flex flex-col overflow-hidden rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#d47f31] cursor-pointer select-none"
+        className="group relative flex flex-col overflow-hidden rounded-none border border-[#e8e5df] dark:border-[#353029] bg-white dark:bg-[#23201c] shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#d47f31] cursor-pointer select-none"
         onClick={handleCardClick}
       >
         <Card.Content className="p-0">
@@ -109,14 +109,14 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
 
           {/* Card Footer */}
           <div
-            className="flex items-center justify-between border-t border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] px-4 py-3 text-xs"
+            className="flex items-center justify-between border-t border-[#e8e5df] dark:border-[#353029] bg-white dark:bg-[#23201c] px-4 py-3 text-xs"
             onClick={(e) => e.stopPropagation()}
           >
             <a
               href={watchUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-bold text-[#11100e] dark:text-[#f6f5f4] transition-colors hover:text-[#d47f31] dark:hover:text-[#d47f31]"
+              className="inline-flex items-center gap-1.5 font-bold text-[#181614] dark:text-[#fbf9f6] transition-colors hover:text-[#d47f31] dark:hover:text-[#d47f31]"
               title={`${t(locale, 'watchOn')} ${locale === 'ar' ? meta?.nameAr : meta?.name}`}
             >
               <span>{t(locale, 'watchOn')} {locale === 'ar' ? meta?.nameAr : meta?.name}</span>
@@ -127,7 +127,7 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
               size="sm"
               variant="outline"
               onPress={handleCardClick}
-              className="text-xs h-7 px-3 font-bold rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-transparent text-[#11100e] dark:text-[#f6f5f4] hover:border-[#d47f31] hover:text-[#d47f31]"
+              className="text-xs h-7 px-3 font-bold rounded-none border border-[#e8e5df] dark:border-[#353029] bg-transparent text-[#181614] dark:text-[#fbf9f6] hover:border-[#d47f31] hover:text-[#d47f31]"
             >
               {t(locale, 'playVideo')}
             </Button>
