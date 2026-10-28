@@ -185,72 +185,73 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: 0 !important;
 }
 
-/* ── Fahad Gsn Design Tokens (Furnish Luxury Furniture System) ── */
+/* ── Fahad Gsn Design Tokens (Furnish High-End Architectural System) ── */
 :root {
-  /* Brand colors — Inspired by Furnish High-End Furniture Aesthetic */
+  /* Brand colors — Pure Architectural Minimalism */
   --primary:        #000000;
-  --secondary:      #d47f31;   /* Furnish signature warm amber / wood */
-  --walnut:         #11100e;   /* Deep architectural noir */
-  --wood-mid:       #211f1c;   /* Charcoal wood */
-  --wood-warm:      #d47f31;   /* Furnish warm secondary */
-  --wood-light:     #d47f31;   /* Accent */
-  --sand:           #c5c0b9;   /* Neutral mid gray */
-  --ivory:          #ecebe9;   /* Light gray-100 */
-  --cream:          #f6f5f4;   /* Clean luxury off-white gray-50 */
-  --white:          #FFFFFF;
+  --secondary:      #d47f31;   /* Furnish signature warm ochre */
+  --walnut:         #111111;
+  --wood-mid:       #222222;
+  --wood-warm:      #d47f31;
+  --wood-light:     #d47f31;
+  --sand:           #dcdcdc;
+  --ivory:          #f4f4f4;
+  --cream:          #ffffff;   /* Pure crisp architectural white */
+  --white:          #ffffff;
 
-  /* Text */
-  --text-primary:   #11100e;   /* Sharp black gray-950 */
-  --text-body:      #615b51;   /* Refined gray-700 */
-  --text-muted:     #837a6d;   /* Muted gray-600 */
-  --text-subtle:    #a0988d;   /* Subtle gray-500 */
+  /* High-Contrast Typography */
+  --text-primary:   #111111;   /* Deep crisp black — maximum readability */
+  --text-body:      #333333;   /* High-contrast dark charcoal */
+  --text-muted:     #666666;   /* Clear mid-tone gray */
+  --text-subtle:    #888888;   /* Light gray */
 
-  /* UI & Architecture */
-  --border:         #ecebe9;   /* Furnish sharp border gray-100 */
-  --border-dark:    #dad7d2;   /* Furnish border gray-200 */
-  --surface:        #FFFFFF;   /* Card surfaces */
-  --surface-alt:    #f6f5f4;   /* Alt surface */
+  /* Architectural Surfaces & Borders */
+  --border:         #e5e5e5;   /* Crisp clean border */
+  --border-dark:    #cccccc;
+  --surface:        #ffffff;   /* Pure white card surface */
+  --surface-alt:    #f8f9fa;   /* Subtle architectural off-white */
 
-  /* Semantic */
-  --accent:         #000000;   /* Primary black */
-  --accent-hover:   #d47f31;   /* Secondary amber */
-  --accent-light:   #d47f31;   /* Amber highlights */
+  /* Semantic Accents */
+  --accent:         #000000;
+  --accent-hover:   #d47f31;
+  --accent-light:   #d47f31;
 
   /* Spacing */
-  --section-y:      clamp(3rem, 7vw, 5.5rem);
+  --section-y:      clamp(3rem, 6vw, 5rem);
   --container-max:  1280px;
 
   /* Transitions */
-  --transition-base: 200ms ease;
-  --transition-slow: 350ms ease;
+  --transition-base: 180ms ease;
+  --transition-slow: 300ms ease;
+  color-scheme: light;
 }
 
-/* ── Midnight Lounge (Dark Theme Tokens — Furnish Dark Edition) ── */
+/* ── Furnish Dark Edition (Pure Architectural Noir) ──────── */
 html.dark {
-  --primary:        #FFFFFF;
+  --primary:        #ffffff;
   --secondary:      #d47f31;
-  --walnut:         #11100e;
+  --walnut:         #0f0e0d;
   --wood-mid:       #d47f31;
   --wood-warm:      #d47f31;
   --wood-light:     #d47f31;
-  --sand:           #a0988d;
+  --sand:           #888888;
   --ivory:          #1a1816;
-  --cream:          #11100e;   /* Deep architectural black */
-  --white:          #1a1816;
+  --cream:          #0f0e0d;   /* Deep charcoal black */
+  --white:          #171513;
 
-  /* Text */
-  --text-primary:   #f6f5f4;   /* Off-white gray-50 */
-  --text-body:      #dad7d2;   /* Light gray-200 */
-  --text-muted:     #a0988d;   /* Gray-500 */
-  --text-subtle:    #837a6d;   /* Gray-600 */
+  /* High-Contrast Typography (Dark Mode) */
+  --text-primary:   #ffffff;   /* 100% Crisp white */
+  --text-body:      #e0dbd5;   /* High-contrast readable off-white */
+  --text-muted:     #a8a198;   /* Visible soft charcoal */
+  --text-subtle:    #78726a;
 
-  /* UI */
-  --border:         #211f1c;   /* Dark border */
-  --border-dark:    #433e38;
-  --surface:        #181614;
-  --surface-alt:    #211f1c;
+  /* Architectural Surfaces & Borders (Dark Mode) */
+  --border:         #282522;   /* Elegant dark boundary */
+  --border-dark:    #383430;
+  --surface:        #171513;   /* Deep charcoal surface */
+  --surface-alt:    #1f1c19;
 
-  /* Semantic */
+  /* Semantic Accents */
   --accent:         #d47f31;
   --accent-hover:   #e08c3e;
   --accent-light:   #d47f31;
@@ -258,63 +259,18 @@ html.dark {
   color-scheme: dark;
 }
 
-/* ── Root Dark Mode Universal Enforcement ───────────────── */
-html.dark h1,
-html.dark h2,
-html.dark h3,
-html.dark h4,
-html.dark h5,
-html.dark h6 {
-  color: #FAF7F2 !important;
-}
-
-html.dark [class*="text-[#1A1209]"],
-html.dark [class*="text-[#2C1810]"],
-html.dark [class*="text-[#3D2B1A]"],
-html.dark [class*="text-[#4A3B2C]"],
-html.dark [class*="text-[#5C2E0B]"],
-html.dark [class*="text-[#38281F]"] {
-  color: #FAF7F2 !important;
-}
-
-html.dark [class*="text-[#6B3F1F]"],
-html.dark [class*="text-[#6B5C4E]"],
-html.dark [class*="text-[#5C4B3E]"],
-html.dark [class*="text-[#8A7968]"],
-html.dark [class*="text-[#A09080]"] {
-  color: #D4B896 !important;
-}
-
-html.dark [class*="bg-[#FAF7F2]"],
-html.dark [class*="bg-[#F0E8D8]"],
-html.dark [class*="bg-[#F5F0E8]"],
-html.dark [class*="bg-[#F5EFEB]"],
-html.dark [class*="bg-[#EAE4DC]"] {
-  background-color: #0E0805 !important;
-}
-
-html.dark [class*="bg-white"] {
-  background-color: #170E09 !important;
-}
-
-html.dark [class*="border-[#E8DDD0]"],
-html.dark [class*="border-[#D4B896]"],
-html.dark [class*="border-[#C8B8A0]"],
-html.dark [class*="ring-[#E8DDD0]"] {
-  border-color: #2C1B10 !important;
-}
-
 /* ── Base ──────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  background-color: var(--cream);
+  color: var(--text-body);
 }
 
 body {
-  background: var(--cream);
+  background-color: var(--cream);
   color: var(--text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Typography ────────────────────────────────────────── */
@@ -632,37 +588,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .lux-fade-in {
   animation: luxFadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* ── Ambient Incense Mist Animations ────────────────────── */
-@keyframes incenseRise {
-  0% {
-    transform: translateY(60%) scaleX(0.9) scaleY(0.9);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.9;
-  }
-  50% {
-    transform: translateY(0%) scaleX(1.15) scaleY(1.2);
-    opacity: 0.7;
-  }
-  80% {
-    opacity: 0.35;
-  }
-  100% {
-    transform: translateY(-75%) scaleX(1.4) scaleY(1.5);
-    opacity: 0;
-  }
-}
-
-@keyframes incenseDrift {
-  0%, 100% {
-    transform: translateX(0) rotate(0deg);
-  }
-  50% {
-    transform: translateX(25px) rotate(1deg);
-  }
 }
 
 /* ── Fluid View Transitions ────────────────────────────── */

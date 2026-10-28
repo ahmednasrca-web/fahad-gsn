@@ -9,12 +9,7 @@ import { getFeaturedReels } from '@/lib/db/reels'
 import WorkImageGallery from '@/components/works/WorkImageGallery'
 import WhatsAppCTA from '@/components/works/WhatsAppCTA'
 import ReelCard from '@/components/reels/ReelCard'
-import RoomScaleSimulator from '@/components/interactive/RoomScaleSimulator'
 import StickyVIPInquiryBar from '@/components/works/StickyVIPInquiryBar'
-import SculpturalHotspotsViewer from '@/components/works/SculpturalHotspotsViewer'
-import SculptorVisionSection from '@/components/works/SculptorVisionSection'
-import ChatoyancyReflex from '@/components/interactive/ChatoyancyReflex'
-import GoldenRatioCalculator from '@/components/interactive/GoldenRatioCalculator'
 import { safeJsonLd } from '@/lib/json-ld'
 
 interface PageProps {
@@ -53,6 +48,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
   const { slug } = await params
   const locale = await getLocale()
   const dir = getDir(locale)
+  const isAr = locale === 'ar'
 
   const work = await getPublishedWorkBySlug(slug)
   if (!work) notFound()
@@ -101,7 +97,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div dir={dir}>
+    <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
       {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
@@ -111,7 +107,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
       {/* Breadcrumb */}
       <div className="border-b border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#11100e] py-4">
         <div className="container-site">
-          <nav aria-label={locale === 'ar' ? 'مسار التنقل' : 'Breadcrumb'}>
+          <nav aria-label={isAr ? 'مسار التنقل' : 'Breadcrumb'}>
             <ol className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#a0988d]">
               <li>
                 <Link href="/" className="hover:text-[#d47f31] transition-colors">
@@ -147,15 +143,15 @@ export default async function WorkDetailPage({ params }: PageProps) {
       </div>
 
       {/* Main Work Overview */}
-      <div className="py-12 md:py-16 bg-white dark:bg-[#11100e] transition-colors duration-300">
+      <div className="py-12 md:py-16">
         <div className="container-site">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
-            {/* Image gallery */}
+            {/* Image Gallery */}
             <div>
               <WorkImageGallery images={allImages} title={title} locale={locale} />
             </div>
 
-            {/* Work details */}
+            {/* Work Details & Specifications */}
             <div className="flex flex-col">
               {/* Badges: Category & Unique Piece */}
               <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -169,170 +165,142 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 )}
                 {work.isUniquePiece && (
                   <span className="furnish-badge border border-[#d47f31]/40 bg-[#d47f31]/10 text-[#d47f31]">
-                    {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Exclusive Unique Piece'}
+                    {isAr ? 'قطعة فريدة حصرية' : 'Exclusive Unique Piece'}
                   </span>
                 )}
               </div>
 
               {/* Title */}
-              <h1 className="mb-4 text-3xl font-bold leading-tight text-[#11100e] dark:text-[#f6f5f4] md:text-4xl font-display">
+              <h1 className="mb-4 text-3xl font-normal leading-tight text-[#11100e] dark:text-[#f6f5f4] md:text-4xl lg:text-5xl font-display">
                 {title}
               </h1>
 
               {/* Price */}
-              {work.price != null && (
+              {work.price != null ? (
                 <div className="mb-6 flex items-baseline gap-2">
-                  <p className="text-3xl font-bold text-[#11100e] dark:text-[#dad7d2] font-mono">
-                    {work.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')}
+                  <p className="text-3xl sm:text-4xl font-bold text-[#11100e] dark:text-[#dad7d2] font-mono">
+                    {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')}
                   </p>
                   <span className="text-base font-bold text-[#d47f31]">
-                    {locale === 'ar' ? 'د.ك' : 'KWD'}
+                    {isAr ? 'د.ك' : 'KWD'}
+                  </span>
+                </div>
+              ) : (
+                <div className="mb-6">
+                  <span className="text-sm font-semibold uppercase tracking-wider text-[#d47f31]">
+                    {isAr ? 'السعر حسب الطلب والمواصفات' : 'Custom Pricing on Commission'}
                   </span>
                 </div>
               )}
 
-              {/* Physical Specs Matrix (if defined) */}
+              {/* Description */}
+              {description && (
+                <p className="mb-8 text-base leading-relaxed text-[#615b51] dark:text-[#dad7d2]">
+                  {description}
+                </p>
+              )}
+
+              {/* Physical Specs Matrix (Furnish Architectural Grid) */}
               {work.physicalSpecs && (
-                <div className="mb-6 rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] p-5">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] mb-3 flex items-center gap-1.5">
-                    <span>{locale === 'ar' ? 'المقاسات والمواصفات الفيزيائية' : 'Physical Specifications'}</span>
+                <div className="mb-8 border border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] p-5 sm:p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#11100e] dark:text-[#f6f5f4] mb-4">
+                    {isAr ? 'المواصفات الهندسية والفيزيائية' : 'Architectural Specifications'}
                   </p>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="grid grid-cols-2 gap-3 text-xs">
                     {work.physicalSpecs.lengthCm && work.physicalSpecs.widthCm && (
-                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'الأبعاد' : 'Dimensions'}</span>
+                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                          {isAr ? 'الأبعاد' : 'Dimensions'}
+                        </span>
                         <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           {work.physicalSpecs.lengthCm} × {work.physicalSpecs.widthCm} {work.physicalSpecs.heightCm ? `× ${work.physicalSpecs.heightCm}` : ''} cm
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.thicknessMm && (
-                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'سُمك اللوح الخشبي' : 'Slab Thickness'}</span>
+                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                          {isAr ? 'سُمك اللوح' : 'Slab Thickness'}
+                        </span>
                         <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           {work.physicalSpecs.thicknessMm} mm Solid
                         </span>
                       </div>
                     )}
                     {work.physicalSpecs.weightKg && (
-                      <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
-                        <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'الكتلة والوزن' : 'Weight'}</span>
+                      <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
+                        <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                          {isAr ? 'الوزن التقريبي' : 'Weight'}
+                        </span>
                         <span className="font-mono font-bold text-[#11100e] dark:text-[#f6f5f4]">
                           ~{work.physicalSpecs.weightKg} kg
                         </span>
                       </div>
                     )}
-                    <div className="rounded-none bg-white dark:bg-[#11100e] p-2.5 border border-[#ecebe9] dark:border-[#211f1c]">
-                      <span className="text-[#837a6d] block text-[10px]">{locale === 'ar' ? 'التشطيب' : 'Finish'}</span>
+                    <div className="bg-white dark:bg-[#11100e] p-3 border border-[#ecebe9] dark:border-[#211f1c]">
+                      <span className="text-[#837a6d] block text-[10px] uppercase tracking-wider mb-1">
+                        {isAr ? 'التشطيب والزيوت' : 'Finishing Oils'}
+                      </span>
                       <span className="font-bold text-[#11100e] dark:text-[#f6f5f4] truncate block">
-                        {locale === 'ar' ? (work.physicalSpecs.finishDetailsAr || 'زيوت عضوية + شمع نحل') : (work.physicalSpecs.finishDetailsEn || 'Organic Oils + Beeswax')}
+                        {isAr ? (work.physicalSpecs.finishDetailsAr || 'زيوت نباتية عضوية + شمع نحل') : (work.physicalSpecs.finishDetailsEn || 'Organic Oils + Beeswax')}
                       </span>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* WhatsApp CTA */}
-              <div className="mt-auto">
+              {/* Action Buttons */}
+              <div className="space-y-3 mt-auto">
                 <WhatsAppCTA workTitle={title} locale={locale} />
+                <Link
+                  href="/contact"
+                  className="btn-furnish-outline w-full text-center block"
+                >
+                  {isAr ? 'طلب استشارة مخصصة للقطعة' : 'Inquire via Direct Form'}
+                </Link>
               </div>
-
-              {/* Secondary Message link */}
-              <Link
-                href="/contact"
-                className="mt-3 btn-furnish-outline w-full"
-              >
-                {locale === 'ar' ? 'طلب استشارة مخصصة للقطعة' : 'Inquire via Direct Form'}
-              </Link>
-            </div>
-          </div>
-
-          {/* Chatoyancy Luster & Spatial Preview Grid */}
-          <div className="mt-14 grid gap-8 lg:grid-cols-12 items-start border-t border-[#E8DDD0] dark:border-[#2C1B10] pt-12">
-            <div className="lg:col-span-6">
-              <ChatoyancyReflex imageUrl={allImages[0] ?? ''} title={title} locale={locale} />
-            </div>
-            <div className="lg:col-span-6">
-              <RoomScaleSimulator
-                locale={locale}
-                workTitle={title}
-                workImage={allImages[0] ?? ''}
-                price={work.price ?? undefined}
-              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Sculptural Hotspots (if configured) */}
-      {work.hotspots && work.hotspots.length > 0 && (
-        <SculpturalHotspotsViewer
-          imageUrl={allImages[0] ?? ''}
-          title={title}
-          hotspots={work.hotspots}
-          locale={locale}
-        />
-      )}
-
-      {/* Sculptor Vision: Raw Trunk to Masterpiece (if configured) */}
-      {work.sculptorVision && (
-        <SculptorVisionSection
-          vision={work.sculptorVision}
-          finishedImage={allImages[0] ?? ''}
-          title={title}
-          locale={locale}
-        />
-      )}
-
-      {/* Story Behind the Craft (if available) */}
+      {/* Story Behind the Craft (Furnish Editorial) */}
       {story && (
-        <section className="border-y border-[#E8DDD0] dark:border-[#2C1B10] bg-[#FAF7F2] dark:bg-[#0E0805] py-16 transition-colors duration-400">
-          <div className="container-site max-w-4xl">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2C1810] dark:bg-[#C4854A] text-lg text-[#C4854A] dark:text-[#FAF7F2]">
-                🪵
-              </span>
-              <div>
-                <h2 className="text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
-                  {locale === 'ar' ? 'حكاية القطعة والإلهام' : 'Story Behind the Craft'}
-                </h2>
-                <p className="text-xs text-[#5C4B3E] dark:text-[#D4B896] font-bold">
-                  {locale === 'ar' ? 'أصل الخشب، تفاصيل التشكيل، ولمسة الحرفي' : 'Wood origin, shaping details, and craftsman spirit'}
-                </p>
-              </div>
-            </div>
-            <div className="prose prose-stone text-base leading-loose text-[#1A1209] dark:text-[#E8DDD0] font-medium mt-6 bg-white dark:bg-[#170E09] border border-[#E8DDD0] dark:border-[#2C1B10] rounded-2xl p-6 sm:p-8 shadow-xs">
-              <p className="whitespace-pre-line leading-relaxed">{story}</p>
+        <section className="border-y border-[#ecebe9] dark:border-[#211f1c] bg-[#f6f5f4] dark:bg-[#181614] py-16">
+          <div className="container-site max-w-3xl">
+            <span className="furnish-subheading">
+              {isAr ? 'حكاية العمل' : 'The Atelier Story'}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-1 mb-6 font-display">
+              {isAr ? 'أصل الخشب، تفاصيل التشكيل، ولمسة الحرفي' : 'Wood Origin & Artisan Process'}
+            </h2>
+            <div className="bg-white dark:bg-[#11100e] border border-[#ecebe9] dark:border-[#211f1c] p-6 sm:p-8">
+              <p className="whitespace-pre-line leading-relaxed text-[#615b51] dark:text-[#dad7d2] text-base">
+                {story}
+              </p>
             </div>
           </div>
         </section>
       )}
 
-      {/* Golden Ratio Spatial Calculator */}
-      <section className="section-padding bg-[#FAF7F2] dark:bg-[#0E0805] transition-colors duration-400 border-t border-[#E8DDD0] dark:border-[#2C1B10]">
-        <div className="container-site">
-          <GoldenRatioCalculator locale={locale} />
-        </div>
-      </section>
-
-      {/* Behind the Scenes Reels Carousel (if reels exist) */}
+      {/* Behind the Scenes Reels (if reels exist) */}
       {reels.length > 0 && (
-        <section className="section-padding bg-[#2C1810] text-[#FAF7F2]">
+        <section className="py-16 md:py-20 bg-[#11100e] text-[#f6f5f4] border-b border-[#211f1c]">
           <div className="container-site">
-            <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div>
-                <span className={`text-xs font-bold text-[#C4854A] ${locale === 'ar' ? 'font-display' : 'uppercase tracking-widest'}`}>
-                  {locale === 'ar' ? 'من داخل الورشة' : 'From The Workshop'}
+                <span className="furnish-subheading text-[#d47f31]">
+                  {isAr ? 'من داخل الورشة' : 'Behind The Scenes'}
                 </span>
-                <h2 className="mt-1 text-2xl font-bold md:text-3xl text-white font-display">
-                  {locale === 'ar' ? 'كواليس التشكيل والحرفة' : 'Behind The Craft in Action'}
+                <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#f6f5f4] mt-1 font-display">
+                  {isAr ? 'كواليس التشكيل والحرفة' : 'Craft in Motion'}
                 </h2>
               </div>
               <Link
                 href="/reels"
-                className="text-sm font-semibold text-[#D4B896] hover:text-white transition-colors"
+                className="text-xs font-bold uppercase tracking-wider text-[#d47f31] hover:underline"
               >
-                {locale === 'ar' ? 'مشاهدة كافة الريلز ←' : 'View all reels →'}
+                {isAr ? 'مشاهدة كافة المقاطع ←' : 'View all reels →'}
               </Link>
             </div>
 
@@ -345,54 +313,77 @@ export default async function WorkDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Related Works */}
+      {/* Related Works (Furnish Product Grid) */}
       {relatedWorks.length > 0 && (
-        <section className="section-padding bg-[#F5F0E8] dark:bg-[#120B07] transition-colors duration-400">
+        <section className="py-16 md:py-20 bg-white dark:bg-[#11100e]">
           <div className="container-site">
-            <h2 className="mb-8 text-2xl font-bold text-[#1A1209] dark:text-[#FAF7F2] font-display">
-              {t(locale, 'relatedWorks')}
-            </h2>
-            <div className="gallery-grid">
+            <div className="mb-8">
+              <span className="furnish-subheading">
+                {isAr ? 'مقتنيات مشابهة' : 'Curated Recommendations'}
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-1 font-display">
+                {t(locale, 'relatedWorks')}
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedWorks.map((related) => (
-                <Link
+                <div
                   key={related.id}
-                  href={`/gallery/${related.slug}`}
-                  className="work-card group block overflow-hidden rounded-2xl bg-white dark:bg-[#170E09] shadow-sm ring-1 ring-[#E8DDD0] dark:ring-[#2C1B10] transition-all hover:shadow-md hover:-translate-y-1 duration-300"
+                  className="furnish-card group flex flex-col overflow-hidden"
                 >
-                  <div className="relative aspect-work-card overflow-hidden bg-[#F5F0E8] dark:bg-[#1F130B]">
+                  <Link
+                    href={`/gallery/${related.slug}`}
+                    className="relative aspect-[4/5] overflow-hidden bg-[#ecebe9] dark:bg-[#181614] block"
+                  >
                     {related.primaryImage ? (
                       <Image
                         src={related.primaryImage}
                         alt={getWorkTitle(related, locale)}
                         fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        className="work-card-image object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <span className="text-4xl text-[#D4B896]" aria-hidden="true">🪵</span>
+                      <div className="flex h-full items-center justify-center text-4xl">
+                        🪵
                       </div>
                     )}
                     {related.isUniquePiece && (
-                      <span className="absolute top-2 start-2 rounded-full bg-black/60 px-2.5 py-0.5 text-[10px] font-bold text-[#C4854A] backdrop-blur-sm border border-white/10">
-                        {locale === 'ar' ? 'قطعة فريدة حصرية' : 'Unique Piece'}
+                      <span className="furnish-badge absolute top-3 start-3">
+                        {isAr ? 'قطعة فريدة' : 'Unique Piece'}
                       </span>
                     )}
+                  </Link>
+
+                  <div className="p-4 flex flex-col flex-1 justify-between bg-white dark:bg-[#181614]">
+                    <h3 className="text-sm font-bold text-[#11100e] dark:text-[#f6f5f4] group-hover:text-[#d47f31] transition-colors line-clamp-1">
+                      <Link href={`/gallery/${related.slug}`}>
+                        {getWorkTitle(related, locale)}
+                      </Link>
+                    </h3>
+
+                    <div className="mt-3 pt-2.5 border-t border-[#ecebe9] dark:border-[#211f1c] flex items-center justify-between">
+                      {related.price != null ? (
+                        <span className="text-xs font-bold text-[#11100e] dark:text-[#dad7d2]">
+                          {related.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] font-semibold uppercase text-[#d47f31]">
+                          {isAr ? 'حسب الطلب' : 'Custom'}
+                        </span>
+                      )}
+
+                      <Link
+                        href={`/gallery/${related.slug}`}
+                        className="text-[11px] font-bold uppercase text-[#615b51] dark:text-[#a0988d] group-hover:text-[#d47f31]"
+                      >
+                        {isAr ? 'التفاصيل ←' : 'Details →'}
+                      </Link>
+                    </div>
                   </div>
-                  <div className="p-4">
-                    <p className="truncate text-base font-bold text-[#1A1209] dark:text-[#FAF7F2]">
-                      {getWorkTitle(related, locale)}
-                    </p>
-                    {related.price != null ? (
-                      <p className="mt-1 text-sm font-semibold text-[#2C1810] dark:text-[#D4B896]">
-                        {related.price.toLocaleString(locale === 'ar' ? 'ar-KW' : 'en-KW')} {locale === 'ar' ? 'د.ك' : 'KWD'}
-                      </p>
-                    ) : (
-                      <p className="mt-1 text-xs text-[#8A7968]">حسب الطلب</p>
-                    )}
-                  </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

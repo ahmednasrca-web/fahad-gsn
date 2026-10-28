@@ -109,14 +109,14 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
 
           {/* Card Footer */}
           <div
-            className="flex items-center justify-between border-t border-[#E8DDD0] bg-[#FAF7F2] px-4 py-3 text-xs"
+            className="flex items-center justify-between border-t border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] px-4 py-3 text-xs"
             onClick={(e) => e.stopPropagation()}
           >
             <a
               href={watchUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-bold text-[#3D2B1A] transition-colors hover:text-[#C4854A]"
+              className="inline-flex items-center gap-1.5 font-bold text-[#11100e] dark:text-[#f6f5f4] transition-colors hover:text-[#d47f31] dark:hover:text-[#d47f31]"
               title={`${t(locale, 'watchOn')} ${locale === 'ar' ? meta?.nameAr : meta?.name}`}
             >
               <span>{t(locale, 'watchOn')} {locale === 'ar' ? meta?.nameAr : meta?.name}</span>
@@ -127,7 +127,7 @@ export default function ReelCard({ reel, locale, onPlay }: Props) {
               size="sm"
               variant="outline"
               onPress={handleCardClick}
-              className="text-xs h-7 px-3 font-bold text-[#1A1209] bg-white border-[#C8B8A0] hover:bg-[#F0E8D8]"
+              className="text-xs h-7 px-3 font-bold rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-transparent text-[#11100e] dark:text-[#f6f5f4] hover:border-[#d47f31] hover:text-[#d47f31]"
             >
               {t(locale, 'playVideo')}
             </Button>

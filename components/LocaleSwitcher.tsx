@@ -24,7 +24,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
       size="sm"
       variant="outline"
       onPress={() => switchLocale(isArabic ? 'en' : 'ar')}
-      className="h-10 min-w-10 rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#11100e] px-3.5 text-xs font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] hover:border-[#d47f31] hover:text-[#d47f31] transition-all cursor-pointer"
+      className="h-10 min-w-10 rounded-none border border-[#e5e5e5] dark:border-[#282522] bg-white dark:bg-[#171513] px-3.5 text-xs font-bold uppercase tracking-wider text-[#111111] dark:text-[#ffffff] hover:border-[#d47f31] hover:text-[#d47f31] transition-all cursor-pointer"
       aria-label={isArabic ? 'Switch to English' : 'التبديل إلى العربية'}
     >
       <span className="font-semibold">{isArabic ? 'EN' : 'عربي'}</span>

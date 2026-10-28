@@ -5,7 +5,6 @@ import { getLocale } from '@/lib/locale'
 import { getDir, getWorkTitle, getContentValue } from '@/lib/i18n'
 import { getFeaturedWorks } from '@/lib/db/works'
 import { getSiteContent } from '@/lib/db/content'
-import WoodTransformationSlider from '@/components/interactive/WoodTransformationSlider'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
@@ -39,27 +38,24 @@ export default async function HomePage() {
 
   return (
     <div dir={dir} className="bg-white dark:bg-[#11100e] text-[#11100e] dark:text-[#f6f5f4] transition-colors duration-300">
-      {/* ── 1. Hero Section (Furnish Editorial Showcase) ────────────────── */}
+      {/* ── 1. Hero Section (Furnish High-Impact Architectural Showcase) ── */}
       <section
-        className="relative flex min-h-[92svh] flex-col items-center justify-center overflow-hidden bg-[#11100e] text-center"
+        className="relative flex min-h-[85svh] md:min-h-[90svh] flex-col items-center justify-center overflow-hidden bg-[#11100e] text-center"
         aria-label={isAr ? 'القسم الرئيسي' : 'Hero section'}
       >
-        {/* Background Cinematic Video / Studio Visual */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-transform duration-1000"
-        >
-          <source src="/videos/hero-bg.mp4" type="video/mp4" />
-          <source src="/videos/18366463-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        </video>
+        {/* Crisp, Featherlight Optimized Background Image (Instant Load, Zero Video Lag) */}
+        <Image
+          src="/furnish/about.jpg"
+          alt={isAr ? 'فهد غصن للأعمال الخشبية' : 'Fahad Gsn Atelier'}
+          fill
+          priority
+          sizes="100vw"
+          className="pointer-events-none object-cover opacity-40 select-none"
+        />
 
-        {/* Furnish Architectural High-Contrast Gradient Overlay */}
+        {/* High-Contrast Furnish Architectural Gradient Overlay */}
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-[#11100e]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#11100e]"
           aria-hidden="true"
         />
 
@@ -96,8 +92,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Furnish Minimalist Scroll Down Marker */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
+        {/* Minimalist Scroll Down Marker */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
           <span className="text-[10px] uppercase tracking-[0.2em] text-[#a0988d]">
             {isAr ? 'التفاصيل' : 'Scroll'}
           </span>
@@ -215,31 +211,8 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── 3. Wood Transformation Interactive Showcase ────────────────── */}
+      {/* ── 3. Split Mission & Atelier Craftsmanship ──────────────────── */}
       <section className="py-16 md:py-24 bg-white dark:bg-[#181614] border-b border-[#ecebe9] dark:border-[#211f1c]">
-        <div className="container-site">
-          <div className="mb-10 text-center max-w-2xl mx-auto">
-            <span className="furnish-subheading">
-              {isAr ? 'رحلة التحول' : 'Transformation Process'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-normal tracking-tight text-[#11100e] dark:text-[#f6f5f4] mt-2 mb-3">
-              {isAr ? 'من جذع خام إلى تحفة معمارية' : 'From Raw Timber to Sculptural Form'}
-            </h2>
-            <p className="text-sm sm:text-base text-[#615b51] dark:text-[#a0988d]">
-              {isAr
-                ? 'اسحب المؤشر لترى كيف نحوّل الخشب الطبيعي الصلب بعروقه الحية إلى قطع أثاث وتحف خالدة.'
-                : 'Drag the slider to observe how rough unyielding logs are hand-sculpted into timeless functional art.'}
-            </p>
-          </div>
-
-          <div className="furnish-card p-4 sm:p-6 bg-[#f6f5f4] dark:bg-[#11100e]">
-            <WoodTransformationSlider locale={locale} />
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. Split Mission & Atelier Craftsmanship ──────────────────── */}
-      <section className="py-16 md:py-24 bg-[#f6f5f4] dark:bg-[#11100e] border-b border-[#ecebe9] dark:border-[#211f1c]">
         <div className="container-site">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left/Start Column: High-Resolution Atelier Image */}
@@ -275,7 +248,7 @@ export default async function HomePage() {
 
               {/* Three Core Values Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                <div className="p-4 bg-white dark:bg-[#181614] border border-[#ecebe9] dark:border-[#211f1c]">
+                <div className="p-4 bg-[#f6f5f4] dark:bg-[#11100e] border border-[#ecebe9] dark:border-[#211f1c]">
                   <h4 className="text-sm font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] mb-1">
                     {isAr ? 'أخشاب نادرة' : 'Rare Hardwoods'}
                   </h4>
@@ -284,7 +257,7 @@ export default async function HomePage() {
                   </p>
                 </div>
 
-                <div className="p-4 bg-white dark:bg-[#181614] border border-[#ecebe9] dark:border-[#211f1c]">
+                <div className="p-4 bg-[#f6f5f4] dark:bg-[#11100e] border border-[#ecebe9] dark:border-[#211f1c]">
                   <h4 className="text-sm font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] mb-1">
                     {isAr ? 'حرفة يدوية' : 'Artisanal Build'}
                   </h4>
@@ -293,7 +266,7 @@ export default async function HomePage() {
                   </p>
                 </div>
 
-                <div className="p-4 bg-white dark:bg-[#181614] border border-[#ecebe9] dark:border-[#211f1c]">
+                <div className="p-4 bg-[#f6f5f4] dark:bg-[#11100e] border border-[#ecebe9] dark:border-[#211f1c]">
                   <h4 className="text-sm font-bold uppercase tracking-wider text-[#11100e] dark:text-[#f6f5f4] mb-1">
                     {isAr ? 'استدامة تدوم' : 'Generations'}
                   </h4>
@@ -313,14 +286,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. Furnish Testimonial Feature Card ─────────────────────────── */}
-      <section
-        className="relative py-20 lg:py-28 bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: "url('/furnish/couch-with-cushions-glass-table.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" aria-hidden="true" />
+      {/* ── 4. Furnish Testimonial Feature Card (Optimized & Ultra-Light) ── */}
+      <section className="relative py-20 lg:py-28 bg-[#11100e] overflow-hidden text-center">
         <div className="container-site relative z-10 max-w-3xl">
-          <div className="furnish-card p-8 sm:p-14 text-center bg-white/95 dark:bg-[#11100e]/95 backdrop-blur-md shadow-2xl border border-white/20">
+          <div className="furnish-card p-8 sm:p-14 text-center bg-white dark:bg-[#181614] shadow-2xl border border-[#ecebe9] dark:border-[#211f1c]">
             {/* Quote Mark */}
             <span className="text-4xl sm:text-5xl font-serif text-[#d47f31] leading-none mb-4 block" aria-hidden="true">
               “
@@ -344,7 +313,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. Minimalist Custom Inquiry & Newsletter Section ──────────── */}
+      {/* ── 5. Minimalist Custom Inquiry Section ──────────────────────── */}
       <section className="py-16 md:py-24 bg-white dark:bg-[#11100e]">
         <div className="container-site max-w-2xl text-center">
           <span className="furnish-subheading">

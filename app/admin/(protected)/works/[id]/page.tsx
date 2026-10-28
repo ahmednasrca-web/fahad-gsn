@@ -15,7 +15,7 @@ export default async function EditWorkPage({ params }: { params: Promise<{ id: s
 
   return (
     <div className="mt-14 pt-6 md:mt-0" dir="rtl">
-      <h1 className="mb-6 text-2xl font-bold text-[#1A1209]">تعديل: {work.titleAr}</h1>
+      <h1 className="mb-6 text-2xl font-bold text-[#11100e] dark:text-[#f6f5f4]">تعديل: {work.titleAr}</h1>
       <WorkForm work={work} categories={categories} />
     </div>
   )

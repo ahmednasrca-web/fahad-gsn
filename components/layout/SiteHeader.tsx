@@ -22,7 +22,7 @@ export default async function SiteHeader() {
 
   return (
     <header
-      className="sticky top-0 z-40 border-b border-[#ecebe9] dark:border-[#211f1c] bg-white/95 dark:bg-[#11100e]/95 backdrop-blur-md shadow-2xs transition-colors duration-300"
+      className="sticky top-0 z-40 border-b border-[#e5e5e5] dark:border-[#282522] bg-white/95 dark:bg-[#0f0e0d]/95 backdrop-blur-md shadow-2xs transition-colors duration-200"
       dir={dir}
     >
       <div className="container-site flex h-20 items-center justify-between gap-4">
@@ -38,7 +38,7 @@ export default async function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-[#615b51] dark:text-[#dad7d2] transition-colors hover:text-[#d47f31] dark:hover:text-[#d47f31]"
+              className="px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-[#333333] dark:text-[#e0dbd5] transition-colors hover:text-[#d47f31] dark:hover:text-[#d47f31]"
             >
               {link.label}
             </Link>
@@ -50,7 +50,7 @@ export default async function SiteHeader() {
           {/* Furnish Quick Telephone CTA */}
           <a
             href="tel:+96598908022"
-            className="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-[#11100e] dark:text-[#f6f5f4] hover:text-[#d47f31] transition-colors"
+            className="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-[#111111] dark:text-[#ffffff] hover:text-[#d47f31] transition-colors"
           >
             <svg
               width="15"

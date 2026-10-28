@@ -2,7 +2,6 @@
 
 import { useTheme } from './ThemeProvider'
 import type { Locale } from '@/lib/types'
-import { useAtelierAudio } from '@/components/interactive/AtelierHapticAudio'
 
 interface Props {
   locale?: Locale
@@ -16,19 +15,13 @@ export default function AtelierThemeSwitcher({
   className = '',
 }: Props) {
   const { isDark, toggleTheme } = useTheme()
-  const { playSound } = useAtelierAudio()
   const isAr = locale === 'ar'
-
-  function handleToggle() {
-    playSound('tick')
-    toggleTheme()
-  }
 
   return (
     <button
       type="button"
-      onClick={handleToggle}
-      className={`group relative inline-flex h-10 items-center gap-2 rounded-none border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#11100e] px-3.5 text-xs font-bold shadow-2xs backdrop-blur-md transition-all duration-300 hover:border-[#d47f31] hover:text-[#d47f31] active:scale-95 cursor-pointer text-[#11100e] dark:text-[#f6f5f4] ${className}`}
+      onClick={toggleTheme}
+      className={`group relative inline-flex h-10 items-center gap-2 rounded-none border border-[#e5e5e5] dark:border-[#282522] bg-white dark:bg-[#171513] px-3.5 text-xs font-bold transition-all duration-200 hover:border-[#d47f31] hover:text-[#d47f31] active:scale-95 cursor-pointer text-[#111111] dark:text-[#ffffff] ${className}`}
       aria-label={
         isDark
           ? isAr ? 'التبديل إلى نهار الورشة (الوضع النهاري)' : 'Switch to Daylight Atelier'

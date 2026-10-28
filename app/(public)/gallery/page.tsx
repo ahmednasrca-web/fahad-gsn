@@ -6,7 +6,6 @@ import { getDir, t, getWorkTitle, getCategoryName } from '@/lib/i18n'
 import { getPublishedWorks } from '@/lib/db/works'
 import { getActiveCategories } from '@/lib/db/categories'
 import CategoryFilter from '@/components/works/CategoryFilter'
-import MuseumShowcaseModal from '@/components/gallery/MuseumShowcaseModal'
 
 interface PageProps {
   searchParams: Promise<{ category?: string }>
@@ -51,13 +50,6 @@ export default async function GalleryPage({ searchParams }: PageProps) {
               ? 'كل قطعة تحفة متفردة تم نحتها وتشطيبها يدوياً من أندر أنواع الخشب الطبيعي الصلب.'
               : 'Each piece is an original sculpture, hand-shaped from rare natural timbers and finished with organic oils.'}
           </p>
-
-          {/* Museum Mode Launch Trigger */}
-          {works.length > 0 && (
-            <div className="mt-6 flex justify-center">
-              <MuseumShowcaseModal works={works} locale={locale} />
-            </div>
-          )}
         </div>
       </section>
 

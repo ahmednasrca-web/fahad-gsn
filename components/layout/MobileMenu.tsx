@@ -44,7 +44,7 @@ export default function MobileMenu({ navLinks, locale }: Props) {
       {/* Furnish Offcanvas Menu Button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex h-10 w-10 items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] text-[#11100e] dark:text-[#f6f5f4] transition hover:border-[#d47f31] hover:text-[#d47f31] cursor-pointer rounded-none"
+        className="flex h-10 w-10 items-center justify-center border border-[#e5e5e5] dark:border-[#282522] text-[#111111] dark:text-[#ffffff] transition hover:border-[#d47f31] hover:text-[#d47f31] cursor-pointer rounded-none"
         aria-expanded={open}
         aria-controls="furnish-offcanvas"
         aria-label={isAr ? 'فتح القائمة الجانبية' : 'Open navigation menu'}
@@ -77,15 +77,15 @@ export default function MobileMenu({ navLinks, locale }: Props) {
           {/* Slide-over Panel (End aligned) */}
           <aside
             id="furnish-offcanvas"
-            className="fixed inset-y-0 end-0 z-50 flex w-full max-w-sm flex-col bg-white dark:bg-[#11100e] border-s border-[#ecebe9] dark:border-[#211f1c] shadow-2xl transition-transform duration-300 ease-in-out"
+            className="fixed inset-y-0 end-0 z-50 flex w-full max-w-sm flex-col bg-white dark:bg-[#0f0e0d] border-s border-[#e5e5e5] dark:border-[#282522] shadow-2xl transition-transform duration-200 ease-in-out"
           >
             {/* Offcanvas Header */}
-            <div className="flex h-20 items-center justify-between border-b border-[#ecebe9] dark:border-[#211f1c] px-6">
+            <div className="flex h-20 items-center justify-between border-b border-[#e5e5e5] dark:border-[#282522] px-6">
               <Logo locale={locale} />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="flex h-9 w-9 items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] text-[#11100e] dark:text-[#f6f5f4] transition hover:border-[#d47f31] hover:text-[#d47f31] cursor-pointer rounded-none"
+                className="flex h-9 w-9 items-center justify-center border border-[#e5e5e5] dark:border-[#282522] text-[#111111] dark:text-[#ffffff] transition hover:border-[#d47f31] hover:text-[#d47f31] cursor-pointer rounded-none"
                 aria-label={isAr ? 'إغلاق القائمة' : 'Close menu'}
               >
                 <svg

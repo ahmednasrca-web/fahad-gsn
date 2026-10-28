@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import type { Work, Locale } from '@/lib/types'
-import { getWorkTitle, t } from '@/lib/i18n'
+import { getWorkTitle } from '@/lib/i18n'
 
 interface Props {
   work: Work
@@ -20,8 +20,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
 
   useEffect(() => {
     function handleScroll() {
-      // Show when scrolled down past 450px
-      if (window.scrollY > 450) {
+      if (window.scrollY > 400) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
@@ -63,7 +62,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
 
   return (
     <div
-      className="fixed bottom-0 inset-x-0 z-40 bg-[#2C1810]/95 backdrop-blur-xl border-t border-[#C4854A]/40 shadow-[0_-10px_35px_rgba(0,0,0,0.45)] transition-all duration-400 animate-in slide-in-from-bottom-5 text-white"
+      className="fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-[#11100e]/95 backdrop-blur-md border-t border-[#ecebe9] dark:border-[#211f1c] shadow-lg transition-all duration-300 text-[#11100e] dark:text-[#f6f5f4]"
       dir={isAr ? 'rtl' : 'ltr'}
     >
       <div className="container-site py-3 px-4 sm:px-6">
@@ -71,12 +70,12 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
           {/* Left: Thumbnail & Info */}
           <div className="flex items-center gap-3 min-w-0">
             {work.primaryImage && (
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-xl border border-[#C4854A]/40 bg-black shadow-md">
+              <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 overflow-hidden border border-[#ecebe9] dark:border-[#211f1c] bg-[#ecebe9] dark:bg-[#181614]">
                 <Image
                   src={work.primaryImage}
                   alt={title}
                   fill
-                  sizes="56px"
+                  sizes="48px"
                   className="object-cover"
                 />
               </div>
@@ -85,46 +84,43 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 {work.isUniquePiece && (
-                  <span className="hidden sm:inline-flex rounded-full bg-[#C4854A]/30 border border-[#C4854A]/60 px-2.5 py-0.5 text-[10px] font-bold text-[#E8DDD0]">
-                    {isAr ? 'قطعة فريدة حصرية' : 'Unique Piece'}
+                  <span className="hidden sm:inline-flex furnish-badge">
+                    {isAr ? 'قطعة فريدة' : 'Unique Piece'}
                   </span>
                 )}
-                <h4 className="truncate text-xs sm:text-sm font-bold text-[#FAF7F2] font-display">
+                <h4 className="truncate text-xs sm:text-sm font-bold text-[#11100e] dark:text-[#f6f5f4]">
                   {title}
                 </h4>
               </div>
 
               <div className="flex items-center gap-2 mt-0.5">
                 {work.price != null ? (
-                  <span className="text-xs sm:text-sm font-bold text-[#D4B896] font-mono">
+                  <span className="text-xs sm:text-sm font-bold text-[#d47f31] font-mono">
                     {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
                   </span>
                 ) : (
-                  <span className="text-[11px] text-[#A09080]">
-                    {isAr ? 'السعر حسب المواصفات' : 'Custom Pricing'}
+                  <span className="text-[11px] text-[#615b51] dark:text-[#a0988d]">
+                    {isAr ? 'حسب المواصفات' : 'Custom Pricing'}
                   </span>
                 )}
-                <span className="text-[10px] text-[#A09080] hidden md:inline">
-                  · {isAr ? 'قطعة خشبية حصرية جاهزة للمعاينة' : 'Ready for private viewing'}
-                </span>
               </div>
             </div>
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
             {/* Share / Copy Link Button */}
             <button
               type="button"
               onClick={handleShare}
-              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md border border-white/15 transition-all hover:bg-white/20 hover:scale-105 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center border border-[#ecebe9] dark:border-[#211f1c] bg-white dark:bg-[#181614] text-[#11100e] dark:text-[#f6f5f4] hover:border-[#d47f31] transition-colors"
               title={isAr ? 'مشاركة رابط القطعة' : 'Share piece'}
               aria-label={isAr ? 'مشاركة' : 'Share'}
             >
               {copied ? (
-                <span className="text-xs font-bold text-emerald-400">✓</span>
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">✓</span>
               ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="18" cy="5" r="3" />
                   <circle cx="6" cy="12" r="3" />
                   <circle cx="18" cy="19" r="3" />
@@ -134,17 +130,17 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
               )}
             </button>
 
-            {/* Direct VIP WhatsApp Button */}
+            {/* Direct WhatsApp Button */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-xl transition-all hover:scale-105 active:scale-95 border border-emerald-400/40"
+              className="btn-furnish-primary text-xs sm:text-sm px-4 sm:px-6 py-2.5 flex items-center gap-2"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
-              <span>{isAr ? 'طلب وحجز القطعة' : 'Inquire on WhatsApp'}</span>
+              <span>{isAr ? 'حجز عبر واتساب' : 'Inquire on WhatsApp'}</span>
             </a>
           </div>
         </div>

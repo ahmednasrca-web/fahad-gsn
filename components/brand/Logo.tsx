@@ -26,7 +26,7 @@ export default function Logo({
   showSubtitle = true,
 }: LogoProps) {
   const isDarkBg = theme === 'dark'
-  const textColor = isDarkBg ? 'text-[#FAF7F2]' : 'text-[#11100e] dark:text-[#FAF7F2]'
+  const textColor = isDarkBg ? 'text-white' : 'text-[#111111] dark:text-[#ffffff]'
   const subColor = 'text-[#d47f31]'
 
   const content = (

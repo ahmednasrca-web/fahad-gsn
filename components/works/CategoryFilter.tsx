@@ -24,10 +24,10 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
         href="/gallery"
         role="tab"
         aria-selected={!activeSlug}
-        className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 rounded-none border whitespace-nowrap cursor-pointer ${
+        className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-150 rounded-none border whitespace-nowrap cursor-pointer ${
           !activeSlug
             ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white shadow-xs'
-            : 'bg-white dark:bg-[#181614] border-[#ecebe9] dark:border-[#211f1c] text-[#615b51] dark:text-[#dad7d2] hover:border-[#d47f31] hover:text-[#d47f31]'
+            : 'bg-white dark:bg-[#171513] border-[#e5e5e5] dark:border-[#282522] text-[#333333] dark:text-[#e0dbd5] hover:border-[#d47f31] hover:text-[#d47f31]'
         }`}
       >
         {t(locale, 'allWorks')}
@@ -41,10 +41,10 @@ export default function CategoryFilter({ categories, activeSlug, locale }: Props
             href={`/gallery?category=${cat.slug}`}
             role="tab"
             aria-selected={active}
-            className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 rounded-none border whitespace-nowrap cursor-pointer ${
+            className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-150 rounded-none border whitespace-nowrap cursor-pointer ${
               active
                 ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white shadow-xs'
-                : 'bg-white dark:bg-[#181614] border-[#ecebe9] dark:border-[#211f1c] text-[#615b51] dark:text-[#dad7d2] hover:border-[#d47f31] hover:text-[#d47f31]'
+                : 'bg-white dark:bg-[#171513] border-[#e5e5e5] dark:border-[#282522] text-[#333333] dark:text-[#e0dbd5] hover:border-[#d47f31] hover:text-[#d47f31]'
             }`}
           >
             {getCategoryName(cat, locale)}
