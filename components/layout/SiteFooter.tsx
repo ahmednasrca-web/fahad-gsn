@@ -143,7 +143,7 @@ export default async function SiteFooter() {
               href={`mailto:${email}`}
               className="text-xl sm:text-2xl font-normal text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] transition-colors mt-1 font-mono"
             >
-              {email}
+              <bdi dir="ltr">{email}</bdi>
             </a>
           </div>
 

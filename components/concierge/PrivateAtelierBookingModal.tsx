@@ -95,6 +95,7 @@ export default function PrivateAtelierBookingModal({ locale, buttonClassName = '
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={isAr ? 'مثال: فهد الأحمد' : 'e.g. Fahad Al-Ahmad'}
+                    dir="auto"
                     className="w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#1A1009] px-3.5 py-2 text-xs text-[#1A1209] dark:text-[#FAF7F2] outline-none focus:border-[#C4854A]"
                   />
                 </div>
@@ -158,6 +159,7 @@ export default function PrivateAtelierBookingModal({ locale, buttonClassName = '
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder={isAr ? 'مثال: أود معاينة خشب الزيتون المعمر لطاولة طعام 8 كراسي...' : 'e.g. Interested in Ancient Olive slab for 8-seat dining...'}
+                    dir="auto"
                     className="w-full rounded-xl border border-[#E8DDD0] dark:border-[#2C1B10] bg-white dark:bg-[#1A1009] px-3.5 py-2 text-xs text-[#1A1209] dark:text-[#FAF7F2] outline-none focus:border-[#C4854A] resize-none"
                   />
                 </div>

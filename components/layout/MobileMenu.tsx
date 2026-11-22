@@ -128,9 +128,9 @@ export default function MobileMenu({ navLinks, locale }: Props) {
                 </svg>
                 <span>{isAr ? 'اتصال مباشر' : 'Direct Call'}</span>
               </div>
-              <span dir="ltr" className="text-xs font-mono text-[#8a8277] dark:text-[#a0988d]">
+              <bdi dir="ltr" className="text-xs font-mono text-[#8a8277] dark:text-[#a0988d]">
                 +965 98908022
-              </span>
+              </bdi>
             </a>
           </div>
 

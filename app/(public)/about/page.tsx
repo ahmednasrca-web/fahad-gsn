@@ -5,14 +5,44 @@ import { getLocale } from '@/lib/locale'
 import { getDir, t, getContentValue } from '@/lib/i18n'
 import { getSiteContent } from '@/lib/db/content'
 import WoodSpeciesGuide from '@/components/wood/WoodSpeciesGuide'
+import { safeJsonLd } from '@/lib/json-ld'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'من نحن | فلسفة وحرفة فهد غصن' : 'About Us | The Fahad Gsn Atelier Philosophy'
+  const description = locale === 'ar'
+    ? 'تعرّف على قصة ورشة فهد غصن وفلسفتنا في صناعة الأثاث والتحف الخشبية الفاخرة ونحت أندر الأخشاب المعمرة في الكويت'
+    : 'Discover the story, craft philosophy, and heritage behind Kuwaiti artisan Fahad Gsn and bespoke luxury woodworking'
+
   return {
-    title: locale === 'ar' ? 'من نحن | فهد غصن' : 'About | Fahad Gsn',
-    description: locale === 'ar'
-      ? 'تعرّف على قصة ورشة فهد غصن وفلسفتنا في صناعة الأثاث والتحف الخشبية الفاخرة'
-      : 'Learn about our atelier story, ethos, and bespoke woodworking philosophy',
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/about`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/about`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/furnish/about.jpg',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/furnish/about.jpg'],
+    },
   }
 }
 
@@ -40,8 +70,37 @@ export default async function AboutPage() {
     ? 'ننتقي بعناية أندر أنواع الأخشاب الصلبة الطبيعية مثل الجوز الأمريكي، البلوط المعمر، الساج البورمي، وخشب الزيتون. تخضع كل قطعة لعمليات تجفيف وتشطيب يدوية بزيوت نباتية وشمع نحل طبيعي لحماية رونقها الأصيل.'
     : 'We carefully curate sustainable premier hardwoods including American Walnut, Ancient Oak, Burmese Teak, and Olive Wood. Hand-finished exclusively with natural botanical oils and beeswax.'
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const aboutJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: isAr ? 'فهد غصن' : 'Fahad Gsn',
+      jobTitle: isAr ? 'حرفي أخشاب كويتي ومؤسس المشغل' : 'Master Craftsman & Atelier Founder',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'فهد غصن | Fahad Gsn',
+        url: siteUrl,
+      },
+      image: `${siteUrl}/furnish/about.jpg`,
+      description: intro || defaultIntro,
+      nationality: 'Kuwaiti',
+      knowsAbout: [
+        'Woodworking',
+        'Custom Furniture Design',
+        'Timber Sculpting',
+        'Joinery',
+      ],
+    },
+  }
+
   return (
     <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(aboutJsonLd) }}
+      />
       {/* ── 1. Page Hero Header (Furnish About Header) ───────────── */}
       <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">

@@ -161,9 +161,14 @@ export default function MuseumShowcaseModal({ works, locale }: Props) {
                 <div>
                   <p className="text-xs text-[#A09080]">{isAr ? 'القيمة التقديرية' : 'Valuation'}</p>
                   <p className="text-xl sm:text-2xl font-bold text-[#FAF7F2] font-mono mt-0.5">
-                    {current.price != null
-                      ? `${current.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} ${isAr ? 'د.ك' : 'KWD'}`
-                      : (isAr ? 'حسب التخصيص' : 'Bespoke')}
+                    {current.price != null ? (
+                      <>
+                        <bdi>{current.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')}</bdi>{' '}
+                        <span>{isAr ? 'د.ك' : 'KWD'}</span>
+                      </>
+                    ) : (
+                      isAr ? 'حسب التخصيص' : 'Bespoke'
+                    )}
                   </p>
                 </div>
               </div>

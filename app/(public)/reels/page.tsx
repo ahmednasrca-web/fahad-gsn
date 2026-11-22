@@ -8,11 +8,40 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'ريلز & كواليس الحرفة | فهد غصن' : 'Reels & Craft in Motion | Fahad Gsn'
+  const description = locale === 'ar'
+    ? 'شاهد مقاطع الريلز وفيديوهات كواليس نحت وتشكيل الأعمال الخشبية الفاخرة يدوياً — فهد غصن، الكويت'
+    : 'Watch reels and behind-the-scenes videos of luxury handcrafted woodworking by Kuwaiti artisan Fahad Gsn'
+
   return {
-    title: locale === 'ar' ? 'ريلز & كواليس الحرفة | فهد غصن' : 'Reels & Craft in Motion | Fahad Gsn',
-    description: locale === 'ar'
-      ? 'شاهد مقاطع الريلز وفيديوهات كواليس نحت وتشكيل الأعمال الخشبية الفاخرة يدوياً — فهد غصن، الكويت'
-      : 'Watch reels and behind-the-scenes videos of luxury handcrafted woodworking by Kuwaiti artisan Fahad Gsn',
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/reels`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/reels`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/logo-full.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/logo-full.png'],
+    },
   }
 }
 

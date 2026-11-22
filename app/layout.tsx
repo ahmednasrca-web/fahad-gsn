@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import { safeJsonLd } from '@/lib/json-ld'
+import { getLocale } from '@/lib/locale'
+import { getDir } from '@/lib/i18n'
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import './globals.css'
 
 const thmanyahSans = localFont({
@@ -42,13 +45,33 @@ export const metadata: Metadata = {
     default: 'فهد غصن | Fahad Gsn',
     template: '%s | فهد غصن',
   },
-  description: 'أعمال خشبية يدوية فاخرة — Luxury Handcrafted Wood | Kuwait',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'),
+  description: 'أعمال خشبية يدوية فاخرة وأثاث مخصص بالكويت — Luxury Handcrafted Wood & Sculptures | Kuwait',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahad-gsn.ahmednasr-ca.workers.dev'),
   openGraph: {
     siteName: 'فهد غصن | Fahad Gsn',
+    title: 'فهد غصن | Fahad Gsn — Luxury Handcrafted Wood',
+    description: 'أعمال خشبية يدوية فاخرة وأثاث مخصص بالكويت — Luxury Handcrafted Wood & Sculptures',
+    url: 'https://fahadgsn.com',
     locale: 'ar_KW',
     alternateLocale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/logo-full.png',
+        width: 1200,
+        height: 630,
+        alt: 'فهد غصن للأعمال الخشبية الفاخرة | Fahad Gsn',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'فهد غصن | Fahad Gsn',
+    description: 'أعمال خشبية يدوية فاخرة — Luxury Handcrafted Wood | Kuwait',
+    images: ['/logo-full.png'],
+  },
+  verification: {
+    google: 'GSY5xyl-NKhrA6zzNbDCSPmL9UHn0TkvjIHjFpxBVf0',
   },
   robots: {
     index: true,
@@ -87,17 +110,18 @@ const orgJsonLd = {
   },
 }
 
-import { ThemeProvider } from '@/components/theme/ThemeProvider'
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale()
+  const dir = getDir(locale)
+
   return (
     <html
-      lang="ar"
-      dir="rtl"
+      lang={locale}
+      dir={dir}
       className={`${thmanyahSans.variable} ${thmanyahDisplay.variable} ${thmanyahSerif.variable}`}
       suppressHydrationWarning
     >

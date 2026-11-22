@@ -79,19 +79,24 @@ export default function ContactForm({ locale, workSlug }: Props) {
         </label>
         <input id={`${formId}-name`} type="text" required autoComplete="name"
           value={name} onChange={(e) => setName(e.target.value)}
+          dir="auto"
           className={inputCls} aria-required="true" />
       </div>
 
       <div>
         <label htmlFor={`${formId}-email`} className={labelCls}>{t(locale, 'yourEmail')}</label>
         <input id={`${formId}-email`} type="email" autoComplete="email"
-          value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
+          value={email} onChange={(e) => setEmail(e.target.value)}
+          dir="ltr"
+          className={inputCls} />
       </div>
 
       <div>
         <label htmlFor={`${formId}-phone`} className={labelCls}>{t(locale, 'yourPhone')}</label>
         <input id={`${formId}-phone`} type="tel" autoComplete="tel"
-          value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} />
+          value={phone} onChange={(e) => setPhone(e.target.value)}
+          dir="ltr"
+          className={inputCls} />
       </div>
 
       <div>
@@ -100,6 +105,7 @@ export default function ContactForm({ locale, workSlug }: Props) {
         </label>
         <textarea id={`${formId}-message`} required rows={5}
           value={message} onChange={(e) => setMessage(e.target.value)}
+          dir="auto"
           className={`${inputCls} resize-none`} aria-required="true" />
       </div>
 

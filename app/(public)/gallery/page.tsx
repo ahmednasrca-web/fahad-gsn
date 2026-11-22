@@ -6,6 +6,7 @@ import { getDir, t, getWorkTitle, getCategoryName } from '@/lib/i18n'
 import { getPublishedWorks } from '@/lib/db/works'
 import { getActiveCategories } from '@/lib/db/categories'
 import CategoryFilter from '@/components/works/CategoryFilter'
+import { safeJsonLd } from '@/lib/json-ld'
 
 interface PageProps {
   searchParams: Promise<{ category?: string }>
@@ -13,11 +14,40 @@ interface PageProps {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'المعرض والأعمال الخشبية | فهد غصن' : 'Gallery & Handcrafted Pieces | Fahad Gsn'
+  const description = locale === 'ar'
+    ? 'استعرض أعمالنا ومقتنياتنا الخشبية الفاخرة المصنوعة يدوياً من أندر الأخشاب العالمية في الكويت'
+    : 'Browse our luxury handcrafted woodwork, collectible sculptures, and bespoke furniture gallery in Kuwait'
+
   return {
-    title: locale === 'ar' ? 'المعرض | فهد غصن' : 'Gallery | Fahad Gsn',
-    description: locale === 'ar'
-      ? 'استعرض أعمالنا ومقتنياتنا الخشبية الفاخرة المصنوعة يدوياً'
-      : 'Browse our luxury handcrafted woodwork & bespoke furniture gallery',
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/gallery`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/gallery`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/logo-full.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/logo-full.png'],
+    },
   }
 }
 
@@ -34,8 +64,33 @@ export default async function GalleryPage({ searchParams }: PageProps) {
     getPublishedWorks(categorySlug),
   ])
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const galleryJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: isAr ? 'معرض الأعمال الخشبية الفاخرة | فهد غصن' : 'Fahad Gsn Woodwork Gallery',
+    url: `${siteUrl}/gallery`,
+    description: isAr
+      ? 'استعرض أعمالنا ومقتنياتنا الخشبية الفاخرة المصنوعة يدوياً من أندر الأخشاب العالمية في الكويت'
+      : 'Browse our luxury handcrafted woodwork, collectible sculptures, and bespoke furniture gallery in Kuwait',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: works.map((w, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${siteUrl}/gallery/${w.slug}`,
+        name: getWorkTitle(w, locale),
+        image: w.primaryImage ? [w.primaryImage] : undefined,
+      })),
+    },
+  }
+
   return (
     <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(galleryJsonLd) }}
+      />
       {/* ── Page Hero Header (Furnish Products Header) ───────────── */}
       <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">

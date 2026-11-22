@@ -96,7 +96,7 @@ export default function StickyVIPInquiryBar({ work, locale }: Props) {
               <div className="flex items-center gap-2 mt-0.5">
                 {work.price != null ? (
                   <span className="text-xs sm:text-sm font-bold text-[#d47f31] font-mono">
-                    {work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')} {isAr ? 'د.ك' : 'KWD'}
+                    <bdi>{work.price.toLocaleString(isAr ? 'ar-KW' : 'en-KW')}</bdi> <span>{isAr ? 'د.ك' : 'KWD'}</span>
                   </span>
                 ) : (
                   <span className="text-[11px] text-[#5c544a] dark:text-[#d0c9bf]">

@@ -4,9 +4,43 @@ import { getDir } from '@/lib/i18n'
 import PrivateAtelierBookingModal from '@/components/concierge/PrivateAtelierBookingModal'
 import GoldenRatioCalculator from '@/components/interactive/GoldenRatioCalculator'
 
-export const metadata: Metadata = {
-  title: 'حجز زيارة خاصة للمشغل | Private Atelier Visit',
-  description: 'احجز جلسة استشارة خاصة في مشغل فهد غصن لمعاينة الأخشاب النادرة ومناقشة تفصيل قطعتك الفريدة.',
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'حجز زيارة خاصة للمشغل | فهد غصن' : 'Private Atelier Visit & Concierge | Fahad Gsn'
+  const description = locale === 'ar'
+    ? 'احجز جلسة استشارة حصرية في مشغل فهد غصن لمعاينة الأخشاب النادرة ومناقشة تفصيل وتصميم قطعتك الفنية الفريدة في الكويت'
+    : 'Book an exclusive private consultation at the Fahad Gsn atelier to inspect rare timber slabs and commission your bespoke piece in Kuwait'
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/concierge`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/concierge`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/logo-full.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/logo-full.png'],
+    },
+  }
 }
 
 export default async function ConciergePage() {

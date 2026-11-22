@@ -5,14 +5,44 @@ import { getLocale } from '@/lib/locale'
 import { getDir, getWorkTitle, getContentValue } from '@/lib/i18n'
 import { getFeaturedWorks } from '@/lib/db/works'
 import { getSiteContent } from '@/lib/db/content'
+import { safeJsonLd } from '@/lib/json-ld'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'الرئيسية | فهد غصن للأعمال الخشبية الفاخرة' : 'Home | Fahad Gsn — Luxury Handcrafted Wood'
+  const description = locale === 'ar'
+    ? 'أعمال خشبية يدوية فاخرة وأثاث مخصص ومقتنيات فنية نادرة في الكويت — فهد غصن'
+    : 'Luxury handcrafted wood, bespoke furniture, and collectible sculptures — Fahad Gsn, Kuwait'
+
   return {
-    title: locale === 'ar' ? 'الرئيسية | فهد غصن' : 'Home | Fahad Gsn',
-    description: locale === 'ar'
-      ? 'أعمال خشبية يدوية فاخرة — فهد غصن، الكويت'
-      : 'Luxury handcrafted wood & furniture — Fahad Gsn, Kuwait',
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/logo-full.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/logo-full.png'],
+    },
   }
 }
 
@@ -35,9 +65,48 @@ export default async function HomePage() {
 
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '96598908022'
   const whatsappUrl = `https://wa.me/${whatsappNumber}`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+
+  const homeJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        url: siteUrl,
+        name: isAr ? 'فهد غصن للأعمال الخشبية الفاخرة' : 'Fahad Gsn Atelier',
+        description: isAr
+          ? 'أعمال خشبية يدوية فاخرة وأثاث مخصص ومقتنيات فنية نادرة في الكويت'
+          : 'Luxury handcrafted wood, bespoke furniture, and collectible sculptures in Kuwait',
+        inLanguage: locale === 'ar' ? 'ar-KW' : 'en-US',
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'فهد غصن | Fahad Gsn',
+        url: siteUrl,
+        logo: `${siteUrl}/logo-full.png`,
+        image: `${siteUrl}/furnish/about.jpg`,
+        description: isAr
+          ? 'مشغل كويتي متخصص في الأعمال الخشبية اليدوية الفاخرة والأثاث المخصص'
+          : 'Kuwaiti atelier specializing in luxury handcrafted wood and bespoke furniture',
+        telephone: '+96598908022',
+        email: 'info@fahadgsn.com',
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: 'KW',
+          addressLocality: 'Kuwait City',
+        },
+      },
+    ],
+  }
 
   return (
     <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(homeJsonLd) }}
+      />
       {/* ── 1. Hero Section (Furnish High-Impact Architectural Showcase) ── */}
       <section
         className="relative flex min-h-[85svh] md:min-h-[90svh] flex-col items-center justify-center overflow-hidden bg-[#1c1916] text-center"
@@ -249,27 +318,27 @@ export default async function HomePage() {
               {/* Three Core Values Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 <div className="p-4 bg-[#f5f3ef] dark:bg-[#23201c] border border-[#e8e5df] dark:border-[#353029]">
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
                     {isAr ? 'أخشاب نادرة' : 'Rare Hardwoods'}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-[#8a7f72] dark:text-[#a89e90]">
                     {isAr ? 'انتقاء يدوي دقيق لأجود الجذوع' : 'Hand-selected uncompromised logs'}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#f5f3ef] dark:bg-[#23201c] border border-[#e8e5df] dark:border-[#353029]">
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
                     {isAr ? 'حرفة يدوية' : 'Artisanal Build'}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-[#8a7f72] dark:text-[#a89e90]">
                     {isAr ? 'نحت وتشطيب بدون تنازلات' : 'Zero compromises on joinery'}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#f5f3ef] dark:bg-[#23201c] border border-[#e8e5df] dark:border-[#353029]">
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#181614] dark:text-[#fbf9f6] mb-1">
                     {isAr ? 'استدامة تدوم' : 'Generations'}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-[#8a7f72] dark:text-[#a89e90]">
                     {isAr ? 'قطع تتوارثها الأجيال' : 'Made to outlive generations'}
                   </p>
@@ -302,9 +371,9 @@ export default async function HomePage() {
             </p>
 
             <div className="pt-5 border-t border-[#e8e5df] dark:border-[#353029]">
-              <h4 className="text-base font-bold text-[#181614] dark:text-[#fbf9f6]">
+              <p className="text-base font-bold text-[#181614] dark:text-[#fbf9f6]">
                 {isAr ? 'فهد غصن' : 'Fahad Gsn'}
-              </h4>
+              </p>
               <p className="text-xs uppercase tracking-widest text-[#d47f31] font-semibold mt-1">
                 {isAr ? 'المؤسس والحرفي الكويتي' : 'Founder & Master Craftsman — Kuwait'}
               </p>

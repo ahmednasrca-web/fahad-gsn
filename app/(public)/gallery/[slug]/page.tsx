@@ -37,6 +37,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: work.primaryImage ? [{ url: work.primaryImage }] : [],
       type: 'website',
       url: `${siteUrl}/gallery/${slug}`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: description ?? undefined,
+      images: work.primaryImage ? [work.primaryImage] : [],
     },
     alternates: {
       canonical: `${siteUrl}/gallery/${slug}`,
@@ -223,7 +231,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                           {isAr ? 'سُمك اللوح' : 'Slab Thickness'}
                         </span>
                         <span className="font-mono font-bold text-[#181614] dark:text-[#fbf9f6]">
-                          {work.physicalSpecs.thicknessMm} mm Solid
+                          <bdi dir="ltr">{work.physicalSpecs.thicknessMm} mm</bdi> {isAr ? 'مصمت' : 'Solid'}
                         </span>
                       </div>
                     )}
@@ -233,7 +241,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                           {isAr ? 'الوزن التقريبي' : 'Weight'}
                         </span>
                         <span className="font-mono font-bold text-[#181614] dark:text-[#fbf9f6]">
-                          ~{work.physicalSpecs.weightKg} kg
+                          <bdi dir="ltr">~{work.physicalSpecs.weightKg} kg</bdi>
                         </span>
                       </div>
                     )}

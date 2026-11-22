@@ -3,16 +3,46 @@ import { getLocale } from '@/lib/locale'
 import { getDir, t, getContentValue } from '@/lib/i18n'
 import { getSiteContent } from '@/lib/db/content'
 import ContactForm from '@/components/ContactForm'
+import { safeJsonLd } from '@/lib/json-ld'
 
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '96598908022'
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+  const title = locale === 'ar' ? 'تواصل معنا | فهد غصن' : 'Contact Us | Fahad Gsn'
+  const description = locale === 'ar'
+    ? 'تواصل مع فهد غصن لطلب عمل مخصص أو الاستفسار عن مقتنيات المشغل وزيارة المعرض في الكويت'
+    : 'Get in touch with Fahad Gsn for custom woodworking commissions, bespoke furniture, and atelier visits in Kuwait'
+
   return {
-    title: locale === 'ar' ? 'تواصل معنا | فهد غصن' : 'Contact Us | Fahad Gsn',
-    description: locale === 'ar'
-      ? 'تواصل مع فهد غصن لطلب عمل مخصص أو الاستفسار عن مقتنيات المشغل'
-      : 'Get in touch with Fahad Gsn for custom woodworking commissions and atelier visits',
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/contact`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/contact`,
+      siteName: 'فهد غصن | Fahad Gsn',
+      locale: locale === 'ar' ? 'ar_KW' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: '/logo-full.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/logo-full.png'],
+    },
   }
 }
 
@@ -30,9 +60,36 @@ export default async function ContactPage() {
   const address = getContentValue(content['contact_address'] ?? {}, locale) ?? (isAr ? 'الكويت — المشغل الرئيسي' : 'Kuwait — Main Atelier')
 
   const whatsappUrl = `https://wa.me/${WHATSAPP}`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fahadgsn.com'
+
+  const contactJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: isAr ? 'تواصل معنا | فهد غصن' : 'Contact Us | Fahad Gsn',
+    url: `${siteUrl}/contact`,
+    description: isAr
+      ? 'تواصل مع فهد غصن لطلب عمل مخصص أو الاستفسار عن مقتنيات المشغل وزيارة المعرض في الكويت'
+      : 'Get in touch with Fahad Gsn for custom woodworking commissions, bespoke furniture, and atelier visits in Kuwait',
+    mainEntity: {
+      '@type': 'LocalBusiness',
+      name: 'فهد غصن | Fahad Gsn',
+      telephone: phone,
+      email: email,
+      url: siteUrl,
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'KW',
+        addressLocality: 'Kuwait City',
+      },
+    },
+  }
 
   return (
     <div dir={dir} className="bg-[#fcfbf9] dark:bg-[#161412] text-[#181614] dark:text-[#fbf9f6] transition-colors duration-300">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(contactJsonLd) }}
+      />
       {/* ── Page Hero Header (Furnish Contact Header) ───────────── */}
       <section className="py-12 md:py-16 bg-[#f5f3ef] dark:bg-[#1c1916] border-b border-[#e8e5df] dark:border-[#2d2822] text-center">
         <div className="container-site max-w-2xl mx-auto">
@@ -76,11 +133,11 @@ export default async function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
                       {isAr ? 'الموقع' : 'Location'}
-                    </h4>
+                    </h3>
                     <p className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6]">
-                      {address}
+                      <bdi>{address}</bdi>
                     </p>
                   </div>
                 </div>
@@ -93,16 +150,16 @@ export default async function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
                       WhatsApp
-                    </h4>
+                    </h3>
                     <a
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] transition-colors"
                     >
-                      +965 98908022
+                      <bdi dir="ltr">+965 98908022</bdi>
                     </a>
                   </div>
                 </div>
@@ -115,14 +172,14 @@ export default async function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
                       {isAr ? 'الهاتف' : 'Telephone'}
-                    </h4>
+                    </h3>
                     <a
                       href={`tel:${phone.replace(/\s/g, '')}`}
                       className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] transition-colors"
                     >
-                      {phone}
+                      <bdi dir="ltr">{phone}</bdi>
                     </a>
                   </div>
                 </div>
@@ -136,14 +193,14 @@ export default async function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7f72] dark:text-[#a89e90] mb-1">
                       {isAr ? 'البريد الإلكتروني' : 'Email'}
-                    </h4>
+                    </h3>
                     <a
                       href={`mailto:${email}`}
                       className="text-sm font-bold text-[#181614] dark:text-[#fbf9f6] hover:text-[#d47f31] transition-colors"
                     >
-                      {email}
+                      <bdi dir="ltr">{email}</bdi>
                     </a>
                   </div>
                 </div>
